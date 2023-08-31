@@ -104,8 +104,8 @@ const ExploreScreen = ({navigation}) => {
 
   const initData = async () => {
     const prodRes = await onGetAllProduct();
-    setListProducts(prodRes.data);
-    setFilterProduct(prodRes.data);
+    setListProducts(prodRes);
+    setFilterProduct(prodRes);
   };
 
   useEffect(() => {
