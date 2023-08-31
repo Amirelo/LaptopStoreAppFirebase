@@ -45,7 +45,7 @@ export const MainContextProvider = props => {
   const onGetProductByID = async productID => {
     try {
       const res = await getProductByID(productID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product by id error', error);
       return null;
@@ -55,7 +55,7 @@ export const MainContextProvider = props => {
   const onGetAllProductImages = async () => {
     try {
       const res = await getAllProductImages();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all product images error', error);
       return null;
@@ -65,7 +65,7 @@ export const MainContextProvider = props => {
   const onGetProductImagesByProductID = async productID => {
     try {
       const res = await getProductImagesByProductID(productID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all product images error', error);
       return null;
@@ -75,7 +75,7 @@ export const MainContextProvider = props => {
   const onGetAllProcessors = async () => {
     try {
       const res = await getAllProcessors();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all processors error', error);
       return null;
@@ -85,7 +85,7 @@ export const MainContextProvider = props => {
   const onGetProductProcessor = async processorID => {
     try {
       const res = await getProductProcessor(processorID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product processor error', error);
       return null;
@@ -95,7 +95,7 @@ export const MainContextProvider = props => {
   const onGetAllMemories = async () => {
     try {
       const res = await getAllMemories();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all memories error', error);
       return null;
@@ -105,7 +105,7 @@ export const MainContextProvider = props => {
   const onGetProductMemory = async memoryID => {
     try {
       const res = await getProductMemory(memoryID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product memory error', error);
       return null;
@@ -115,7 +115,7 @@ export const MainContextProvider = props => {
   const onGetAllScreens = async () => {
     try {
       const res = await getAllScreens();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all screens error', error);
       return null;
@@ -125,7 +125,7 @@ export const MainContextProvider = props => {
   const onGetProductScreen = async screenID => {
     try {
       const res = await getProductScreen(screenID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product screen error', error);
       return null;
@@ -135,7 +135,7 @@ export const MainContextProvider = props => {
   const onGetAllStorages = async () => {
     try {
       const res = await getAllStorages();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all storages error', error);
       return null;
@@ -145,7 +145,7 @@ export const MainContextProvider = props => {
   const onGetProductStorage = async storageID => {
     try {
       const res = await getProductStorage(storageID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product processor error', error);
       return null;
@@ -155,7 +155,7 @@ export const MainContextProvider = props => {
   const onGetUserCart = async username => {
     try {
       const res = await getUserCart(username);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get user cart error', error);
       return null;
@@ -165,7 +165,7 @@ export const MainContextProvider = props => {
   const onGetAllOS = async () => {
     try {
       const res = await getAllOperatingSystems();
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all OS error', error);
       return null;
@@ -175,7 +175,7 @@ export const MainContextProvider = props => {
   const onGetProductOS = async operatingSystemID => {
     try {
       const res = await getProductOperatingSystem(operatingSystemID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get product OS error', error);
       return null;

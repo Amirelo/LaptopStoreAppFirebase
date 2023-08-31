@@ -34,16 +34,16 @@ const ProductVItem = ({data}) => {
   const getInitData = async () => {
     const processor = await onGetProductProcessor(data.processorID);
     console.log(processor);
-    setItemProcessor(processor.data[0]);
+    setItemProcessor(processor);
 
     const memory = await onGetProductMemory(data.memoryID);
-    setItemMemory(memory.data[0]);
+    setItemMemory(memory);
 
     const screen = await onGetProductScreen(data.screenID);
-    setitemScreen(screen.data[0]);
+    setitemScreen(screen);
 
     const storage = await onGetProductStorage(data.storageID);
-    setitemStorage(storage.data[0]);
+    setitemStorage(storage);
   };
 
   useEffect(() => {

@@ -9,109 +9,151 @@ export const getAllProduct = async () => {
 };
 
 export const getProductByID = async productID => {
-  const data = {
-    productID: productID,
-  };
-  const res = await axiosInstance.post('/product/get-product-by-id.php', data);
-  return res;
+  const ref = database().ref('products');
+  return await ref
+    .orderByChild('productID')
+    .equalTo(productID)
+    .once('value')
+    .then(snapshot => {
+      return snapshot.val();
+    });
 };
 
 export const getAllProductImages = async () => {
-  const res = await axiosInstance.get(
-    '/productImage/get-all-product-images.php',
-  );
-  return res;
+  const ref = database().ref('productImages');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductImagesByProductID = async productID => {
-  const data = {
-    productID: productID,
-  };
-  const res = await axiosInstance.post(
-    '/productImage/get-product-images-by-product-id.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('productImages');
+  return await ref
+    .orderByChild('productID')
+    .equalTo(productID)
+    .once('value')
+    .then(snapshot => {
+      return snapshot.val();
+    });
 };
 
 // Product Specs
 
 export const getAllBrands = async () => {
-  const res = await axiosInstance.get('/brand/get-all-brands.php');
-  return res;
+  const ref = database().ref('brands');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getAllScreens = async () => {
-  const res = await axiosInstance.get('/screen/get-all-screens.php');
-  return res;
+  const ref = database().ref('screens');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductScreen = async screenID => {
-  const data = {
-    screenID: screenID,
-  };
-  const res = await axiosInstance.post('/screen/get-screen-by-id.php', data);
-  return res;
+  const ref = database().ref('screens');
+  return await ref
+    .orderByChild('screenID')
+    .equalTo(screenID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
+    });
 };
 
 export const getAllOperatingSystems = async () => {
-  const res = await axiosInstance.get(
-    '/operatingSystem/get-all-operating-systems.php',
-  );
-  return res;
+  const ref = database().ref('operatingSystems');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductOperatingSystem = async operatingSystemID => {
-  const data = {
-    operatingSystemID: operatingSystemID,
-  };
-  const res = await axiosInstance.post(
-    '/operatingSystem/get-operating-system-by-id.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('operatingSystems');
+  return await ref
+    .orderByChild('operatingSystemID')
+    .equalTo(operatingSystemID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
+    });
 };
 
 export const getAllProcessors = async () => {
-  const res = await axiosInstance.get('/processor/get-all-processors.php');
-  return res;
+  const ref = database().ref('processors');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductProcessor = async processorID => {
-  const data = {
-    processorID: processorID,
-  };
-  const res = await axiosInstance.post(
-    '/processor/get-processor-by-id.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('processors');
+  return await ref
+    .orderByChild('processorID')
+    .equalTo(processorID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
+    });
 };
 
 export const getAllMemories = async () => {
-  const res = await axiosInstance.get('/memory/get-all-memories.php');
-  return res;
+  const ref = database().ref('memories');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductMemory = async memoryID => {
-  const data = {
-    memoryID: memoryID,
-  };
-  const res = await axiosInstance.post('/memory/get-memory-by-id.php', data);
-  return res;
+  const ref = database().ref('memories');
+  return await ref
+    .orderByChild('memoryID')
+    .equalTo(memoryID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
+    });
 };
 
 export const getAllStorages = async () => {
-  const res = await axiosInstance.get('/storage/get-all-storages.php');
-  return res;
+  const ref = database().ref('storages');
+  return await ref.once('value').then(snapshot => {
+    return snapshot.val();
+  });
 };
 
 export const getProductStorage = async storageID => {
-  const data = {
-    storageID: storageID,
-  };
-  const res = await axiosInstance.post('storage/get-storage-by-id.php', data);
-  return res;
+  const ref = database().ref('storages');
+  return await ref
+    .orderByChild('storageID')
+    .equalTo(storageID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
+    });
 };
 
 export const getUserCart = async username => {
