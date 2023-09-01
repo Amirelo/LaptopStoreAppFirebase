@@ -15,7 +15,11 @@ export const getProductByID = async productID => {
     .equalTo(productID)
     .once('value')
     .then(snapshot => {
-      return snapshot.val();
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      return returnItem;
     });
 };
 
@@ -28,12 +32,16 @@ export const getAllProductImages = async () => {
 
 export const getProductImagesByProductID = async productID => {
   const ref = database().ref('productImages');
+  let returnItem = [];
   return await ref
     .orderByChild('productID')
     .equalTo(productID)
     .once('value')
     .then(snapshot => {
-      return snapshot.val();
+      snapshot.forEach(item => {
+        returnItem = [...returnItem, item.val()];
+      });
+      return returnItem;
     });
 };
 
@@ -165,21 +173,50 @@ export const getUserCart = async username => {
 };
 
 export const insertCart = async (itemQuantity, userID, productID) => {
-  const data = {
-    itemQuantity: itemQuantity,
-    userID: userID,
-    productID: productID,
-  };
-  const res = await axiosInstance.post('/cart/insert-cart-info.php', data);
-  return res;
+  const newRef = database().ref('/carts').push();
+  return newRef
+    .set({
+      itemQuantity: itemQuantity,
+      userID: userID,
+      productID: productID,
+    })
+    .then(() => {
+      return true;
+    })
+    .catch(error => {
+      console.log(error);
+      return false;
+    });
 };
 
 export const getCartByEmail = async email => {
-  const data = {
-    email: email,
-  };
-  const res = await axiosInstance.post('/cart/get-carts-by-email.php', data);
-  return res;
+  const ref = database().ref('users');
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      if (returnItem != null) {
+        console.log(returnItem.userID);
+        const cartRef = database().ref('carts');
+        return cartRef
+          .orderByChild('userID')
+          .equalTo(returnItem.userID)
+          .once('value')
+          .then(snapshot => {
+            let returnData = [];
+            console.log('userdata', snapshot.val());
+            snapshot.forEach(item => {
+              returnData = [...returnData, item.val()];
+            });
+            return returnData;
+          });
+      }
+    });
 };
 
 export const updateCartQuantity = async (cartID, quantity) => {

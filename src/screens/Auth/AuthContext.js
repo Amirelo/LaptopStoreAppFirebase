@@ -149,8 +149,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserByEmail = async email => {
     try {
       const res = await getUserByEmail(email);
-      console.log('On Get User info success', res.data);
-      return res.data;
+      console.log('On Get User info success', res);
+      return res;
     } catch (error) {
       console.log('On Get User info error', error);
       return null;

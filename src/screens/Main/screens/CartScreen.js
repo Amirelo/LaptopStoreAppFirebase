@@ -11,9 +11,10 @@ import CartOption from '../../../components/molecules/CartOption';
 import {AuthContext} from '../../Auth/AuthContext';
 
 const CartScreen = ({navigation}) => {
-  const {onGetCartByEmail, onDeleteCart} = useContext(MainContext);
+  const {onGetCartByEmail, onDeleteCart, onGetProductByID} =
+    useContext(MainContext);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [onItemOptionPressed, setOnItemOptionPressed] = useState(false);
   const [selectedItem, setSelectedItem] = useState();
 
@@ -49,15 +50,16 @@ const CartScreen = ({navigation}) => {
   const getData = async () => {
     let email = await AsyncStorage.getItem('email');
     const cartData = await onGetCartByEmail(email);
-    //console.log(cartData);
-    setData(cartData.data);
+    console.log('cart data:', cartData);
+    setData(cartData);
     setTotalPrice(0);
     let myPrice = 0;
-    if (cartData.data != null) {
-      cartData.data.map(item => {
-        myPrice += item.productPrice * item.itemQuantity;
+    if (cartData != null) {
+      cartData.map(async item => {
+        const prod = await onGetProductByID(item.productID);
+        myPrice += prod.productPrice * item.itemQuantity;
+        setTotalPrice(myPrice);
       });
-      setTotalPrice(myPrice);
     } else {
       setTotalPrice(0);
     }
@@ -101,7 +103,9 @@ const CartScreen = ({navigation}) => {
         }}
       />
       <CustomView type={'rowJustify90'}>
-        <CustomText textStyle={'subtitleBold'}>{language.cart_text_total}</CustomText>
+        <CustomText textStyle={'subtitleBold'}>
+          {language.cart_text_total}
+        </CustomText>
         <CustomText textColor={'err'} textStyle={'normalBold'}>
           {priceFormat(totalPrice)}
         </CustomText>

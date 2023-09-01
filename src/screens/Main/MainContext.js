@@ -205,7 +205,8 @@ export const MainContextProvider = props => {
   const onInsertCart = async (itemQuantity, userID, productID) => {
     try {
       const res = await insertCart(itemQuantity, userID, productID);
-      return res.data;
+      console.log('On Insert Cart Result:', res);
+      return res;
     } catch (error) {
       console.log('On insert cart error', error);
       return null;
@@ -215,7 +216,8 @@ export const MainContextProvider = props => {
   const onGetCartByEmail = async email => {
     try {
       const res = await getCartByEmail(email);
-      return res.data;
+      console.log('cart result:', res);
+      return res;
     } catch (error) {
       console.log('On insert cart error', error);
       return null;

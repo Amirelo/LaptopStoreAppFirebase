@@ -16,8 +16,8 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
 
   const getData = async () => {
     const result = await onGetProductByID(item.productID);
-    console.log(result.data[0]);
-    setCurProduct(result.data[0]);
+    console.log('item result:', result);
+    setCurProduct(result);
   };
 
   const onAddQuantityPressed = async () => {
@@ -58,14 +58,14 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
       backgroundColor={'backgroundInput'}>
       <CustomView backgroundColor={'transparent'} type={'rowJustify'}>
         <CustomImage
-          source={item.productImageLink}
+          source={curProduct.productImageLink}
           linkType={'uri'}
           type={'cartItem'}
         />
         <CustomView type={'left'} backgroundColor={'transparent'}>
           <CustomView backgroundColor={'none'} type={'rowJustify90'}>
             <CustomText textStyle={'normalBold'} maxLines={2}>
-              {item.productName}
+              {curProduct.productName}
             </CustomText>
             <CustomButton
               source={images.ic_more_vert}
@@ -75,7 +75,7 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
             />
           </CustomView>
           <CustomText textStyle={'normalBold'} maxLines={2} textColor={'err'}>
-            {priceFormat(item.productPrice * quantity)}
+            {priceFormat(curProduct.productPrice * quantity)}
           </CustomText>
           <CustomView backgroundColor={'transparent'} type={'rowJustify'}>
             <CustomView backgroundColor={'transparent'} type={'rowJustify90'}>

@@ -17,7 +17,6 @@ const ProductDetailScreen = ({route}) => {
     route.params;
   const {onGetUserByEmail, language} = useContext(AuthContext);
 
-
   const {
     onInsertCart,
     onGetProductImagesByProductID,
@@ -35,20 +34,20 @@ const ProductDetailScreen = ({route}) => {
     const prodImagesResult = await onGetProductImagesByProductID(
       item.productID,
     );
-    setProdImages(prodImagesResult.data);
+    setProdImages(prodImagesResult);
 
     const oss = await onGetProductOS(item.operatingSystemID);
-    setitemOS(oss.data[0]);
+    setitemOS(oss);
 
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
-    if (userInfo.response_code == 1) {
-      setUser(userInfo.data);
+    if (userInfo != null) {
+      setUser(userInfo);
     }
-    const favoriteRes = await onGetUserFavorite(userInfo.data.userId);
+    const favoriteRes = await onGetUserFavorite(userInfo.userID);
     if (favoriteRes.response_code == 1) {
       const productID = item.productID;
-      favoriteRes.data.map(item => {
+      favoriteRes.map(item => {
         if (item.productID == productID) {
           setItemFavorite(item.isFavorite);
         }
@@ -59,13 +58,13 @@ const ProductDetailScreen = ({route}) => {
   const onAddToCartPressed = async () => {
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
-    if (userInfo.response_code == 1) {
+    if (userInfo != null) {
       const insertCartResult = await onInsertCart(
         1,
-        userInfo.data.userId,
+        userInfo.userID,
         item.productID,
       );
-      if (insertCartResult.response_code == 1) {
+      if (insertCartResult == true) {
         navigation.goBack();
       } else {
         console.log('Something wrong happen:', insertCartResult);
@@ -75,9 +74,9 @@ const ProductDetailScreen = ({route}) => {
 
   const onFavoritePressed = async () => {
     try {
-      console.log('userId:', user.userId, 'productID:', item.productID);
+      console.log('userID:', user.userID, 'productID:', item.productID);
       const favoriteResult = await onCheckUserFavorite(
-        user.userId,
+        user.userID,
         item.productID,
       );
       console.log(favoriteResult);

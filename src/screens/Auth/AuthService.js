@@ -356,11 +356,19 @@ export const getUserByUsername = async username => {
 };
 
 export const getUserByEmail = async email => {
-  const data = {
-    email: email,
-  };
-  const res = await axiosInstance.post('/user/get-user-by-email.php', data);
-  return res;
+  const ref = database().ref('users');
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      console.log('user', returnItem);
+      return returnItem;
+    });
 };
 
 export const getUserCards = async userID => {
