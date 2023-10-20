@@ -60,12 +60,25 @@ export const sendVerificationCode = async email => {
 };
 
 export const checkEmail = async (email, type) => {
-  const data = {
-    email: email,
-    type: type,
-  };
-  const res = await axiosInstance.post('/user/check-email.php', data);
-  return res;
+  const ref = database().ref('/users');
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = null;
+      snapshot.forEach(item => {
+        returnItem = item.val();
+      });
+      if (
+        (returnItem == null && type == 'SIGNUP') ||
+        (returnItem != null && type == 'CHANGEPASSWORD')
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    });
 };
 
 export const updateUserInfo = async (data, email, type) => {
@@ -91,14 +104,29 @@ export const getUserAddress = async username => {
 };
 
 export const getAddressesByEmail = async email => {
-  const data = {
-    email: email,
-  };
-  const res = await axiosInstance.post(
-    '/address/get-addresses-by-email.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('users');
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(async snapshot => {
+      let user = null;
+      let returnItem = [];
+      snapshot.forEach(item => {
+        user = item.val();
+      });
+      const addressRef = database().ref('addresses');
+      return await addressRef
+        .orderByChild('userID')
+        .equalTo(user.userID)
+        .once('value')
+        .then(snapshot2 => {
+          snapshot2.forEach(curItem => {
+            returnItem = [...returnItem, curItem.val()];
+          });
+          return returnItem;
+        });
+    });
 };
 
 export const insertAddress = async (
@@ -138,14 +166,18 @@ export const updateAddressInfo = async (data, type, addressID, userID) => {
 // Coupon
 
 export const getUserCoupon = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/coupon/get-coupons-by-userid.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('coupons');
+  return await ref
+    .orderByChild('userID')
+    .equalTo(userID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = [];
+      snapshot.forEach(item => {
+        returnItem = [...returnItem, item.val()];
+      });
+      return returnItem;
+    });
 };
 
 // Favorite
@@ -280,14 +312,18 @@ export const insertNotification = async (title, detail, userID) => {
 // User Order
 
 export const getUserOrders = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/userOrder/get-user-order-by-userid.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('orders');
+  return await ref
+    .orderByChild('userID')
+    .equalTo(userID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = [];
+      snapshot.forEach(item => {
+        returnItem = [...returnItem, item.val()];
+      });
+      return returnItem;
+    });
 };
 
 export const insertUserOrder = async (
@@ -372,9 +408,17 @@ export const getUserByEmail = async email => {
 };
 
 export const getUserCards = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post('/card/get-cards-by-userid.php', data);
-  return res;
+  const ref = database().ref('cards');
+  return await ref
+    .orderByChild('userID')
+    .equalTo(userID)
+    .once('value')
+    .then(snapshot => {
+      let returnItem = [];
+      snapshot.forEach(item => {
+        returnItem = [...returnItem, item.val()];
+      });
+      console.log('user', returnItem);
+      return returnItem;
+    });
 };

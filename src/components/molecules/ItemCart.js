@@ -10,7 +10,7 @@ import {borderTheme} from '../../themes/borderTheme';
 
 const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
   const {onUpdateCartQuantity, onGetProductByID} = useContext(MainContext);
-  const [curProduct, setCurProduct] = useState();
+  const [curProduct, setCurProduct] = useState([]);
 
   const [quantity, setQuantity] = useState(item.itemQuantity);
 

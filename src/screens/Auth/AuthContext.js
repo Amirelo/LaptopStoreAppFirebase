@@ -171,8 +171,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetAddressesByEmail = async email => {
     try {
       const res = await getAddressesByEmail(email);
-      console.log('On Get User Address success', res.data);
-      return res.data;
+      console.log('On Get User Address success', res);
+      return res;
     } catch (error) {
       console.log('On Get User Address error', error);
       return null;
@@ -259,8 +259,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserOrder = async userID => {
     try {
       const res = await getUserOrders(userID);
-      console.log('On Get User Order success', res.data);
-      return res.data;
+      console.log('On Get User Order success', res);
+      return res;
     } catch (error) {
       console.log('On Get User Order error', error);
       return null;
@@ -281,8 +281,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserCoupon = async userID => {
     try {
       const res = await getUserCoupon(userID);
-      console.log('On Get user coupon success', res.data);
-      return res.data;
+      console.log('On Get user coupon success', res);
+      return res;
     } catch (error) {
       console.log('On Get user coupon error', error);
       return null;
@@ -292,8 +292,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserCards = async userID => {
     try {
       const res = await getUserCards(userID);
-      console.log('On Get user coupon success', res.data);
-      return res.data;
+      console.log('On Get user coupon success', res);
+      return res;
     } catch (error) {
       console.log('On Get user coupon error', error);
       return null;

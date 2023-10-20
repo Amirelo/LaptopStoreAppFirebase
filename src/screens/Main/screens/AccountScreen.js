@@ -24,25 +24,25 @@ const AccountScreen = ({route, navigation}) => {
   const getUserInfo = async () => {
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
-    setUserData(userInfo.data);
+    setUserData(userInfo);
 
     const userAddress = await onGetAddressesByEmail(email);
-    setUserAddresses(userAddress.data);
-    const userOrder = await onGetUserOrder(userInfo.data.userId);
-    setUserOrders(userOrder.data);
+    setUserAddresses(userAddress);
+    const userOrder = await onGetUserOrder(userInfo.userId);
+    setUserOrders(userOrder);
 
     setOrderInProgress(0);
-    userOrder.data.map(item => {
+    userOrder.map(item => {
       if (item.status > 0 && item.status < 4) {
         setOrderInProgress(prev => prev + 1);
       }
     });
 
-    const userCoupon = await onGetUserCoupon(userInfo.data.userId);
-    setUserPromoCodes(userCoupon.data);
+    const userCoupon = await onGetUserCoupon(userInfo.userId);
+    setUserPromoCodes(userCoupon);
 
-    const userCard = await onGetUserCards(userInfo.data.userId);
-    setUserCards(userCard.data);
+    const userCard = await onGetUserCards(userInfo.userId);
+    setUserCards(userCard);
   };
 
   const onGoBackAccount = data => {
