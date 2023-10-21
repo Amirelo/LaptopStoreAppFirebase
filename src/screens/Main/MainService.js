@@ -176,6 +176,7 @@ export const insertCart = async (itemQuantity, userID, productID) => {
   const newRef = database().ref('/carts').push();
   return newRef
     .set({
+      cardID: newRef.key + 1,
       itemQuantity: itemQuantity,
       userID: userID,
       productID: productID,
