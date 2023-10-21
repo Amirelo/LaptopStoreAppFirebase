@@ -10,6 +10,7 @@ import CustomImage from '../../../components/atoms/CustomImage';
 import CustomText from '../../../components/atoms/CustomText';
 import CustomButton from '../../../components/molecules/CustomButton';
 import {priceFormat} from '../../../utils/helper';
+import { deviceWidth } from '../../../utils/helper';
 
 const ProductDetailScreen = ({route}) => {
   const navigation = useNavigation();
@@ -102,13 +103,16 @@ const ProductDetailScreen = ({route}) => {
       <CustomView scrollable={true}>
         <FlatList
           height={'100%'}
-          width={240}
-          marginTop={8}
+          width={'100%'}
+          marginTop={48}
           horizontal={true}
           pagingEnabled={true}
           scrollEnabled={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{justifyContent: 'space-between', gap: 16}}
+          contentContainerStyle={{
+            justifyContent: 'space-between',
+            gap: 16,
+          }}
           style={{alignSelf: 'center'}}
           snapToAlignment="start"
           decelerationRate={'fast'}
@@ -118,14 +122,16 @@ const ProductDetailScreen = ({route}) => {
           renderItem={({item}) => {
             return (
               <CustomImage
+                width={deviceWidth}
                 type={'productDetail'}
+                resizeMode={'contain'}
                 source={item.productImageLink}
                 linkType={'uri'}
               />
             );
           }}
         />
-        <CustomView type={'rowJustify90'}>
+        <CustomView type={'rowJustify90'} marginTop={40}>
           <CustomText textStyle={'titleBold'}>{item.productName}</CustomText>
           {itemFavorite ? (
             <CustomButton

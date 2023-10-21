@@ -9,19 +9,22 @@ const CustomImage = ({
   customStyles,
   linkType,
   tintColor,
+  width,
+  resizeMode,
 }) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
   tintColor = tintColor ? colors[`${tintColor}Color`] : '';
   return (
     <Image
-      resizeMode="cover"
+      resizeMode={resizeMode ? resizeMode : 'cover'}
       source={linkType === 'uri' ? {uri: source} : source}
       style={[
         type != null ? styles[`${type}`] : {},
         marginTop != null ? {marginTop: marginTop} : {},
         tintColor ? {tintColor: tintColor} : {},
         customStyles ? customStyles : {},
+        width ? {width: width} : {},
       ]}
     />
   );

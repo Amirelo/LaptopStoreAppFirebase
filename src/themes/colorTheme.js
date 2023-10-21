@@ -3,7 +3,7 @@ import {useColorScheme} from 'react-native';
 const Colors = {
   light: {
     textColor: '#000',
-    textVariantColor: '#E8D4D1',
+    textVariantColor: '#514948',
     textConstrastColor: '#fff',
     backgroundColor: '#D0C2AE',
     noneColor: '#00000000',
