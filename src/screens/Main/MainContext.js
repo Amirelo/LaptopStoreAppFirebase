@@ -195,7 +195,7 @@ export const MainContextProvider = props => {
   const onCheckUserFavorite = async (userID, productID) => {
     try {
       const res = await checkUserFavorite(userID, productID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On check user favorite error', error);
       return null;

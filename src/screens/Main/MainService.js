@@ -244,16 +244,43 @@ export const getUserFavorite = async userID => {
   return res;
 };
 
+export const insertUserFavorite = async (userID, productID) => {
+  const ref = database().ref('favorites').push();
+  return ref
+    .set({
+      favoriteID: ref.key + 1,
+      isFavorite: true,
+      productID: productID,
+      userID: userID,
+    })
+    .then(() => {
+      return true;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
 export const checkUserFavorite = async (userID, productID) => {
-  const data = {
-    userID: userID,
-    productID: productID,
-  };
-  const res = await axiosInstance.post(
-    '/favorite/check-user-favorite.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('favorites');
+  return ref
+    .orderByChild('userID')
+    .equalTo(userID)
+    .once('value')
+    .then(snapshot => {
+      let data = [];
+      console.log('userdata', snapshot.val());
+      snapshot.forEach(item => {
+        if (item.productID == productID) {
+          data = [...data, item.val()];
+        }
+      });
+      if (data != null) {
+        return true;
+      } else {
+        return insertUserFavorite(userID, productID);
+      }
+    });
 };
 
 export const insertUserOrder = async (

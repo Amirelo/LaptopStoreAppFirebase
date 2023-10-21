@@ -81,7 +81,7 @@ const ProductDetailScreen = ({route}) => {
         item.productID,
       );
       console.log(favoriteResult);
-      if (favoriteResult.response_code == 1) {
+      if (favoriteResult != null) {
         setItemFavorite(!itemFavorite);
         console.log(itemFavorite);
       }
