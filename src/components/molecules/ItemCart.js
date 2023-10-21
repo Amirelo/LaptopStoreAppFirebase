@@ -56,15 +56,15 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
       borderColor={'border'}
       borderStyle={borderTheme.textInput}
       backgroundColor={'backgroundInput'}>
-      <CustomView backgroundColor={'transparent'} type={'rowJustify'}>
+      <CustomView backgroundColor={'transparent'} type={'row'}>
         <CustomImage
           source={curProduct.productImageLink}
           linkType={'uri'}
           type={'cartItem'}
         />
         <CustomView type={'left'} backgroundColor={'transparent'}>
-          <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-            <CustomText textStyle={'normalBold'} maxLines={2}>
+          <CustomView backgroundColor={'none'} type={'row'}>
+            <CustomText textStyle={'normalBold'} hasFlex={true}>
               {curProduct.productName}
             </CustomText>
             <CustomButton
@@ -77,20 +77,18 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
           <CustomText textStyle={'normalBold'} maxLines={2} textColor={'err'}>
             {priceFormat(curProduct.productPrice * quantity)}
           </CustomText>
-          <CustomView backgroundColor={'transparent'} type={'rowJustify'}>
-            <CustomView backgroundColor={'transparent'} type={'rowJustify90'}>
-              <CustomButton
-                onPress={onSubtractQuantityPressed}
-                source={images.ic_minus}
-                type={'image'}
-              />
-              <CustomText>{quantity}</CustomText>
-              <CustomButton
-                onPress={onAddQuantityPressed}
-                source={images.ic_add}
-                type={'image'}
-              />
-            </CustomView>
+          <CustomView backgroundColor={'transparent'} type={'row'}>
+            <CustomButton
+              onPress={onSubtractQuantityPressed}
+              source={images.ic_minus}
+              type={'image'}
+            />
+            <CustomText>{quantity}</CustomText>
+            <CustomButton
+              onPress={onAddQuantityPressed}
+              source={images.ic_add}
+              type={'image'}
+            />
           </CustomView>
         </CustomView>
       </CustomView>
