@@ -44,7 +44,7 @@ const CartScreen = ({navigation}) => {
   const onActionOptionPressed = item => {
     setOnItemOptionPressed(true);
     setSelectedItem(item);
-    //console.log(item);
+    console.log('selection:', item);
   };
 
   const getData = async () => {

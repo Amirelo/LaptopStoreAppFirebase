@@ -185,7 +185,7 @@ export const MainContextProvider = props => {
   const onGetUserFavorite = async userID => {
     try {
       const res = await getUserFavorite(userID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On get all user favorite error', error);
       return null;
@@ -237,7 +237,7 @@ export const MainContextProvider = props => {
   const onDeleteCart = async cartID => {
     try {
       const res = await deleteCart(cartID);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On delete cart error', error);
       return null;

@@ -176,7 +176,7 @@ export const insertCart = async (itemQuantity, userID, productID) => {
   const newRef = database().ref('/carts').push();
   return newRef
     .set({
-      cardID: newRef.key + 1,
+      cartID: newRef.key,
       itemQuantity: itemQuantity,
       userID: userID,
       productID: productID,
@@ -230,19 +230,34 @@ export const updateCartQuantity = async (cartID, quantity) => {
 };
 
 export const deleteCart = async cartID => {
-  const data = {
-    cartID: cartID,
-  };
-  const res = await axiosInstance.post('/cart/delete-cart-by-id.php', data);
-  return res;
+  const ref = database().ref('carts');
+  console.log(cartID);
+  return ref
+    .orderByChild('cartID')
+    .equalTo(cartID)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(async item => {
+        await item.ref.remove();
+      });
+      return true;
+    });
 };
 
 export const getUserFavorite = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post('/favorite/get-user-favorite.php', data);
-  return res;
+  const ref = database().ref('favorites');
+  return ref
+    .orderByChild('userID')
+    .equalTo(userID)
+    .once('value')
+    .then(snapshot => {
+      let list = [];
+      snapshot.forEach(async item => {
+        console.log('Service item:', item);
+        list = [...list, item.val()];
+      });
+      return list;
+    });
 };
 
 export const insertUserFavorite = async (userID, productID) => {

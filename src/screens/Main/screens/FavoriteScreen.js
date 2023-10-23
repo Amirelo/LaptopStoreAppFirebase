@@ -19,8 +19,8 @@ const FavoriteScreen = ({navigation}) => {
   const getInitData = async () => {
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
-    const favoriteRes = await onGetUserFavorite(userInfo.data.userId);
-    if (favoriteRes.response_code == 1) {
+    const favoriteRes = await onGetUserFavorite(userInfo.userID);
+    if (favoriteRes != null) {
       favoriteRes.data.map(async item => {
         if (item.isFavorite != false) {
           const addRes = await onGetProductByID(item.productID);

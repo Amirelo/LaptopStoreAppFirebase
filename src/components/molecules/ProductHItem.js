@@ -111,7 +111,9 @@ const ProductHItem = ({data}) => {
             itemMemory.speed}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
-          {itemScreen.resolution + ' ' + itemScreen.screenSize}
+          {itemScreen
+            ? itemScreen.resolution + ' ' + itemScreen.screenSize
+            : ''}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
           {itemStorage.type + ' ' + itemStorage.currentStorage}
