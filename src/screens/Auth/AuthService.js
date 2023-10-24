@@ -1,4 +1,4 @@
-import {axiosInstance} from '../../utils/axios';
+import { axiosInstance } from '../../utils/axios';
 import database from '@react-native-firebase/database';
 
 // User
@@ -36,7 +36,7 @@ export const signUp = async (
   const newReference = database().ref('/users').push();
   newReference
     .set({
-      userID: newReference.key + 1,
+      userID: newReference.key,
       username: username,
       userPassword: password,
       email: email,
@@ -45,7 +45,7 @@ export const signUp = async (
       gender: 'Unknown',
       birthday: birthday,
     })
-    .then(() => console.log('first'));
+    .then(() => console.log('User added'));
 };
 
 export const sendVerificationCode = async email => {
@@ -82,13 +82,55 @@ export const checkEmail = async (email, type) => {
 };
 
 export const updateUserInfo = async (data, email, type) => {
-  const data1 = {
-    data: data,
-    email: email,
-    type: type,
-  };
-  const res = await axiosInstance.post('/user/update-user-info.php', data1);
-  return res;
+  const ref = database().ref('users')
+  return ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        switch (type) {
+          case 'USERNAME':
+            item.ref.update({
+              username: data
+            }).then(() => console.log('Updated'));
+            break;
+          case 'PHONENUMBER':
+            item.ref.update({
+              phonenumber: data
+            });
+            break;
+          case 'BIRTHDAY':
+            item.ref.update({
+              birthday: data
+            });
+            break;
+          case 'PASSWORD':
+            item.ref.update({
+              password: data
+            });
+            break;
+        }
+      }).then(() => { console.log('updated') })
+      return true;
+    })
+};
+
+export const updateUserFullname = async (data, email) => {
+  const ref = database().ref('users')
+
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        item.ref.update({
+          fullname: data
+        }).then(() => console.log('Updated'));
+      })
+      return true;
+    })
 };
 
 // Address

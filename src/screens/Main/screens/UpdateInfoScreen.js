@@ -32,7 +32,7 @@ const UpdateInfoScreen = ({route, navigation}) => {
     if (type == 'PASSWORD') {
       if (data > 6 || data == confirmData) {
         const res = await onUpdateUserInfo(data, email, type);
-        if (res.response_code == 1) {
+        if (res == true) {
           console.warn('Success');
           await AsyncStorage.setItem(type.toLowerCase(), data);
           navigation.navigate('Account');
@@ -45,7 +45,7 @@ const UpdateInfoScreen = ({route, navigation}) => {
       }
     } else {
       const res = await onUpdateUserInfo(data, email, type);
-      if (res.response_code == 1) {
+      if (res == true) {
         console.warn('Success');
         await AsyncStorage.setItem(type.toLowerCase(), data);
         route.params.onGoBack(data, type);

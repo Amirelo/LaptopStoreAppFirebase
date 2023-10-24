@@ -6,6 +6,7 @@ import {
   signIn,
   signUp,
   updateUserInfo,
+  updateUserFullname,
   getUserAddress,
   getUserOrders,
   getUserOrderDetail,
@@ -90,7 +91,7 @@ export const AuthContextProvider = ({children}) => {
         fullName,
         birthday,
       );
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On Sign Up error', error);
       return null;
@@ -105,8 +106,8 @@ export const AuthContextProvider = ({children}) => {
   const onSendVerificationCode = async email => {
     try {
       const res = await sendVerificationCode(email);
-      console.log('On Send Verification Code success', res.data);
-      return res.data;
+      console.log('On Send Verification Code success', res);
+      return res;
     } catch (error) {
       console.log('On Send Verification Code error', error);
       return null;
@@ -116,8 +117,8 @@ export const AuthContextProvider = ({children}) => {
   const onCheckEmail = async (email, type) => {
     try {
       const res = await checkEmail(email, type);
-      console.log('On Check Email success', res.data);
-      return res.data;
+      console.log('On Check Email success', res);
+      return res;
     } catch (error) {
       console.log('On Check Email error', error);
       return null;
@@ -126,9 +127,14 @@ export const AuthContextProvider = ({children}) => {
 
   const onUpdateUserInfo = async (data, email, type) => {
     try {
-      const res = await updateUserInfo(data, email, type);
-      console.log('On Update User Info success', res.data);
-      return res.data;
+      let res;
+      switch(type){
+        case 'FULLNAME':
+          res = await updateUserFullname(data, email);
+          break;
+      }
+      console.log('On Update User Info success', res);
+      return res;
     } catch (error) {
       console.log('On Update User Info error', error);
       return null;
@@ -138,8 +144,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserByUsername = async username => {
     try {
       const res = await getUserByUsername(username);
-      console.log('On Get User info success', res.data);
-      return res.data;
+      console.log('On Get User info success', res);
+      return res;
     } catch (error) {
       console.log('On Get User info error', error);
       return null;
@@ -160,8 +166,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserAddress = async username => {
     try {
       const res = await getUserAddress(username);
-      console.log('On Get User Address success', res.data);
-      return res.data;
+      console.log('On Get User Address success', res);
+      return res;
     } catch (error) {
       console.log('On Get User Address error', error);
       return null;
@@ -196,8 +202,8 @@ export const AuthContextProvider = ({children}) => {
         status,
         userID,
       );
-      console.log('On Insert User Address success', res.data);
-      return res.data;
+      console.log('On Insert User Address success', res);
+      return res;
     } catch (error) {
       console.log('On Insert User Address error', error);
       return null;
@@ -207,8 +213,8 @@ export const AuthContextProvider = ({children}) => {
   const updateUserAddress = async (data, type, addressID, userID) => {
     try {
       const res = await updateAddressInfo(data, type, addressID, userID);
-      console.log('On Update User Address success', res.data);
-      return res.data;
+      console.log('On Update User Address success', res);
+      return res;
     } catch (error) {
       console.log('On Update User Address error', error);
       return null;
@@ -218,8 +224,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserNotification = async userID => {
     try {
       const res = await getUserNotification(userID);
-      console.log('On Get User Notification success', res.data);
-      return res.data;
+      console.log('On Get User Notification success', res);
+      return res;
     } catch (error) {
       console.log('On Get User Notification error', error);
       return null;
@@ -237,8 +243,8 @@ export const AuthContextProvider = ({children}) => {
         userID,
         notificationID,
       );
-      console.log('On Update User Notification success', res.data);
-      return res.data;
+      console.log('On Update User Notification success', res);
+      return res;
     } catch (error) {
       console.log('On Update User Notification error', error);
       return null;
@@ -248,8 +254,8 @@ export const AuthContextProvider = ({children}) => {
   const onInsertNotification = async (title, detail, userID) => {
     try {
       const res = await insertNotification(title, detail, userID);
-      console.log('On Get User Notification success', res.data);
-      return res.data;
+      console.log('On Get User Notification success', res);
+      return res;
     } catch (error) {
       console.log('On Get User Notification error', error);
       return null;
@@ -270,8 +276,8 @@ export const AuthContextProvider = ({children}) => {
   const onGetUserOrderDetail = async userOrderID => {
     try {
       const res = await getUserOrderDetail(userOrderID);
-      console.log('On Get Order Detail success', res.data);
-      return res.data;
+      console.log('On Get Order Detail success', res);
+      return res;
     } catch (error) {
       console.log('On Get Order Detail error', error);
       return null;

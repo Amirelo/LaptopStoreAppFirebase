@@ -15,8 +15,8 @@ const ProfileScreen = ({route, navigation}) => {
     setUser({});
     console.warn('goback');
     switch (type) {
-      case 'USERNAME':
-        userInfo.username = data;
+      case 'FULLNAME':
+        userInfo.fullname = data;
         break;
       case 'FULLNAME':
         userInfo.fullname = data;
@@ -64,9 +64,9 @@ const ProfileScreen = ({route, navigation}) => {
 
       <AccountTab
         type={'profile'}
-        onPress={() => onAccountTabPressed('USERNAME')}
-        title={language.profile_tab_username}
-        subtitle={user.username}
+        onPress={() => onAccountTabPressed('FULLNAME')}
+        title={language.profile_tab_fullname}
+        subtitle={user.fullname}
       />
       <AccountTab
         type={'profile'}

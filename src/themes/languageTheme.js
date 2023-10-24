@@ -103,7 +103,7 @@ const languageTheme = {
 
     updateInfo_text_change: 'Change',
 
-    profile_tab_username: 'Username',
+    profile_tab_fullname: 'Fullname',
     profile_tab_phoneNumber: 'Phone Number',
     profile_tab_birthday: 'Birthday',
 
