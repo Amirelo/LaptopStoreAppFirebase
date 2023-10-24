@@ -42,7 +42,7 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {backgroundColor: colors.borderColor, paddingBottom: 4},
+        tabBarStyle: {backgroundColor: colors.tabBarColor, paddingBottom: 4},
       }}
       initialRouteName="Home">
       <Tab.Screen
@@ -50,13 +50,13 @@ const TabNavigation = () => {
         component={HomeScreen}
         options={{
           title: language.header_text_home,
-          tabBarActiveTintColor: colors.primaryColor,
+          tabBarActiveTintColor: colors.tabBarActiveTintColor,
           headerStyle: customHeaderStyle,
           headerRight: () => <CustomHeader type={'home'} />,
           tabBarIcon: ({focused}) => {
             return (
               <CustomImage
-                tintColor={focused ? 'primary' : 'text'}
+                tintColor={focused ? 'tabBarActiveTint' : 'text'}
                 type={'inputIcon'}
                 source={images.ic_home}
               />
@@ -69,12 +69,12 @@ const TabNavigation = () => {
         component={ExploreScreen}
         options={{
           title: language.header_text_explore,
-          tabBarActiveTintColor: colors.primaryColor,
+          tabBarActiveTintColor: colors.tabBarActiveTintColor,
           headerStyle: customHeaderStyle,
           tabBarIcon: ({focused}) => {
             return (
               <CustomImage
-                tintColor={focused ? 'primary' : 'text'}
+                tintColor={focused ? 'tabBarActiveTint' : 'text'}
                 type={'inputIcon'}
                 source={images.ic_explore}
               />
@@ -88,12 +88,12 @@ const TabNavigation = () => {
         component={CartScreen}
         options={{
           title: language.header_text_cart,
-          tabBarActiveTintColor: colors.primaryColor,
+          tabBarActiveTintColor: colors.tabBarActiveTintColor,
           headerStyle: customHeaderStyle,
           tabBarIcon: ({focused}) => {
             return (
               <CustomImage
-                tintColor={focused ? 'primary' : 'text'}
+                tintColor={focused ? 'tabBarActiveTint' : 'text'}
                 type={'inputIcon'}
                 source={images.ic_cart}
               />
@@ -107,12 +107,12 @@ const TabNavigation = () => {
         component={AccountScreen}
         options={{
           title: language.header_text_account,
-          tabBarActiveTintColor: colors.primaryColor,
+          tabBarActiveTintColor: colors.tabBarActiveTintColor,
           headerStyle: customHeaderStyle,
           tabBarIcon: ({focused}) => {
             return (
               <CustomImage
-                tintColor={focused ? 'primary' : 'text'}
+                tintColor={focused ? 'tabBarActiveTint' : 'text'}
                 type={'inputIcon'}
                 source={images.ic_person}
               />
