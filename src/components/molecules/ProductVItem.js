@@ -1,14 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {priceFormat} from '../../utils/helper';
+import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
+import { priceFormat } from '../../utils/helper';
 import CustomView from '../atoms/CustomView';
 import CustomImage from '../atoms/CustomImage';
 import CustomText from '../atoms/CustomText';
-import {MainContext} from '../../screens/Main/MainContext';
-import {useNavigation} from '@react-navigation/native';
-import {CustomButtonBare} from '../atoms';
+import { MainContext } from '../../screens/Main/MainContext';
+import { useNavigation } from '@react-navigation/native';
+import { CustomButtonBare } from '../atoms';
 import { borderTheme } from '../../themes/borderTheme';
 
-const ProductVItem = ({data}) => {
+const ProductVItem = ({ data }) => {
   const navigation = useNavigation();
   const {
     onGetProductProcessor,
@@ -16,10 +17,10 @@ const ProductVItem = ({data}) => {
     onGetProductScreen,
     onGetProductStorage,
   } = useContext(MainContext);
-  const [itemProcessor, setItemProcessor] = useState({});
-  const [itemMemory, setItemMemory] = useState({});
-  const [itemScreen, setitemScreen] = useState({});
-  const [itemStorage, setitemStorage] = useState({});
+  const [itemProcessor, setItemProcessor] = useState();
+  const [itemMemory, setItemMemory] = useState();
+  const [itemScreen, setitemScreen] = useState();
+  const [itemStorage, setitemStorage] = useState();
 
   const onProductPressed = () => {
     navigation.navigate('Product Detail', {
@@ -70,20 +71,20 @@ const ProductVItem = ({data}) => {
           {data.productName}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={2}>
-          {itemProcessor.name}
+          {itemProcessor ? itemProcessor.name : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={2}>
-          {itemMemory.currentRAM +
+          {itemMemory ? itemMemory.currentRAM +
             ' ' +
             itemMemory.type +
             ' ' +
-            itemMemory.speed}
+            itemMemory.speed : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={2}>
-          {itemStorage.type + ' ' + itemStorage.currentStorage}
+          {itemStorage ? itemStorage.type + ' ' + itemStorage.currentStorage : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={2}>
-          {itemScreen.resolution + ' ' + itemScreen.screenSize}
+          {itemScreen ? itemScreen.resolution + ' ' + itemScreen.screenSize : <ActivityIndicator />}
         </CustomText>
         <CustomView backgroundColor={'none'} type={'rowJustify'}>
           <CustomText textColor={'err'} textStyle={'normalBold'} marginTop={0}>

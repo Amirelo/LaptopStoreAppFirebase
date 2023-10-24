@@ -1,4 +1,4 @@
-import {Animated, Pressable, StyleSheet} from 'react-native';
+import {Animated, Pressable, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import CustomText from '../atoms/CustomText';
 import CustomImage from '../atoms/CustomImage';
@@ -22,10 +22,11 @@ const ProductHItem = ({data}) => {
     onGetProductScreen,
     onGetProductStorage,
   } = useContext(MainContext);
-  const [itemProcessor, setItemProcessor] = useState({});
-  const [itemMemory, setItemMemory] = useState({});
-  const [itemScreen, setitemScreen] = useState({});
-  const [itemStorage, setitemStorage] = useState({});
+  const [itemProcessor, setItemProcessor] = useState();
+  const [itemMemory, setItemMemory] = useState();
+  const [itemScreen, setitemScreen] = useState();
+  const [itemStorage, setitemStorage] = useState();
+
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
 
@@ -101,22 +102,22 @@ const ProductHItem = ({data}) => {
           {data.productName}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
-          {itemProcessor.name}
+          {itemProcessor ? itemProcessor.name : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
-          {itemMemory.currentRAM +
+          {itemMemory ? itemMemory.currentRAM +
             ' ' +
             itemMemory.type +
             ' ' +
-            itemMemory.speed}
+            itemMemory.speed : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
           {itemScreen
             ? itemScreen.resolution + ' ' + itemScreen.screenSize
-            : ''}
+            : <ActivityIndicator />}
         </CustomText>
         <CustomText textStyle={'small'} marginTop={4}>
-          {itemStorage.type + ' ' + itemStorage.currentStorage}
+          {itemStorage ? itemStorage.type + ' ' + itemStorage.currentStorage : <ActivityIndicator />}
         </CustomText>
         <CustomText textColor={'err'} textStyle={'normalBold'}>
           {priceFormat(data.currentPrice)}

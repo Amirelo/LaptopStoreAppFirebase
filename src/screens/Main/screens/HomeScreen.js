@@ -13,6 +13,8 @@ import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
 import {borderTheme} from '../../../themes/borderTheme';
 import {AuthContext} from '../../Auth/AuthContext';
 
+import database from '@react-native-firebase/database';
+
 const HomeScreen = ({navigation}) => {
   const [listProducts, setListProducts] = useState([]);
   const [listPopProducts, setListPopProducts] = useState([]);
