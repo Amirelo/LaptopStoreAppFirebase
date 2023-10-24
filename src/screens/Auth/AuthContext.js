@@ -8,6 +8,7 @@ import {
   updateUserFullname,
   updateUserPhoneNumber,
   updateUserBirthday,
+  updateUserPassword,
   getUserAddress,
   getUserOrders,
   getUserOrderDetail,
@@ -138,6 +139,9 @@ export const AuthContextProvider = ({children}) => {
           break;
         case 'BIRTHDAY':
           res =await updateUserBirthday(data, email);
+          break;
+        case 'PASSWORD':
+          res = await updateUserPassword(data, email);
       }
       console.log('On Update User Info success', res);
       return res;

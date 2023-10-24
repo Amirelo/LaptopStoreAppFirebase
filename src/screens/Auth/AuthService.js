@@ -132,6 +132,23 @@ export const updateUserBirthday = async (data, email) => {
     })
 };
 
+export const updateUserPassword = async (data, email) => {
+  const ref = database().ref('users')
+
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        item.ref.update({
+          password: data
+        }).then(() => console.log('Updated'));
+      })
+      return true;
+    })
+};
+
 // Address
 export const getUserAddress = async username => {
   const data = {
