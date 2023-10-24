@@ -81,41 +81,6 @@ export const checkEmail = async (email, type) => {
     });
 };
 
-export const updateUserInfo = async (data, email, type) => {
-  const ref = database().ref('users')
-  return ref
-    .orderByChild('email')
-    .equalTo(email)
-    .once('value')
-    .then(snapshot => {
-      snapshot.forEach(item => {
-        switch (type) {
-          case 'USERNAME':
-            item.ref.update({
-              username: data
-            }).then(() => console.log('Updated'));
-            break;
-          case 'PHONENUMBER':
-            item.ref.update({
-              phonenumber: data
-            });
-            break;
-          case 'BIRTHDAY':
-            item.ref.update({
-              birthday: data
-            });
-            break;
-          case 'PASSWORD':
-            item.ref.update({
-              password: data
-            });
-            break;
-        }
-      }).then(() => { console.log('updated') })
-      return true;
-    })
-};
-
 export const updateUserFullname = async (data, email) => {
   const ref = database().ref('users')
 
@@ -127,6 +92,40 @@ export const updateUserFullname = async (data, email) => {
       snapshot.forEach(item => {
         item.ref.update({
           fullname: data
+        }).then(() => console.log('Updated'));
+      })
+      return true;
+    })
+};
+
+export const updateUserPhoneNumber = async (data, email) => {
+  const ref = database().ref('users')
+
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        item.ref.update({
+          phonenumber: data
+        }).then(() => console.log('Updated'));
+      })
+      return true;
+    })
+};
+
+export const updateUserBirthday = async (data, email) => {
+  const ref = database().ref('users')
+
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        item.ref.update({
+          birthday: data
         }).then(() => console.log('Updated'));
       })
       return true;
