@@ -1,5 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <queries>
+      <intent>
+          <action android:name="android.intent.action.VIEW" />
+          <data android:scheme="https" android:host="*" />
+      </intent>
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -22,4 +29,6 @@
         </intent-filter>
       </activity>
     </application>
+    
+    
 </manifest>

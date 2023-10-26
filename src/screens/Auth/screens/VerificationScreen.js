@@ -24,21 +24,21 @@ const VerificationScreen = ({navigation, route}) => {
     setIsDisabled(true);
     let checkEmailResult = await onCheckEmail(email, paramKey);
 
-    if (checkEmailResult.response_code == 1) {
+    if (checkEmailResult == true) {
       setError('');
       let result2 = await onSendVerificationCode(email);
-      setReceivedCode(result2.data);
-      if (result2.response_code == 1) {
+      setReceivedCode(result2);
+      if (result2 == true) {
         setTimer(60);
         myTimer();
         setTimeout(() => {
           setReceivedCode();
         }, 60000);
       } else {
-        setError(result2.message);
+        setError(result2);
       }
     } else {
-      setError(checkEmailResult.message);
+      setError(checkEmailResult);
     }
     setIsDisabled(false);
   };

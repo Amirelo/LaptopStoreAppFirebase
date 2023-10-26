@@ -1,5 +1,6 @@
 import { axiosInstance } from '../../utils/axios';
 import database from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth';
 
 // User
 export const signIn = async (username, password) => {
@@ -49,14 +50,19 @@ export const signUp = async (
 };
 
 export const sendVerificationCode = async email => {
-  const data = {
-    email: email,
-  };
-  const res = await axiosInstance.post(
-    '/user/send-verification-code.php',
-    data,
-  );
-  return res;
+  const actionCodeSettings = {
+    android: {
+      packageName: 'com.laptopstorefirebase',
+      installApp: true
+    }
+
+  }
+  auth().sendSignInLinkToEmail(email, actionCodeSettings).then(() => {
+    return true
+  }).catch(error => {
+    console.log(error);
+    return false;
+  })
 };
 
 export const checkEmail = async (email, type) => {
@@ -195,29 +201,31 @@ export const insertAddress = async (
   status,
   userID,
 ) => {
-  const data = {
+  const ref = database().ref('addresses');
+  const newRef = ref.push();
+
+  newRef.set({
+    addressID: newRef.key,
     addressName: addressName,
     ward: ward,
     district: district,
     city: city,
     status: status,
-    userID: userID,
-  };
-  const res = await axiosInstance.post('/address/insert-address.php', data);
-  return res;
+    userID: userID
+  }).then(() => console.log('Address Inserted'))
+
+
+  return newRef;
 };
 
 export const updateAddressInfo = async (data, type, addressID, userID) => {
-  const data1 = {
+  const ref = database().ref('addresses/' + addressID);
+  const res = ref.update({
     data: data,
     type: type,
     addressID: addressID,
-    userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/address/update-address-info.php',
-    data1,
-  );
+    userID: userID
+  })
   return res;
 };
 
@@ -240,10 +248,10 @@ export const getUserCoupon = async userID => {
 
 // Favorite
 export const getUserFavorite = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post('/favorite/get-user-favorite.php', data);
+  const ref = database().ref('favorites');
+  const res = ref.orderByChild('userID').equalTo(userID).once('value').then(() => {
+    console.log('get success');
+  })
   return res;
 };
 
@@ -252,29 +260,22 @@ export const updateUserFavoriteStatus = async (
   userID,
   isFavorite,
 ) => {
-  const data = {
-    favoriteID: favoriteID,
-    userID: userID,
-    isFavorite: isFavorite,
-  };
-  const res = await axiosInstance.post(
-    '/favorite/update-favorite-status.php',
-    data,
-  );
-  return res;
+  const ref = database().ref('favorites/' + favoriteID);
+  return ref.update({
+    isFavorite: isFavorite
+  })
 };
 
 // Rating
 
 export const getUserAllRatings = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/rating/get-ratings-by-userid.php',
-    data,
-  );
-  return res;
+  return database.ref('ratings').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
+    let list = [];
+    snapshot.forEach(item => {
+      list = [...list, item];
+    })
+    return item;
+  })
 };
 
 export const updateUserRating = async (
@@ -285,56 +286,41 @@ export const updateUserRating = async (
   userID,
   productID,
 ) => {
-  const data = {
-    ratingID: ratingID,
+  return database().ref('ratings/' + ratingID).update({
     rating: rating,
     comment: comment,
     status: status,
-    userID: userID,
-    productID: productID,
-  };
-  const res = await axiosInstance.post('/rating/update-user-rating.php', data);
-  return res;
+  })
 };
 
 export const updateUserRatingStatus = async (ratingID, userID, status) => {
-  const data = {
-    ratingID: ratingID,
-    userID: userID,
+  return database().ref('ratings/' + ratingID).update({
     status: status,
-  };
-  const res = await axiosInstance.post(
-    '/rating/update-user-rating-status.php',
-    data,
-  );
-  return res;
+  })
 };
 
 export const getRatingImage = async () => {
-  const res = await axiosInstance.get('/ratingImage/get-all-rating-images.php');
-  return res;
+  return database.ref('ratingImages').once('value');
 };
 
 export const getRatingImageByRatingID = async ratingID => {
-  const data = {
-    ratingID: ratingID,
-  };
-  const res = await axiosInstance.post(
-    '/ratingImage/get-rating-images-by-rating-id.php',
-    data,
-  );
-  return res;
+  return database.ref('ratingImages').orderByChild('ratingID').equalTo(ratingID).once('value').then(snapshot => {
+    let list = [];
+    snapshot.forEach(item => {
+      list = [...list, item];
+    })
+    return list;
+  })
 };
 
 export const getUserNotification = async userID => {
-  const data = {
-    userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/notification/get-user-notifications.php',
-    data,
-  );
-  return res;
+  return database().ref('notifications').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
+    let list = [];
+    snapshot.forEach(item => {
+      list = [...list, item];
+    });
+    return list;
+  })
 };
 
 export const updateNotificationStatus = async (
@@ -342,29 +328,18 @@ export const updateNotificationStatus = async (
   userID,
   notificationID,
 ) => {
-  const data = {
-    status: status,
-    userID: userID,
-    notificationID: notificationID,
-  };
-  const res = await axiosInstance.post(
-    '/notification/update-notification-status.php',
-    data,
-  );
-  return res;
+  return database().ref('notifications/' + notificationID).update({
+    status: status
+  });
 };
 
 export const insertNotification = async (title, detail, userID) => {
-  const data = {
+  const ref = database().ref('notifications').push();
+  return ref.set({
     title: title,
     detail: detail,
     userID: userID,
-  };
-  const res = await axiosInstance.post(
-    '/notification/insert-notification.php',
-    data,
-  );
-  return res;
+  })
 };
 
 // User Order
@@ -395,7 +370,8 @@ export const insertUserOrder = async (
   userID,
   couponID,
 ) => {
-  const data = {
+  const ref = database.ref('orders');
+  ref.set({
     totalPrice: totalPrice,
     originalPrice: originalPrice,
     note: note,
@@ -405,23 +381,13 @@ export const insertUserOrder = async (
     addressID: addressID,
     userID: userID,
     couponID: couponID,
-  };
-  const res = await axiosInstance.post(
-    '/userOrder/insert-user-order.php',
-    data,
-  );
-  return res;
+  })
+  
+  return true;
 };
 
 export const getUserOrderDetail = async userOrderID => {
-  const data = {
-    userOrderID: userOrderID,
-  };
-  const res = await axiosInstance.post(
-    '/orderDetail/get-user-order-detail.php',
-    data,
-  );
-  return res;
+  return database().ref('userOrders/'+userOrderID).once('value');
 };
 
 export const insertUserOrderDetail = async (
@@ -429,16 +395,12 @@ export const insertUserOrderDetail = async (
   userOrderID,
   productID,
 ) => {
-  const data = {
+  const ref = database().ref('userOrders').push();
+  return ref.set({
     productQuantity: productQuantity,
     userOrderID: userOrderID,
     productID: productID,
-  };
-  const res = await axiosInstance.post(
-    '/orderDetail/insert-order-detail.php',
-    data,
-  );
-  return res;
+  })
 };
 
 export const getUserByUsername = async username => {
