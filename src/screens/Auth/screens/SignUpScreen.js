@@ -32,9 +32,9 @@ const SignUpScreen = ({navigation, route}) => {
         birthday,
       );
       console.warn(result);
-      if (result.response_code == 1) {
+      if (result == true) {
         if (userData != null) {
-          await onUpdateUserInfo(userData.picture, userData.email, 'source');
+          await onUpdateUserInfo(userData.picture, userData.email, 'IMAGE');
         }
 
         navigation.navigate('Sign In', {title: 'Sign Up success'});

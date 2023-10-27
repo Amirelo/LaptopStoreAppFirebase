@@ -21,6 +21,7 @@ import {
   insertNotification,
   insertAddress,
   updateAddressInfo,
+  updateUserImage,
 } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {checkLanguage} from '../../themes/languageTheme';
@@ -142,6 +143,10 @@ export const AuthContextProvider = ({children}) => {
           break;
         case 'PASSWORD':
           res = await updateUserPassword(data, email);
+          break;
+        case 'IMAGE':
+          res = await updateUserImage(data, email);
+          break;
       }
       console.log('On Update User Info success', res);
       return res;

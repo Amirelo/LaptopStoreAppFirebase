@@ -155,6 +155,23 @@ export const updateUserPassword = async (data, email) => {
     })
 };
 
+export const updateUserImage = async (data, email) => {
+  const ref = database().ref('users')
+
+  return await ref
+    .orderByChild('email')
+    .equalTo(email)
+    .once('value')
+    .then(snapshot => {
+      snapshot.forEach(item => {
+        item.ref.update({
+          imageLink: data
+        }).then(() => console.log('Updated'));
+      })
+      return true;
+    })
+};
+
 // Address
 export const getUserAddress = async username => {
   const data = {
