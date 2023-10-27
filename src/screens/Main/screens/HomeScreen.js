@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {FlatList, StatusBar} from 'react-native';
+import {FlatList} from 'react-native';
 import CustomView from '../../../components/atoms/CustomView';
 import {MainContext} from '../MainContext';
 import ProductHItem from '../../../components/molecules/ProductHItem';
@@ -12,8 +12,6 @@ import CustomBanner from '../../../components/molecules/CustomBanner';
 import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
 import {borderTheme} from '../../../themes/borderTheme';
 import {AuthContext} from '../../Auth/AuthContext';
-
-import database from '@react-native-firebase/database';
 
 const HomeScreen = ({navigation}) => {
   const [listProducts, setListProducts] = useState([]);
