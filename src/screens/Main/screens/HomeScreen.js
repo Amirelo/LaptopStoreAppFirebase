@@ -40,10 +40,13 @@ const HomeScreen = ({navigation}) => {
       .sort((a, b) => b.onSale.localeCompare(a.onSale))
       .slice(0, maxItem);
     setListBestBuy(bestBuy);
+
+    
   };
 
   useEffect(() => {
     initData();
+    
   }, []);
 
   return (

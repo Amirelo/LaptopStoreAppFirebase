@@ -221,17 +221,18 @@ export const getCartByEmail = async email => {
 };
 
 export const updateCartQuantity = async (cartID, quantity) => {
-  const data = {
-    cartID: cartID,
-    itemQuantity: quantity,
-  };
-  const res = await axiosInstance.post('/cart/update-cart-quantity.php', data);
-  return res;
+  const ref = database().ref('carts');
+  return ref.orderByChild('cartID').equalTo(cartID).then(snapshot=>{
+    snapshot.forEach(item => {
+      item.ref.update({
+        itemQuantity: quantity,
+      })
+    })
+  });
 };
 
 export const deleteCart = async cartID => {
   const ref = database().ref('carts');
-  console.log(cartID);
   return ref
     .orderByChild('cartID')
     .equalTo(cartID)
@@ -241,6 +242,9 @@ export const deleteCart = async cartID => {
         await item.ref.remove();
       });
       return true;
+    }).catch(error => {
+      console.log(error)
+      return false;
     });
 };
 
@@ -264,7 +268,7 @@ export const insertUserFavorite = async (userID, productID) => {
   const ref = database().ref('favorites').push();
   return ref
     .set({
-      favoriteID: ref.key + 1,
+      favoriteID: ref.key,
       isFavorite: true,
       productID: productID,
       userID: userID,
@@ -310,7 +314,9 @@ export const insertUserOrder = async (
   couponID,
   cardID,
 ) => {
-  const data = {
+  const ref = database().ref('userOrders').push();
+  return ref.set({
+    userOrderID: ref.key,
     totalPrice: totalPrice,
     originalPrice: originalPrice,
     note: note,
@@ -320,13 +326,9 @@ export const insertUserOrder = async (
     userID: userID,
     couponID: couponID,
     cardID: cardID,
-  };
-  const res = await axiosInstance.post(
-    '/userOrder/insert-user-order.php',
-    data,
-  );
-  return res;
+  })
 };
+
 export const insertOrderDetail = async (
   productQuantity,
   userOrderID,
@@ -334,33 +336,36 @@ export const insertOrderDetail = async (
   cartID,
 ) => {
   const data = {
+    
+  };
+  const ref = database().ref('orderDetails').push;
+  return ref.set({
+    orderDetailID: ref.key,
     productQuantity: productQuantity,
     userOrderID: userOrderID,
     productID: productID,
     cartID: cartID,
-  };
-  const res = await axiosInstance.post(
-    '/orderDetail/insert-order-detail.php',
-    data,
-  );
-  return res;
+  })
 };
 
 export const getProductRatingsByID = async productID => {
-  const data = {
-    productID: productID,
-  };
-  const res = await axiosInstance.post('/rating/get-product-ratings.php', data);
-  return res;
+  const ref = database().ref('ratings');
+  return ref.orderByChild('productID').equalTo(productID).then(snapshot=> {
+    let list = [];
+    snapshot.forEach(item => {
+      list = [...list, item];
+    })
+    return list;
+  })
 };
 
 export const insertUserRating = async (rating, comment, userID, productID) => {
-  const data = {
+  const ref = database().ref('ratings').push();
+  return ref.set({
+    ratingID: ref.key,
     rating: rating,
     comment: comment,
     userID: userID,
     productID: productID,
-  };
-  const res = await axiosInstance.post('/rating/insert-rating.php', data);
-  return res;
+  })
 };
