@@ -1,6 +1,4 @@
-import { axiosInstance } from '../../utils/axios';
 import database from '@react-native-firebase/database';
-import auth from '@react-native-firebase/auth';
 
 // User
 export const signIn = async (username, password) => {
@@ -47,22 +45,6 @@ export const signUp = async (
       birthday: birthday,
     })
     .then(() => console.log('User added'));
-};
-
-export const sendVerificationCode = async email => {
-  const actionCodeSettings = {
-    android: {
-      packageName: 'com.laptopstorefirebase',
-      installApp: true
-    }
-
-  }
-  auth().sendSignInLinkToEmail(email, actionCodeSettings).then(() => {
-    return true
-  }).catch(error => {
-    console.log(error);
-    return false;
-  })
 };
 
 export const checkEmail = async (email, type) => {
@@ -167,18 +149,6 @@ export const updateUserImage = async (data, email) => {
       })
       return true;
     })
-};
-
-// Address
-export const getUserAddress = async username => {
-  const data = {
-    username: username,
-  };
-  const res = await axiosInstance.post(
-    '/address/get-addresses-by-username.php',
-    data,
-  );
-  return res;
 };
 
 export const getAddressesByEmail = async email => {
@@ -415,14 +385,6 @@ export const insertUserOrderDetail = async (
     userOrderID: userOrderID,
     productID: productID,
   })
-};
-
-export const getUserByUsername = async username => {
-  const data = {
-    username: username,
-  };
-  const res = await axiosInstance.post('/user/get-user-by-username.php', data);
-  return res;
 };
 
 export const getUserByEmail = async email => {

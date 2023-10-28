@@ -1,15 +1,12 @@
 import React, {useState, createContext, useEffect} from 'react';
 import {
   checkEmail,
-  getUserByUsername,
-  sendVerificationCode,
   signIn,
   signUp,
   updateUserFullname,
   updateUserPhoneNumber,
   updateUserBirthday,
   updateUserPassword,
-  getUserAddress,
   getUserOrders,
   getUserOrderDetail,
   getUserCoupon,
@@ -106,16 +103,7 @@ export const AuthContextProvider = ({children}) => {
     setIsLoggedIn(false);
   };
 
-  const onSendVerificationCode = async email => {
-    try {
-      const res = await sendVerificationCode(email);
-      console.log('On Send Verification Code success', res);
-      return res;
-    } catch (error) {
-      console.log('On Send Verification Code error', error);
-      return null;
-    }
-  };
+
 
   const onCheckEmail = async (email, type) => {
     try {
@@ -156,17 +144,6 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserByUsername = async username => {
-    try {
-      const res = await getUserByUsername(username);
-      console.log('On Get User info success', res);
-      return res;
-    } catch (error) {
-      console.log('On Get User info error', error);
-      return null;
-    }
-  };
-
   const onGetUserByEmail = async email => {
     try {
       const res = await getUserByEmail(email);
@@ -174,17 +151,6 @@ export const AuthContextProvider = ({children}) => {
       return res;
     } catch (error) {
       console.log('On Get User info error', error);
-      return null;
-    }
-  };
-
-  const onGetUserAddress = async username => {
-    try {
-      const res = await getUserAddress(username);
-      console.log('On Get User Address success', res);
-      return res;
-    } catch (error) {
-      console.log('On Get User Address error', error);
       return null;
     }
   };
@@ -346,9 +312,7 @@ export const AuthContextProvider = ({children}) => {
         onSignIn,
         onSignUp,
         onSignOut,
-        onSendVerificationCode,
         onUpdateUserInfo,
-        onGetUserAddress,
         insertUserAddress,
         updateUserAddress,
         onCheckEmail,
@@ -356,7 +320,6 @@ export const AuthContextProvider = ({children}) => {
         onGetUserNotification,
         onUpdateUserNotificationStatus,
         onInsertNotification,
-        onGetUserByUsername,
         onGetUserOrder,
         onGetUserOrderDetail,
         onGetUserCoupon,
