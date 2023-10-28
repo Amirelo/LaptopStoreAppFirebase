@@ -1,9 +1,8 @@
 import React, {useContext, useState} from 'react';
 import * as images from '../../../assets/images';
 import {AuthContext} from '../AuthContext';
-import CustomView from '../../../components/atoms/CustomView';
+import { CustomView, CustomText } from '../../../components/atoms';
 import CustomInput from '../../../components/molecules/CustomInput';
-import CustomText from '../../../components/atoms/CustomText';
 import CustomButton from '../../../components/molecules/CustomButton';
 
 const ForgotPasswordScreen = ({navigation, route}) => {
@@ -26,7 +25,7 @@ const ForgotPasswordScreen = ({navigation, route}) => {
     }
     if (pass == confirmPass && pass != null) {
       let result = await onUpdateUserInfo(pass, email, type);
-      if (result.response_code == 1) {
+      if (result == true) {
         navigation.navigate('Sign In', {title: 'Change password success'});
       }
     }

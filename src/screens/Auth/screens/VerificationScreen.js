@@ -13,7 +13,7 @@ const VerificationScreen = ({ navigation, route }) => {
   const [error, setError] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const {onCheckEmail, language } =
+  const { onCheckEmail, language } =
     useContext(AuthContext);
   const { paramKey } = route.params;
 
@@ -22,10 +22,19 @@ const VerificationScreen = ({ navigation, route }) => {
     let checkEmailResult = await onCheckEmail(email, paramKey);
 
     if (checkEmailResult == true) {
-      navigation.navigate('Sign Up', {email: email});
-    } else {
-      setError('Email already registered');
+      if (paramKey == 'CHANGEPASSWORD') {
+        navigation.navigate('Forgot Password', { email: email, type: 'PASSWORD' });
+      } else {
+        setError('Email not found');
+      }
+    } else if (checkEmailResult == false) {
+      if (paramKey == 'SIGNUP') {
+        navigation.navigate('Sign Up', { email: email });
+      } else {
+        setError('Email already registered');
+      }
     }
+
     setIsDisabled(false);
   };
 
@@ -65,23 +74,25 @@ const VerificationScreen = ({ navigation, route }) => {
         marginTop={40}>
         {language.verify_button_send}
       </CustomButton>
-      <CustomButton
-        type={'tertiary'}
-        onPress={onSignInHerePressed}
-        disabled={isDisabled}>
-        <CustomView type={'row'} marginTop={24}>
-          <CustomText marginTop={0}>
-            {language.verify_button_signin_1}
-          </CustomText>
-          <CustomText
-            type={'highlight'}
-            textColor={'primary'}
-            textStyle={'normalBold'}
-            marginTop={0}>
-            {language.verify_button_signin_2}
-          </CustomText>
-        </CustomView>
-      </CustomButton>
+      {paramKey != 'CHANGEPASSWORD' ?
+        <CustomButton
+          type={'tertiary'}
+          onPress={onSignInHerePressed}
+          disabled={isDisabled}>
+          <CustomView type={'row'} marginTop={24}>
+            <CustomText marginTop={0}>
+              {language.verify_button_signin_1}
+            </CustomText>
+            <CustomText
+              type={'highlight'}
+              textColor={'primary'}
+              textStyle={'normalBold'}
+              marginTop={0}>
+              {language.verify_button_signin_2}
+            </CustomText>
+          </CustomView>
+        </CustomButton>
+        : <></>}
     </CustomView>
 
   );

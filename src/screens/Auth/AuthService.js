@@ -76,12 +76,9 @@ export const checkEmail = async (email, type) => {
       snapshot.forEach(item => {
         returnItem = item.val();
       });
-      if (
-        (returnItem == null && type == 'SIGNUP') ||
-        (returnItem != null && type == 'CHANGEPASSWORD')
-      ) {
+      if (returnItem != null){
         return true;
-      } else {
+      } else{
         return false;
       }
     });
