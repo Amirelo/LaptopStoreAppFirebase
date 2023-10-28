@@ -1,12 +1,13 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import * as images from '../../../assets/images';
-import {AuthContext} from '../AuthContext';
+import { AuthContext } from '../AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/CustomButton';
+import { CustomText } from '../../../components/atoms';
 
-const SignUpScreen = ({navigation, route}) => {
-  const {email, userData} = route.params;
+const SignUpScreen = ({ navigation, route }) => {
+  const { email, userData } = route.params;
 
   const [username, setUsername] = useState();
   const [fullName, setFullName] = useState();
@@ -14,15 +15,16 @@ const SignUpScreen = ({navigation, route}) => {
   const [confirmPassword, setConfirmPassword] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
   const [birthday, setBirthday] = useState();
-  const [error, setError] = useState(false);
 
-  const {onSignUp, onUpdateUserInfo, language} = useContext(AuthContext);
+  const [error, setError] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false)
+
+  const { onSignUp, onUpdateUserInfo, language, onCheckUsername } = useContext(AuthContext);
 
   const onConfirmPressed = async () => {
-    checkInput();
+    let allowSignUp = checkInput();
     console.warn(error);
-    if (!error) {
-      console.warn('Sign up');
+    if (error == '' && allowSignUp == true) {
       let result = await onSignUp(
         username,
         password,
@@ -37,28 +39,36 @@ const SignUpScreen = ({navigation, route}) => {
           await onUpdateUserInfo(userData.picture, userData.email, 'IMAGE');
         }
 
-        navigation.navigate('Sign In', {title: 'Sign Up success'});
+        navigation.navigate('Sign In', { title: 'Sign Up success' });
       } else {
-        navigation.navigate('Sign In', {title: 'Sign Up fail'});
+        navigation.navigate('Sign In', { title: 'Sign Up fail' });
       }
     }
   };
 
   const checkInput = () => {
-    if (
+    let allowed = false;
+    let checkUsername = onCheckUsername(username);
+    if (checkUsername == true) {
+      setError('Username already in use');
+    }
+    else if (
       username == null ||
       password == null ||
       confirmPassword == null ||
       phoneNumber == null ||
-      birthday == null ||
-      password != confirmPassword
+      birthday == null
+
     ) {
-      setError(true);
-      return true;
-    } else {
-      setError(false);
-      return false;
+      setError('Fields cannot be empty');
+    } else if (password != confirmPassword) {
+      setError('Passwords does not match')
     }
+    else {
+      setError('');
+      allowed = true;
+    }
+    return allowed;
   };
 
   return (
@@ -68,6 +78,7 @@ const SignUpScreen = ({navigation, route}) => {
         placeholder={language.placeholder_username}
         onChangeText={setUsername}
         marginTop={103}
+        disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_contact}
@@ -75,6 +86,7 @@ const SignUpScreen = ({navigation, route}) => {
         value={fullName}
         onChangeText={setFullName}
         marginTop={8}
+        disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_password}
@@ -82,6 +94,7 @@ const SignUpScreen = ({navigation, route}) => {
         marginTop={8}
         onChangeText={setPassword}
         type={'password'}
+        disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_password}
@@ -89,6 +102,7 @@ const SignUpScreen = ({navigation, route}) => {
         marginTop={8}
         onChangeText={setConfirmPassword}
         type={'password'}
+        disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_phone}
@@ -96,15 +110,19 @@ const SignUpScreen = ({navigation, route}) => {
         keyboardType={'numeric'}
         onChangeText={setPhoneNumber}
         marginTop={8}
+        disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_calendar}
         placeholder={language.placeholder_birthday}
         onChangeText={setBirthday}
         marginTop={8}
+        disabled={!isDisabled}
       />
 
-      <CustomButton type={'primary'} onPress={onConfirmPressed} marginTop={48}>
+      <CustomText marginTop={4} textColor={'err'} textStyle={'small'} >{error}</CustomText>
+
+      <CustomButton disabled={isDisabled} type={'primary'} onPress={onConfirmPressed} marginTop={48}>
         {language.signUp_button_confirm}
       </CustomButton>
     </CustomView>

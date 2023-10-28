@@ -19,6 +19,7 @@ import {
   insertAddress,
   updateAddressInfo,
   updateUserImage,
+  checkUserName,
 } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {checkLanguage} from '../../themes/languageTheme';
@@ -115,6 +116,15 @@ export const AuthContextProvider = ({children}) => {
       return null;
     }
   };
+
+  const onCheckUsername = async(username)=>{
+    try{
+      return await checkUserName(username);
+    } catch(error){
+      console.log('On Check Email error:', error);
+    }
+    
+  }
 
   const onUpdateUserInfo = async (data, email, type) => {
     try {
@@ -316,6 +326,7 @@ export const AuthContextProvider = ({children}) => {
         insertUserAddress,
         updateUserAddress,
         onCheckEmail,
+        onCheckUsername,
         checkSaveUser,
         onGetUserNotification,
         onUpdateUserNotificationStatus,

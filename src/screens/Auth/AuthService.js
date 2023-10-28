@@ -66,6 +66,19 @@ export const checkEmail = async (email, type) => {
     });
 };
 
+export const checkUserName = async(username) => {
+  const ref = database().ref('users');
+  return ref.once('value').then(snapshot=> {
+    let isUsed = false;
+    snapshot.forEach(item => {
+      if (item.username.toLowerCase() == username.toLowerCase()){
+        isUsed = true;
+      }
+    });
+    return isUsed;
+  })
+}
+
 export const updateUserFullname = async (data, email) => {
   const ref = database().ref('users')
 
