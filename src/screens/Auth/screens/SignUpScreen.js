@@ -22,6 +22,7 @@ const SignUpScreen = ({ navigation, route }) => {
   const { onSignUp, onUpdateUserInfo, language, onCheckUsername } = useContext(AuthContext);
 
   const onConfirmPressed = async () => {
+    isDisabled = true;
     let allowSignUp = checkInput();
     console.warn(error);
     if (error == '' && allowSignUp == true) {
@@ -32,7 +33,7 @@ const SignUpScreen = ({ navigation, route }) => {
         phoneNumber,
         fullName,
         birthday,
-      );
+      )
       console.warn(result);
       if (result == true) {
         if (userData != null) {
@@ -43,6 +44,8 @@ const SignUpScreen = ({ navigation, route }) => {
       } else {
         navigation.navigate('Sign In', { title: 'Sign Up fail' });
       }
+    } else{
+      isDisabled = false;
     }
   };
 
