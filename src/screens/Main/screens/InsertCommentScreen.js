@@ -24,7 +24,7 @@ const InsertCommentScreen = ({route, navigation}) => {
       const res = await onInsertUserRating(
         rating,
         comment,
-        userRes.data.userId,
+        userRes.userId,
         productID,
       );
       console.log(res);

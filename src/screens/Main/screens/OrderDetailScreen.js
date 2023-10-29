@@ -27,11 +27,11 @@ const OrderDetailScreen = ({route}) => {
     const orderDetailResult = await onGetUserOrderDetail(item.userOrderID);
     try {
       setProductList([]);
-      for (let index = 0; index < orderDetailResult.data.length; index++) {
+      for (let index = 0; index < orderDetailResult.length; index++) {
         const productResult = await onGetProductByID(
-          orderDetailResult.data[index].productID,
+          orderDetailResult[index].productID,
         );
-        setProductList(oldArr => [...oldArr, productResult.data[0]]);
+        setProductList(oldArr => [...oldArr, productResult[0]]);
       }
     } catch (error) {
       console.warn(error);

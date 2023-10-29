@@ -15,7 +15,7 @@ const ProductCommentScreen = ({navigation, route}) => {
 
   const initData = async () => {
     const res = await onGetProductRatingsByID(productID);
-    setComments(res.data);
+    setComments(res);
   };
 
   const onAddCommentPressed = () => {

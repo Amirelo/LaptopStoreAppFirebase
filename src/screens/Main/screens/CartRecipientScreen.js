@@ -23,14 +23,14 @@ const CartRecipientScreen = ({navigation, route}) => {
   const initData = async () => {
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
-    console.log(userInfo.data);
-    setFullName(userInfo.data.fullname);
-    setPhoneNumber(userInfo.data.phonenumber);
-    setUserID(userInfo.data.userId);
+    console.log(userInfo);
+    setFullName(userInfo.fullname);
+    setPhoneNumber(userInfo.phonenumber);
+    setUserID(userInfo.userId);
     const userAddress = await onGetAddressesByEmail(email);
-    setUserAddresses(userAddress.data);
-    setLocation(userAddress.data[0]);
-    console.log(userAddress.data);
+    setUserAddresses(userAddress);
+    setLocation(userAddress[0]);
+    console.log(userAddress);
   };
 
   const onContinueToCheckoutPressed = () => {

@@ -10,9 +10,9 @@ import {useNavigation} from '@react-navigation/native';
 const InsertCardScreen = ({route}) => {
   const {userInfo} = route.params;
   let data = null;
-  if (route.params.data) {
+  if (route.params) {
     console.log('found');
-    data = route.params.data;
+    data = route.params;
   }
   const {insertUserAddress, updateUserAddress, language} =
     useContext(AuthContext);
@@ -48,7 +48,7 @@ const InsertCardScreen = ({route}) => {
           status,
           userInfo.userId,
         ));
-    if (res.response_code == 1) {
+    if (res == true) {
       navigation.navigate('Account');
     }
   };

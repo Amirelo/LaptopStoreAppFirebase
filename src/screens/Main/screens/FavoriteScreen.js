@@ -20,13 +20,13 @@ const FavoriteScreen = ({navigation}) => {
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
-    if (favoriteRes != null) {
-      favoriteRes.data.map(async item => {
+    if (favoriteRes.length >0) {
+      favoriteRes.map(async item => {
         if (item.isFavorite != false) {
           const addRes = await onGetProductByID(item.productID);
 
-          if (addRes.response_code == 1) {
-            let prodItem = addRes.data[0];
+          if (addRes != null) {
+            let prodItem = addRes[0];
             console.log(prodItem);
             setListFavorites(prevState => [...prevState, prodItem]);
           }

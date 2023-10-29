@@ -13,9 +13,9 @@ const NotificationScreen = () => {
   const initData = async () => {
     let email = await AsyncStorage.getItem('email');
     let userRes = await onGetUserByEmail(email);
-    if (userRes.response_code == 1) {
-      let notiRes = await onGetUserNotification(userRes.data.userId);
-      setListNotification(notiRes.data);
+    if (userRes != null) {
+      let notiRes = await onGetUserNotification(userRes.userId);
+      setListNotification(notiRes);
     }
   };
 

@@ -46,7 +46,7 @@ const ProductDetailScreen = ({route}) => {
       setUser(userInfo);
     }
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
-    if (favoriteRes.response_code == 1) {
+    if (favoriteRes != null) {
       const productID = item.productID;
       favoriteRes.map(item => {
         if (item.productID == productID) {

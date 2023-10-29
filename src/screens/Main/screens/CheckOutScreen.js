@@ -32,11 +32,11 @@ const CheckOutScreen = ({navigation, route}) => {
       1,
     );
     console.log('Insert order result:', insertOrderResult);
-    if (insertOrderResult.response_code == 1) {
+    if (insertOrderResult == true) {
       for (let index = 0; index < cart.length; index++) {
         const insertOrderDetailResult = await onInsertOrderDetail(
           cart[index].itemQuantity,
-          insertOrderResult.data.userOrderID,
+          insertOrderResult.userOrderID,
           cart[index].productID,
           cart[index].cartID,
         );
