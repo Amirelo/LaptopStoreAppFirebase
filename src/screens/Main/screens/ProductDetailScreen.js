@@ -29,6 +29,7 @@ const ProductDetailScreen = ({route}) => {
   const [prodImages, setProdImages] = useState([]);
   const [itemOS, setitemOS] = useState({});
   const [itemFavorite, setItemFavorite] = useState();
+  const [isDisabled, setIsDisabled] = useState(false);
   const [user, setUser] = useState({});
 
   const getInitData = async () => {
@@ -46,6 +47,7 @@ const ProductDetailScreen = ({route}) => {
       setUser(userInfo);
     }
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
+    
     if (favoriteRes != null) {
       const productID = item.productID;
       favoriteRes.map(item => {
@@ -74,6 +76,7 @@ const ProductDetailScreen = ({route}) => {
   };
 
   const onFavoritePressed = async () => {
+    setIsDisabled(true)
     try {
       console.log('userID:', user.userID, 'productID:', item.productID);
       const favoriteResult = await onCheckUserFavorite(
@@ -88,6 +91,7 @@ const ProductDetailScreen = ({route}) => {
     } catch (error) {
       console.log(error);
     }
+    setIsDisabled(false)
   };
 
   const onUserReviewButtonPressed = () => {
@@ -135,12 +139,14 @@ const ProductDetailScreen = ({route}) => {
           <CustomText textStyle={'titleBold'}>{item.productName}</CustomText>
           {itemFavorite ? (
             <CustomButton
+              disabled={isDisabled}
               onPress={onFavoritePressed}
               type={'image'}
               source={images.ic_favorite_selected}
             />
           ) : (
             <CustomButton
+              disabled={isDisabled}
               onPress={onFavoritePressed}
               type={'image'}
               source={images.ic_favorite}
@@ -435,6 +441,7 @@ const ProductDetailScreen = ({route}) => {
         </CustomView>
 
         <CustomButton
+          disabled={isDisabled}
           onPress={onAddToCartPressed}
           type={'primary'}
           marginTop={32}>
@@ -442,6 +449,7 @@ const ProductDetailScreen = ({route}) => {
         </CustomButton>
 
         <CustomButton
+          disabled={isDisabled}
           onPress={onUserReviewButtonPressed}
           type={'primary'}
           backgroundColor={'warn'}

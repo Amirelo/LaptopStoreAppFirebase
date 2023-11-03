@@ -10,7 +10,7 @@ const Colors = {
     backgroundInputColor: '#E4DACB',
     imageBackgroundColor: '#D0C2AE',
     tabBarColor: '#ECE2D3',
-    tabBarActiveTintColor: '#ECE2D3',
+    tabBarActiveTintColor: '#967259',
     borderColor: '#ECE2D3',
     primaryColor: '#967259',
     primaryLightColor: '#EBF0FF',
