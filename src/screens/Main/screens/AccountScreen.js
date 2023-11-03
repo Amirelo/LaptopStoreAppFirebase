@@ -28,7 +28,7 @@ const AccountScreen = ({route, navigation}) => {
 
     const userAddress = await onGetAddressesByEmail(email);
     setUserAddresses(userAddress);
-    const userOrder = await onGetUserOrder(userInfo.userId);
+    const userOrder = await onGetUserOrder(userInfo.userID);
     setUserOrders(userOrder);
 
     setOrderInProgress(0);
@@ -38,10 +38,10 @@ const AccountScreen = ({route, navigation}) => {
       }
     });
 
-    const userCoupon = await onGetUserCoupon(userInfo.userId);
+    const userCoupon = await onGetUserCoupon(userInfo.userID);
     setUserPromoCodes(userCoupon);
 
-    const userCard = await onGetUserCards(userInfo.userId);
+    const userCard = await onGetUserCards(userInfo.userID);
     setUserCards(userCard);
   };
 
