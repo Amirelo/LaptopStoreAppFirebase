@@ -222,7 +222,7 @@ export const getCartByEmail = async email => {
 
 export const updateCartQuantity = async (cartID, quantity) => {
   const ref = database().ref('carts');
-  return ref.orderByChild('cartID').equalTo(cartID).then(snapshot=>{
+  return ref.orderByChild('cartID').equalTo(cartID).once('value').then(snapshot=>{
     snapshot.forEach(item => {
       item.ref.update({
         itemQuantity: quantity,
@@ -255,12 +255,7 @@ export const getUserFavorite = async userID => {
     .equalTo(userID)
     .once('value')
     .then(snapshot => {
-      let list = [];
-      snapshot.forEach(async item => {
-        console.log('Service item:', item);
-        list = [...list, item.val()];
-      });
-      return list;
+      return snapshot.val()
     });
 };
 
@@ -274,6 +269,7 @@ export const insertUserFavorite = async (userID, productID) => {
       userID: userID,
     })
     .then(() => {
+      console.log("Insert completed")
       return true;
     })
     .catch(error => {
@@ -295,7 +291,8 @@ export const checkUserFavorite = async (userID, productID) => {
           data = [...data, item.val()];
         }
       });
-      if (data != null) {
+      console.log('Favorite found or not:', data)
+      if (data[0] != null) {
         return true;
       } else {
         return insertUserFavorite(userID, productID);

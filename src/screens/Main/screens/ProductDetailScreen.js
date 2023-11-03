@@ -33,6 +33,7 @@ const ProductDetailScreen = ({ route }) => {
   const [user, setUser] = useState({});
 
   const getInitData = async () => {
+    console.log("---PRODUCTDETAILSCREEN:", item)
     const prodImagesResult = await onGetProductImagesByProductID(
       item.productID,
     );
@@ -47,11 +48,11 @@ const ProductDetailScreen = ({ route }) => {
       setUser(userInfo);
     }
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
-
+    console.log("favorite res", favoriteRes)
     if (favoriteRes != null) {
-      const productID = item.productID;
-      favoriteRes.map(item => {
-        if (item.productID == productID) {
+      favoriteRes.map(favoriteItem => {
+        if (favoriteItem != null && item.productID == favoriteItem.productID) {
+          console.log('favorite status:', item.isFavorite);
           setItemFavorite(item.isFavorite);
         }
       });
