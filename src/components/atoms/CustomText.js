@@ -13,6 +13,7 @@ const CustomText = ({
   maxLines,
   hasFlex,
   alignSelf,
+  width,
 }) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
@@ -25,6 +26,7 @@ const CustomText = ({
           : {color: colors.textColor},
         textStyle != null ? textTheme[`text_${textStyle}`] : {},
         marginTop != null ? {marginTop: marginTop} : {marginTop: 8},
+        width ? {width: width} : {},
         hasBox ? styles.box : {},
         hasFlex ? {flex: 1} : {},
         alignSelf ? {alignSelf: alignSelf, paddingStart: '5%'} : {},

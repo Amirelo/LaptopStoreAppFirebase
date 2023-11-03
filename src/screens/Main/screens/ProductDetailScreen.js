@@ -1,22 +1,22 @@
-import {FlatList} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
+import { FlatList } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
 import * as images from '../../../assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
-import {AuthContext} from '../../Auth/AuthContext';
-import {MainContext} from '../MainContext';
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../Auth/AuthContext';
+import { MainContext } from '../MainContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomImage from '../../../components/atoms/CustomImage';
 import CustomText from '../../../components/atoms/CustomText';
 import CustomButton from '../../../components/molecules/CustomButton';
-import {priceFormat} from '../../../utils/helper';
+import { priceFormat } from '../../../utils/helper';
 import { deviceWidth } from '../../../utils/helper';
 
-const ProductDetailScreen = ({route}) => {
+const ProductDetailScreen = ({ route }) => {
   const navigation = useNavigation();
-  const {item, itemProcessor, itemMemory, itemScreen, itemStorage} =
+  const { item, itemProcessor, itemMemory, itemScreen, itemStorage } =
     route.params;
-  const {onGetUserByEmail, language} = useContext(AuthContext);
+  const { onGetUserByEmail, language } = useContext(AuthContext);
 
   const {
     onInsertCart,
@@ -47,7 +47,7 @@ const ProductDetailScreen = ({route}) => {
       setUser(userInfo);
     }
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
-    
+
     if (favoriteRes != null) {
       const productID = item.productID;
       favoriteRes.map(item => {
@@ -95,7 +95,7 @@ const ProductDetailScreen = ({route}) => {
   };
 
   const onUserReviewButtonPressed = () => {
-    navigation.navigate('Product Comments', {productID: item.productID});
+    navigation.navigate('Product Comments', { productID: item.productID });
   };
 
   useEffect(() => {
@@ -117,13 +117,13 @@ const ProductDetailScreen = ({route}) => {
             justifyContent: 'space-between',
             gap: 16,
           }}
-          style={{alignSelf: 'center'}}
+          style={{ alignSelf: 'center' }}
           snapToAlignment="start"
           decelerationRate={'fast'}
           data={prodImages}
           initialNumToRender={3}
           keyExtractor={item => item.productImageID}
-          renderItem={({item}) => {
+          renderItem={({ item }) => {
             return (
               <CustomImage
                 width={deviceWidth}
@@ -136,7 +136,8 @@ const ProductDetailScreen = ({route}) => {
           }}
         />
         <CustomView type={'rowJustify90'} marginTop={40}>
-          <CustomText textStyle={'titleBold'}>{item.productName}</CustomText>
+          <CustomText width={'90%'} textStyle={'titleBold'}>{item.productName}</CustomText>
+          
           {itemFavorite ? (
             <CustomButton
               disabled={isDisabled}
