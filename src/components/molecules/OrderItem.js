@@ -37,9 +37,10 @@ const OrderItem = ({item, address}) => {
   };
 
   const initData = async () => {
+    console.log("---OrderItem:", item);
     setTotalItems(0);
-    const orderDetailResult = await onGetUserOrderDetail(item.userOrderID);
-    orderDetailResult.data.map(curItem => {
+    const orderDetailResult = await onGetUserOrderDetail(item.orderID);
+    orderDetailResult.map(curItem => {
       setTotalItems(prev => prev + curItem.productQuantity);
     });
   };
@@ -69,7 +70,7 @@ const OrderItem = ({item, address}) => {
         <CustomText textStyle={'normalBold'} hasFlex={true}>
           {language.order_text_orderNumber}
         </CustomText>
-        <CustomText hasFlex={true}>{item.userOrderID}</CustomText>
+        <CustomText hasFlex={true}>{item.orderID}</CustomText>
         <CustomText>{itemDate}</CustomText>
       </CustomView>
 

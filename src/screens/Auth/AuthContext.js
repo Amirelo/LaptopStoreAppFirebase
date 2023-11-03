@@ -264,9 +264,9 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserOrderDetail = async userOrderID => {
+  const onGetUserOrderDetail = async orderID => {
     try {
-      const res = await getUserOrderDetail(userOrderID);
+      const res = await getUserOrderDetail(orderID);
       console.log('On Get Order Detail success', res);
       return res;
     } catch (error) {

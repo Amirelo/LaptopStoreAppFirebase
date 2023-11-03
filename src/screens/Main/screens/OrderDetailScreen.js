@@ -24,7 +24,7 @@ const OrderDetailScreen = ({route}) => {
   console.log('Detail screen', address);
 
   const getData = async () => {
-    const orderDetailResult = await onGetUserOrderDetail(item.userOrderID);
+    const orderDetailResult = await onGetUserOrderDetail(item.orderID);
     try {
       setProductList([]);
       for (let index = 0; index < orderDetailResult.length; index++) {
@@ -54,7 +54,7 @@ const OrderDetailScreen = ({route}) => {
         <CustomText hasFlex={true}>
           {language.orderDetail_text_orderNumber}
         </CustomText>
-        <CustomText hasFlex={true}>{item.userOrderID}</CustomText>
+        <CustomText hasFlex={true}>{item.orderID}</CustomText>
       </CustomView>
 
       <CustomView type={'rowJustify90'}>

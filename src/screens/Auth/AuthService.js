@@ -58,20 +58,20 @@ export const checkEmail = async (email, type) => {
       snapshot.forEach(item => {
         returnItem = item.val();
       });
-      if (returnItem != null){
+      if (returnItem != null) {
         return true;
-      } else{
+      } else {
         return false;
       }
     });
 };
 
-export const checkUserName = async(username) => {
+export const checkUserName = async (username) => {
   const ref = database().ref('users');
-  return ref.once('value').then(snapshot=> {
+  return ref.once('value').then(snapshot => {
     let isUsed = false;
     snapshot.forEach(item => {
-      if (item.username.toLowerCase() == username.toLowerCase()){
+      if (item.username.toLowerCase() == username.toLowerCase()) {
         isUsed = true;
       }
     });
@@ -379,23 +379,31 @@ export const insertUserOrder = async (
     userID: userID,
     couponID: couponID,
   })
-  
+
   return true;
 };
 
-export const getUserOrderDetail = async userOrderID => {
-  return database().ref('userOrders/'+userOrderID).once('value');
+export const getUserOrderDetail = async orderID => {
+  const res = await database().ref('orderDetails').orderByChild('orderID').equalTo(orderID).once('value').then(snapshot => {
+    list = []
+    snapshot.forEach(item => {
+      list = [...list, item.val()]
+    })
+    return list;
+  });
+  console.log('order detail res:', res);
+  return res;
 };
 
 export const insertUserOrderDetail = async (
   productQuantity,
-  userOrderID,
+  orderID,
   productID,
 ) => {
-  const ref = database().ref('userOrders').push();
+  const ref = database().ref('orders').push();
   return ref.set({
     productQuantity: productQuantity,
-    userOrderID: userOrderID,
+    orderID: orderID,
     productID: productID,
   })
 };
