@@ -15,7 +15,7 @@ const Colors = {
     primaryColor: '#967259',
     primaryLightColor: '#EBF0FF',
     errColor: '#F71B38',
-    warnColor: '#B29784',
+    warnColor: '#C4C805',
     successColor: '#03B700',
     processColor: '#0F01B5',
   },
