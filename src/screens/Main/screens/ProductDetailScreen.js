@@ -51,9 +51,11 @@ const ProductDetailScreen = ({ route }) => {
     console.log("favorite res", favoriteRes)
     if (favoriteRes != null) {
       favoriteRes.map(favoriteItem => {
+        console.log(item.productID)
+        console.log(favoriteItem.productID)
         if (favoriteItem != null && item.productID == favoriteItem.productID) {
-          console.log('favorite status:', item.isFavorite);
-          setItemFavorite(item.isFavorite);
+          console.log('favorite status:', favoriteItem.isFavorite);
+          setItemFavorite(favoriteItem.isFavorite);
         }
       });
     }

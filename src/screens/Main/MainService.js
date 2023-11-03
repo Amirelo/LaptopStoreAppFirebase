@@ -255,7 +255,11 @@ export const getUserFavorite = async userID => {
     .equalTo(userID)
     .once('value')
     .then(snapshot => {
-      return snapshot.val()
+      let list = []
+      snapshot.forEach(item => {
+        list = [...list, item.val()];
+      })
+      return list;
     });
 };
 
