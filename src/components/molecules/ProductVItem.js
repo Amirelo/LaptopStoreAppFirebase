@@ -21,6 +21,7 @@ const ProductVItem = ({ data }) => {
   const [itemMemory, setItemMemory] = useState();
   const [itemScreen, setitemScreen] = useState();
   const [itemStorage, setitemStorage] = useState();
+  const [isDisabled, setIsDisabled] = useState();
 
   const onProductPressed = () => {
     navigation.navigate('Product Detail', {
@@ -33,6 +34,7 @@ const ProductVItem = ({ data }) => {
   };
 
   const getInitData = async () => {
+    setIsDisabled(true);
     const processor = await onGetProductProcessor(data.processorID);
     console.log(processor);
     setItemProcessor(processor);
@@ -45,6 +47,8 @@ const ProductVItem = ({ data }) => {
 
     const storage = await onGetProductStorage(data.storageID);
     setitemStorage(storage);
+
+    setIsDisabled(false);
   };
 
   useEffect(() => {
@@ -58,6 +62,7 @@ const ProductVItem = ({ data }) => {
       backgroundColor={'backgroundInput'}
       borderStyle={borderTheme.textInput}
       type={'rowJustify90Screen'}
+      disabled={isDisabled}
       paddingVertical={8}>
       <CustomImage
         marginTop={0}

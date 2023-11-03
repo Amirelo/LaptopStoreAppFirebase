@@ -26,6 +26,7 @@ const ProductHItem = ({data}) => {
   const [itemMemory, setItemMemory] = useState();
   const [itemScreen, setitemScreen] = useState();
   const [itemStorage, setitemStorage] = useState();
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
@@ -41,6 +42,7 @@ const ProductHItem = ({data}) => {
   };
 
   const getInitData = async () => {
+    setIsDisabled(true);
     const processor = await onGetProductProcessor(data.processorID);
     setItemProcessor(processor);
 
@@ -52,6 +54,7 @@ const ProductHItem = ({data}) => {
 
     const storage = await onGetProductStorage(data.storageID);
     setitemStorage(storage);
+    setIsDisabled(false);
   };
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -85,6 +88,7 @@ const ProductHItem = ({data}) => {
         },
         borderTheme.textInput,
       ]}
+      disabled = {isDisabled}
       onPress={onProductPressed}
       onPressIn={fadePress}>
       <Animated.View
