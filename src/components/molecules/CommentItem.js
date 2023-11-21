@@ -1,9 +1,9 @@
-import {View, Text} from 'react-native';
 import React from 'react';
 import {CustomText, CustomView} from '../atoms';
 import {borderTheme} from '../../themes/borderTheme';
 
 const CommentItem = ({data}) => {
+  console.log('data:', data)
   return (
     <CustomView
       type={'tab'}

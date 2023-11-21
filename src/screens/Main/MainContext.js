@@ -227,7 +227,7 @@ export const MainContextProvider = props => {
   const onUpdateCartQuantity = async (cartID, quantity) => {
     try {
       const res = await updateCartQuantity(cartID, quantity);
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On update cart quantity error', error);
       return null;
@@ -269,7 +269,7 @@ export const MainContextProvider = props => {
         cardID,
         cartID,
       );
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On insert user order error', error);
       return null;
@@ -289,7 +289,7 @@ export const MainContextProvider = props => {
         productID,
         cartID,
       );
-      return res.data;
+      return res;
     } catch (error) {
       console.log('On insert order detail error', error);
       return null;
@@ -299,9 +299,10 @@ export const MainContextProvider = props => {
   const onGetProductRatingsByID = async productID => {
     try {
       const res = await getProductRatingsByID(productID);
-      return res.data;
+      console.log('On get product rating by id', res);
+      return res;
     } catch (error) {
-      console.log('On delete cart error', error);
+      console.log('On get product rating by id error', error);
       return null;
     }
   };
@@ -309,9 +310,9 @@ export const MainContextProvider = props => {
   const onInsertUserRating = async (rating, comment, userID, productID) => {
     try {
       const res = await insertUserRating(rating, comment, userID, productID);
-      return res.data;
+      return res;
     } catch (error) {
-      console.log('On delete cart error', error);
+      console.log('onInsertUserRating error', error);
       return null;
     }
   };

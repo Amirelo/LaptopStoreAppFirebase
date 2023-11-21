@@ -351,10 +351,10 @@ export const insertOrderDetail = async (
 
 export const getProductRatingsByID = async productID => {
   const ref = database().ref('ratings');
-  return ref.orderByChild('productID').equalTo(productID).then(snapshot=> {
+  return ref.orderByChild('productID').equalTo(productID).once('value').then(snapshot=> {
     let list = [];
     snapshot.forEach(item => {
-      list = [...list, item];
+      list = [...list, item.val()];
     })
     return list;
   })

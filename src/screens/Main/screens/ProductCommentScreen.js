@@ -1,25 +1,26 @@
-import {View, Text, FlatList} from 'react-native';
-import React, {useContext, useEffect, useState} from 'react';
-import {CustomText, CustomView} from '../../../components/atoms';
-import {MainContext} from '../MainContext';
-import {deviceWidth} from '../../../utils/helper';
+import { View, Text, FlatList } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { CustomText, CustomView } from '../../../components/atoms';
+import { MainContext } from '../MainContext';
+import { deviceWidth } from '../../../utils/helper';
 import CommentItem from '../../../components/molecules/CommentItem';
 import CustomButton from '../../../components/molecules/CustomButton';
-import {AuthContext} from '../../Auth/AuthContext';
+import { AuthContext } from '../../Auth/AuthContext';
 
-const ProductCommentScreen = ({navigation, route}) => {
-  const {onGetProductRatingsByID} = useContext(MainContext);
-  const {language} = useContext(AuthContext);
-  const {productID} = route.params;
-  const [comments, setComments] = useState({});
+const ProductCommentScreen = ({ navigation, route }) => {
+  const { onGetProductRatingsByID } = useContext(MainContext);
+  const { language } = useContext(AuthContext);
+  const { productID } = route.params;
+  const [comments, setComments] = useState([]);
 
   const initData = async () => {
     const res = await onGetProductRatingsByID(productID);
+    console.log(res)
     setComments(res);
   };
 
   const onAddCommentPressed = () => {
-    navigation.navigate('New Comment', {productID: productID});
+    navigation.navigate('New Comment', { productID: productID });
   };
 
   useEffect(() => {
@@ -31,12 +32,12 @@ const ProductCommentScreen = ({navigation, route}) => {
       <FlatList
         width={deviceWidth}
         marginTop={32}
-        contentContainerStyle={{gap: 16, alignItems: 'center'}}
+        contentContainerStyle={{ gap: 16, alignItems: 'center' }}
         showsHorizontalScrollIndicator={false}
         data={comments}
         initialNumToRender={3}
         keyExtractor={item => item.ratingID}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return <CommentItem data={item} />;
         }}
       />
