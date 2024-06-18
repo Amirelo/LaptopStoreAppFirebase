@@ -9,7 +9,7 @@ import CustomView from '../../../components/atoms/CustomView';
 import CustomImage from '../../../components/atoms/CustomImage';
 import CustomText from '../../../components/atoms/CustomText';
 import CustomButton from '../../../components/molecules/CustomButton';
-import { priceFormat } from '../../../utils/helper';
+import { displayMessage, priceFormat } from '../../../utils/helper';
 import { deviceWidth } from '../../../utils/helper';
 
 const ProductDetailScreen = ({ route }) => {
@@ -62,6 +62,7 @@ const ProductDetailScreen = ({ route }) => {
   };
 
   const onAddToCartPressed = async () => {
+    setIsDisabled(true)
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
     if (userInfo != null) {
@@ -71,8 +72,10 @@ const ProductDetailScreen = ({ route }) => {
         item.productID,
       );
       if (insertCartResult == true) {
+        displayMessage("Add to cart success")
         navigation.goBack();
       } else {
+        displayMessage("Something wrong happen")
         console.log('Something wrong happen:', insertCartResult);
       }
     }

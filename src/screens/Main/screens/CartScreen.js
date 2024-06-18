@@ -48,6 +48,7 @@ const CartScreen = ({navigation}) => {
   };
 
   const getData = async () => {
+    setData([])
     let email = await AsyncStorage.getItem('email');
     const cartData = await onGetCartByEmail(email);
     console.log('cart data:', cartData);
@@ -110,7 +111,7 @@ const CartScreen = ({navigation}) => {
           {priceFormat(totalPrice)}
         </CustomText>
       </CustomView>
-      <CustomButton type={'primary'} marginTop={32} onPress={onCheckOutPressed}>
+      <CustomButton disabled={data.length <= 0} type={'primary'} marginTop={32} onPress={onCheckOutPressed}>
         {language.cart_button_order}
       </CustomButton>
       <CustomText />

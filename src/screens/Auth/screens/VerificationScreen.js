@@ -7,6 +7,7 @@ import CustomText from '../../../components/atoms/CustomText';
 import { textTheme } from '../../../themes/textTheme';
 import CustomImage from '../../../components/atoms/CustomImage';
 import CustomView from '../../../components/atoms/CustomView';
+import { displayMessage, testEmailFormat } from '../../../utils/helper';
 
 const VerificationScreen = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
@@ -19,26 +20,35 @@ const VerificationScreen = ({ navigation, route }) => {
 
   const onSendPressed = async () => {
     setIsDisabled(true);
-    let checkEmailResult = await onCheckEmail(email, paramKey);
-
-    if (checkEmailResult == true) {
-      if (paramKey == 'CHANGEPASSWORD') {
-        navigation.navigate('Forgot Password', { email: email, type: 'PASSWORD' });
-      } else {
-        setError('Email not found');
+    if (email.length !=0 && testEmailFormat() == true){
+      let checkEmailResult = await onCheckEmail(email, paramKey);
+      console.log("Check email result: "+checkEmailResult)
+      if (checkEmailResult == true) {
+        if (paramKey == 'CHANGEPASSWORD') {
+          navigation.navigate('Forgot Password', { email: email, type: 'PASSWORD' });
+        } else {
+          
+          displayMessage("Email already registered")
+          setError('Email already registered');
+        }
+      } else if (checkEmailResult == false) {
+        if (paramKey == 'SIGNUP') {
+          navigation.navigate('Sign Up', { email: email });
+        } else {
+          displayMessage("Email not found")
+          setError('Email not found');
+        }
       }
-    } else if (checkEmailResult == false) {
-      if (paramKey == 'SIGNUP') {
-        navigation.navigate('Sign Up', { email: email });
-      } else {
-        setError('Email already registered');
-      }
+    } else{
+      displayMessage("Fields cannot be empty")
     }
+    
 
     setIsDisabled(false);
   };
 
   const onSignInHerePressed = () => {
+
     navigation.navigate('Sign In');
   };
 

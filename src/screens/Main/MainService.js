@@ -1,5 +1,5 @@
 import {axiosInstance} from '../../utils/axios';
-import database from '@react-native-firebase/database';
+import database, {increment} from '@react-native-firebase/database';
 // Product
 export const getAllProduct = async () => {
   const ref = database().ref('products');
@@ -224,8 +224,9 @@ export const updateCartQuantity = async (cartID, quantity) => {
   const ref = database().ref('carts');
   return ref.orderByChild('cartID').equalTo(cartID).once('value').then(snapshot=>{
     snapshot.forEach(item => {
+      console.log("Item found: ", item)
       item.ref.update({
-        itemQuantity: quantity,
+        itemQuantity: increment(quantity),
       })
     })
   });
@@ -339,13 +340,12 @@ export const insertOrderDetail = async (
   const data = {
     
   };
-  const ref = database().ref('orderDetails').push;
+  const ref = database().ref('orderDetails').push();
   return ref.set({
     orderDetailID: ref.key,
     productQuantity: productQuantity,
     userOrderID: userOrderID,
     productID: productID,
-    cartID: cartID,
   })
 };
 

@@ -24,6 +24,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {checkLanguage} from '../../themes/languageTheme';
 import {setThemeColors} from '../../themes/colorTheme';
+import AddressModel from '../../models/AddressModel';
 
 export const AuthContext = createContext();
 
@@ -58,7 +59,7 @@ export const AuthContextProvider = ({children}) => {
   const onSignIn = async (username, password) => {
     try {
       const res = await signIn(username, password);
-      console.warn('On Sign In Result: ', res);
+      console.log('On Sign In Result: ', res);
       if (res != null) {
         setIsLoggedIn(true);
         return res;
@@ -201,9 +202,10 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const updateUserAddress = async (data, type, addressID, userID) => {
+  const updateUserAddress = async (address) => {
     try {
-      const res = await updateAddressInfo(data, type, addressID, userID);
+      
+      const res = await updateAddressInfo(address);
       console.log('On Update User Address success', res);
       return res;
     } catch (error) {
@@ -225,20 +227,18 @@ export const AuthContextProvider = ({children}) => {
 
   const onUpdateUserNotificationStatus = async (
     status,
-    userID,
     notificationID,
   ) => {
     try {
       const res = await updateNotificationStatus(
         status,
-        userID,
         notificationID,
       );
       console.log('On Update User Notification success', res);
-      return res;
+      return true;
     } catch (error) {
       console.log('On Update User Notification error', error);
-      return null;
+      return false;
     }
   };
 

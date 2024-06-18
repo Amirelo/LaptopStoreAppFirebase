@@ -1,13 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as images from '../../../assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AuthContext} from '../../Auth/AuthContext';
+import { AuthContext } from '../../Auth/AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomButton from '../../../components/molecules/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import LocationOptions from '../../../components/molecules/LocationOptions';
+import { displayMessage } from '../../../utils/helper';
 
-const CartRecipientScreen = ({navigation, route}) => {
+const CartRecipientScreen = ({ navigation, route }) => {
   const [location, setLocation] = useState();
   const [showLocation, setShowLocation] = useState(false);
   const [userAddresses, setUserAddresses] = useState([]);
@@ -16,9 +17,11 @@ const CartRecipientScreen = ({navigation, route}) => {
   const [note, setNote] = useState('');
   const [userID, setUserID] = useState();
 
-  const {onGetAddressesByEmail, onGetUserByEmail, language} =
+  const [isDisabled, setIsDisabled] = React.useState(true)
+
+  const { onGetAddressesByEmail, onGetUserByEmail, language } =
     useContext(AuthContext);
-  const {totalPrice, cart} = route.params;
+  const { totalPrice, cart } = route.params;
 
   const initData = async () => {
     let email = await AsyncStorage.getItem('email');
@@ -31,18 +34,33 @@ const CartRecipientScreen = ({navigation, route}) => {
     setUserAddresses(userAddress);
     setLocation(userAddress[0]);
     console.log(userAddress);
+    setIsDisabled(false)
   };
 
+  const checkFields = () => {
+    let status = true
+    if (location == null || location == "" ||
+      fullName == null || fullName == "" ||
+      phoneNumber == null || phoneNumber == "") {
+      displayMessage("Fields cannot be empty")
+      status = false
+    }
+    return status
+  }
+
   const onContinueToCheckoutPressed = () => {
-    navigation.navigate('Checkout', {
-      location: location,
-      fullName: fullName,
-      phoneNumber: phoneNumber,
-      totalPrice: totalPrice,
-      note: note,
-      userID: userID,
-      cart: cart,
-    });
+    if (checkFields() == true) {
+      navigation.navigate('Checkout', {
+        location: location,
+        fullName: fullName,
+        phoneNumber: phoneNumber,
+        totalPrice: totalPrice,
+        note: note,
+        userID: userID,
+        cart: cart,
+      });
+    }
+
   };
 
   const onLocationPressed = () => {
@@ -65,18 +83,19 @@ const CartRecipientScreen = ({navigation, route}) => {
   return (
     <CustomView>
       <CustomButton
+        disabled={isDisabled}
         onPress={onLocationPressed}
         type={'social'}
         source={images.ic_arrow_down}
         marginTop={103}>
         {location
           ? location.addressName +
-            ', ' +
-            location.ward +
-            ', ' +
-            location.district +
-            ', ' +
-            location.city
+          ', ' +
+          location.ward +
+          ', ' +
+          location.district +
+          ', ' +
+          location.city
           : 'Location'}
       </CustomButton>
       <CustomInput
@@ -101,6 +120,7 @@ const CartRecipientScreen = ({navigation, route}) => {
         source={images.ic_description}
       />
       <CustomButton
+        disabled={isDisabled}
         type={'primary'}
         onPress={onContinueToCheckoutPressed}
         marginTop={24}>

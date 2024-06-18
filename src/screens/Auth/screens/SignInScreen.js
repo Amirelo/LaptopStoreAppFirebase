@@ -10,6 +10,7 @@ import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {updateUserInfo} from '../AuthService';
 import {checkLanguage, useLanguage} from '../../../themes/languageTheme';
+import { displayMessage } from '../../../utils/helper';
 
 const SignInScreen = ({navigation, route}) => {
   const [username, setUsername] = useState('');
@@ -33,12 +34,14 @@ const SignInScreen = ({navigation, route}) => {
   const onSignInPress = async () => {
     setIsDisabled(true);
     if (signInCheck() === true) {
-      console.warn(signInCheck());
+      console.log(signInCheck());
       const result = await onSignIn(username, password);
       if (result != null && result.accountStatus !== 0) {
         setError('');
         await AsyncStorage.setItem('email', result.email);
+        displayMessage("Login Successful")
       } else {
+        displayMessage(language.err_signin_wrong)
         setError(language.err_signin_wrong);
       }
     }
@@ -51,15 +54,14 @@ const SignInScreen = ({navigation, route}) => {
   };
 
   const signInCheck = () => {
-    if (username.length === 0) {
+    var status = true
+    if (username.length === 0 || password.length ===0){
+      displayMessage(language.err_empty);
       setError(language.err_empty);
-      return false;
+      status = false;
     }
-    if (password.length === 0) {
-      setError(language.err_empty);
-      return false;
-    }
-    return true;
+    console.log("Status:" + status)
+    return status;
   };
 
   const onToSignUpPress = () => {
@@ -94,6 +96,7 @@ const SignInScreen = ({navigation, route}) => {
         onSocialSignInPress(userInfo.user.email);
       }
     } catch (error) {
+      displayMessage("Error Signing In with Google")
       console.log(error);
     }
   };

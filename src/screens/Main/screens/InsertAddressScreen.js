@@ -1,52 +1,48 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/CustomButton';
-import {AuthContext} from '../../Auth/AuthContext';
+import { AuthContext } from '../../Auth/AuthContext';
 import OptionsButton from '../../../components/molecules/OptionsButton';
-import {CustomText} from '../../../components/atoms';
-import {useNavigation} from '@react-navigation/native';
+import { CustomText } from '../../../components/atoms';
+import { useNavigation } from '@react-navigation/native';
+import AddressModel from '../../../models/AddressModel';
 
-const InsertAddressScreen = ({route}) => {
-  const {userInfo} = route.params;
-  let data = null;
-  if (route.params) {
-    console.log('found');
-    data = route.params;
-  }
-  const {insertUserAddress, updateUserAddress, language} = useContext(AuthContext);
-  const [addressName, setAddressName] = useState(data ? data.addressName : '');
-  const [ward, setWard] = useState(data ? data.ward : '');
-  const [district, setDistrict] = useState(data ? data.district : '');
-  const [city, setCity] = useState(data ? data.city : '');
-  const [status, setStatus] = useState(data ? data.status : 2);
+const InsertAddressScreen = ({ route }) => {
+  const { userInfo } = route.params;
+  const [data, setData] = React.useState()
+
+  const { insertUserAddress, updateUserAddress, language } = useContext(AuthContext);
+  const [addressName, setAddressName] = useState('');
+  const [ward, setWard] = useState('');
+  const [district, setDistrict] = useState('');
+  const [city, setCity] = useState('');
+  const [status, setStatus] = useState(2);
   const [isDisabled, setIsDisabled] = useState(false);
   const [showStatusOption, setShowStatusOption] = useState(false);
   const navigation = useNavigation();
 
   const addressStatusArr = [
-    {status: language.arr_status_address_0, color: 'err'},
-    {status: language.arr_status_address_1, color: 'primary'},
-    {status: language.arr_status_address_2, color: 'text'},
+    { status: language.arr_status_address_0, color: 'err' },
+    { status: language.arr_status_address_1, color: 'primary' },
+    { status: language.arr_status_address_2, color: 'text' },
   ];
 
   const insertAddress = async () => {
+    address = new AddressModel(data.addressID, addressName,ward,district,city,status,data.userID)
     let res = null;
     data
       ? (res = await updateUserAddress(
-          status,
-          'STATUS',
-          data.addressID,
-          userInfo.userId,
-        ))
+        address
+      ))
       : (res = await insertUserAddress(
-          addressName,
-          ward,
-          district,
-          city,
-          status,
-          userInfo.userId,
-        ));
+        addressName,
+        ward,
+        district,
+        city,
+        status,
+        userInfo.userId,
+      ));
     console.log(res);
     if (res == true) {
       navigation.navigate('Account');
@@ -57,6 +53,18 @@ const InsertAddressScreen = ({route}) => {
     setStatus(index);
     setShowStatusOption(false);
   };
+
+  React.useEffect(() => {
+    if (route.params?.data) {
+      console.log('found: ', route.params.data);
+      setData(route.params.data)
+      setAddressName(route.params.data.addressName)
+      setWard(route.params.data.ward)
+      setDistrict(route.params.data.district)
+      setCity(route.params.data.city)
+      setStatus(route.params.data.status)
+    }
+  }, [])
 
   return (
     <CustomView>

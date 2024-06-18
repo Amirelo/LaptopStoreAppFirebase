@@ -5,6 +5,7 @@ import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/CustomButton';
 import { CustomText } from '../../../components/atoms';
+import { displayMessage } from '../../../utils/helper';
 
 const SignUpScreen = ({ navigation, route }) => {
   const { email, userData } = route.params;
@@ -14,7 +15,7 @@ const SignUpScreen = ({ navigation, route }) => {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
-  const [birthday, setBirthday] = useState();
+  const [birthday, setBirthday] = useState('');
 
   const [error, setError] = useState('');
   const [isDisabled, setIsDisabled] = useState(false)
@@ -37,9 +38,9 @@ const SignUpScreen = ({ navigation, route }) => {
       console.warn(result);
       if (result == true) {
         if (userData != null) {
+          displayMessage("User Info updated")
           await onUpdateUserInfo(userData.picture, userData.email, 'IMAGE');
         }
-
         navigation.navigate('Sign In', { title: 'Sign Up success' });
       } else {
         navigation.navigate('Sign In', { title: 'Sign Up fail' });
@@ -53,6 +54,7 @@ const SignUpScreen = ({ navigation, route }) => {
     let allowed = false;
     let checkUsername = onCheckUsername(username);
     if (checkUsername == true) {
+      displayMessage("Username already in use")
       setError('Username already in use');
     }
     else if (
@@ -63,8 +65,10 @@ const SignUpScreen = ({ navigation, route }) => {
       birthday == null
 
     ) {
+      displayMessage('Fields cannot be empty');
       setError('Fields cannot be empty');
     } else if (password != confirmPassword) {
+      displayMessage('Passwords does not match')
       setError('Passwords does not match')
     }
     else {
@@ -117,8 +121,17 @@ const SignUpScreen = ({ navigation, route }) => {
       />
       <CustomInput
         source={images.ic_calendar}
-        placeholder={language.placeholder_birthday}
-        onChangeText={setBirthday}
+        value={birthday}
+        placeholder={"YYYY-MM-dd"}
+        onChangeText={(text)=>{
+          console.log(text + ' ' + text.length)
+          if(text.length == 4 && text.length > birthday.length){
+            setBirthday(text+'-')
+          } else if (text.length== 7 && text.length > birthday.length){
+            setBirthday(text+'-')
+          }else{
+            setBirthday(text)
+          }}}
         marginTop={8}
         disabled={!isDisabled}
       />

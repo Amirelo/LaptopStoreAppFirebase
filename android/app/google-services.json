@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "218886715577",
+    "firebase_url": "https://laptop-store-1a76e-default-rtdb.firebaseio.com",
+    "project_id": "laptop-store-1a76e",
+    "storage_bucket": "laptop-store-1a76e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218886715577:android:6ae5c0ce1035d5d5940368",
+        "android_client_info": {
+          "package_name": "com.laptopstorefirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218886715577-g16mnik83drbus51sjjrdduiftdnor8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laptopstorefirebase",
+            "certificate_hash": "12c389949458568135f4d0692be615d5a3021f6e"
+          }
+        },
+        {
+          "client_id": "218886715577-q5seoadl53c438hcu1lshit79466nrbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD47Ax6DdQf4CANzsrVEHQ-M56mATX9CJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218886715577-q5seoadl53c438hcu1lshit79466nrbr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,16 +17,18 @@ const FavoriteScreen = ({navigation}) => {
   };
 
   const getInitData = async () => {
+    setListFavorites([])
     let email = await AsyncStorage.getItem('email');
     const userInfo = await onGetUserByEmail(email);
     const favoriteRes = await onGetUserFavorite(userInfo.userID);
+    console.log("Favorite res: ", favoriteRes)
     if (favoriteRes.length >0) {
       favoriteRes.map(async item => {
         if (item.isFavorite != false) {
           const addRes = await onGetProductByID(item.productID);
 
           if (addRes != null) {
-            let prodItem = addRes[0];
+            let prodItem = addRes;
             console.log(prodItem);
             setListFavorites(prevState => [...prevState, prodItem]);
           }
@@ -41,6 +43,7 @@ const FavoriteScreen = ({navigation}) => {
 
   return (
     <CustomView scrollable={true}>
+      {listFavorites.length > 0 ?
       <FlatList
         width={'100%'}
         height={'100%'}
@@ -59,7 +62,7 @@ const FavoriteScreen = ({navigation}) => {
             <ProductVItem data={item} onPress={() => onItemPressed(item)} />
           );
         }}
-      />
+      /> :<></>}
     </CustomView>
   );
 };

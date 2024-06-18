@@ -1,7 +1,9 @@
-import {Dimensions} from 'react-native';
+import {Alert, Dimensions, Platform, ToastAndroid} from 'react-native';
 
 export const deviceWidth = Dimensions.get('window').width;
 export const deviceHeight = Dimensions.get('window').height;
+
+const emailRegex = /^[a-z0-9.]{1,64}@[a-z0-9.]{1,64}$/i;
 
 export const priceFormat = price => {
   const formatter = new Intl.NumberFormat('vi-VN', {
@@ -34,3 +36,18 @@ export const promoDetail = (percentOff, maxEffect) => {
 export const addressFormat = (addressName, ward, district, city) => {
   return addressName + ', ' + ward + ', ' + district + ', ' + city;
 };
+
+export const displayMessage = (message) => {
+  if (Platform.OS == "android"){
+    ToastAndroid.show(message, ToastAndroid.SHORT)
+  }
+  if (Platform.OS == "ios"){
+    Alert.alert(message);
+  }
+}
+
+export const testEmailFormat = (email) =>{
+  const res = emailRegex.test(email)
+  res ? null : displayMessage("Email format is not acceptable")
+  return res
+}

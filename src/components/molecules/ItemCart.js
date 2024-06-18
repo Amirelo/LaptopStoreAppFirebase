@@ -13,6 +13,7 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
   const [curProduct, setCurProduct] = useState([]);
 
   const [quantity, setQuantity] = useState(item.itemQuantity);
+  const [canEdit, setCanEdit] = React.useState(true)
 
   const getData = async () => {
     const result = await onGetProductByID(item.productID);
@@ -21,29 +22,28 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
   };
 
   const onAddQuantityPressed = async () => {
+    setCanEdit(false)
     if (quantity < curProduct.productQuantity) {
-      const result = await onUpdateCartQuantity(item.cartID, 1);
-      console.log(result);
-      if (result.response_code == 1) {
+        await onUpdateCartQuantity(item.cartID, 1);
         setQuantity(quantity + 1);
-        setTotalPrice(price => price + item.productPrice);
-      }
+        
+        setTotalPrice(price => price + curProduct.productPrice);
     } else {
       console.log('Not enough quantity');
     }
+    setCanEdit(true)
   };
 
   const onSubtractQuantityPressed = async () => {
+    setCanEdit(false)
     if (quantity > 1) {
-      const result = await onUpdateCartQuantity(item.cartID, -1);
-      console.log(result);
-      if (result.response_code == 1) {
+        await onUpdateCartQuantity(item.cartID, -1);
         setQuantity(quantity - 1);
-        setTotalPrice(price => price - item.productPrice);
-      }
+        setTotalPrice(price => price - curProduct.productPrice);
     } else {
       console.log('Fail');
     }
+    setCanEdit(true)
   };
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
         />
         <CustomView type={'left'} backgroundColor={'transparent'}>
           <CustomView backgroundColor={'none'} type={'row'}>
-            <CustomText textStyle={'normalBold'} hasFlex={true}>
+            <CustomText maxLines={2} textStyle={'normalBold'} hasFlex={true}>
               {curProduct.productName}
             </CustomText>
             <CustomButton
@@ -79,12 +79,14 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
           </CustomText>
           <CustomView backgroundColor={'transparent'} type={'row'}>
             <CustomButton
+              disabled={!canEdit}
               onPress={onSubtractQuantityPressed}
               source={images.ic_minus}
               type={'image'}
             />
             <CustomText>{quantity}</CustomText>
             <CustomButton
+            disabled={!canEdit}
               onPress={onAddQuantityPressed}
               source={images.ic_add}
               type={'image'}

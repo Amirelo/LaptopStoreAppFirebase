@@ -1,4 +1,4 @@
-import database from '@react-native-firebase/database';
+import database, { firebase } from '@react-native-firebase/database';
 
 // User
 export const signIn = async (username, password) => {
@@ -215,15 +215,16 @@ export const insertAddress = async (
   return newRef;
 };
 
-export const updateAddressInfo = async (data, type, addressID, userID) => {
-  const ref = database().ref('addresses/' + addressID);
-  const res = ref.update({
-    data: data,
-    type: type,
-    addressID: addressID,
-    userID: userID
+export const updateAddressInfo = async (address) => {
+  const ref = database().ref('addresses/' + address.id);
+  await ref.update({
+    addressName: address.addressName,
+    ward: address.ward,
+    district: address.district,
+    city: address.city,
+    status: address.status,
   })
-  return res;
+  return true;
 };
 
 // Coupon
@@ -314,7 +315,7 @@ export const getUserNotification = async userID => {
   return database().ref('notifications').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
     let list = [];
     snapshot.forEach(item => {
-      list = [...list, item];
+      list = [...list, item.val()];
     });
     return list;
   })
@@ -322,12 +323,17 @@ export const getUserNotification = async userID => {
 
 export const updateNotificationStatus = async (
   status,
-  userID,
   notificationID,
 ) => {
-  return database().ref('notifications/' + notificationID).update({
-    status: status
-  });
+  try{
+    await database().ref('notifications/' + notificationID).update({
+      status: status
+    });
+    return true
+
+  } catch(error) {
+    console.log("Error updating notification status: ", error)
+  }
 };
 
 export const insertNotification = async (title, detail, userID) => {

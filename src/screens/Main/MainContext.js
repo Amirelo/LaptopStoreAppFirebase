@@ -269,7 +269,7 @@ export const MainContextProvider = props => {
         cardID,
         cartID,
       );
-      return res;
+      return true;
     } catch (error) {
       console.log('On insert user order error', error);
       return null;
