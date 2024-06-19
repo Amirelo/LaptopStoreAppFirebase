@@ -3,6 +3,13 @@
 
 Step to run app:
 
+
+Download apk from: https://github.com/Amirelo/LaptopStoreAppFirebase/releases/tag/publish
+
+
+Or open in VS Code:
+
+
 1. npm install
 2. npm start
 3. npm run android
