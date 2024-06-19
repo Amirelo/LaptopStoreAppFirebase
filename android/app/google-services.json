@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "218886715577-2qjon85mn49ac4fgcm9pcnbi54ol077q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laptopstorefirebase",
+            "certificate_hash": "d85af675fe0bd2870b1d5c53176e461c54a3b6f1"
+          }
+        },
+        {
+          "client_id": "218886715577-73kr4u4licte2284urc47f99q29r3f5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laptopstorefirebase",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "218886715577-g16mnik83drbus51sjjrdduiftdnor8d.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -23,7 +39,15 @@
           }
         },
         {
-          "client_id": "218886715577-q5seoadl53c438hcu1lshit79466nrbr.apps.googleusercontent.com",
+          "client_id": "218886715577-l4tril0j2vp9g2mmio6rob2dovgb9u49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laptopstorefirebase",
+            "certificate_hash": "e796f8eeec35596b8f359f75e1ae5f51b8ec9af7"
+          }
+        },
+        {
+          "client_id": "218886715577-h6me55i2bjqm9v5re0rde8dbgj9g285s.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -36,7 +60,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "218886715577-q5seoadl53c438hcu1lshit79466nrbr.apps.googleusercontent.com",
+              "client_id": "218886715577-h6me55i2bjqm9v5re0rde8dbgj9g285s.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
