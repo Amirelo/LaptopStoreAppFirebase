@@ -7,10 +7,13 @@ import OptionsButton from '../../../components/molecules/OptionsButton';
 import { CustomText } from '../../../components/atoms';
 import { useNavigation } from '@react-navigation/native';
 import AddressModel from '../../../models/AddressModel';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const InsertAddressScreen = ({ route }) => {
   const { userInfo } = route.params;
   const [data, setData] = React.useState()
+
+  const {onGetUserByEmail} = useContext(AuthContext)
 
   const { insertUserAddress, updateUserAddress, language } = useContext(AuthContext);
   const [addressName, setAddressName] = useState('');
@@ -29,19 +32,16 @@ const InsertAddressScreen = ({ route }) => {
   ];
 
   const insertAddress = async () => {
-    address = new AddressModel(data.addressID, addressName,ward,district,city,status,data.userID)
+    let email = await AsyncStorage.getItem('email');
+    const userInfo = await onGetUserByEmail(email);
+    address = new AddressModel(data ? data.addressID : -5, addressName,ward,district,city,status,userInfo.userID);
     let res = null;
     data
       ? (res = await updateUserAddress(
         address
       ))
       : (res = await insertUserAddress(
-        addressName,
-        ward,
-        district,
-        city,
-        status,
-        userInfo.userId,
+        address
       ));
     console.log(res);
     if (res == true) {

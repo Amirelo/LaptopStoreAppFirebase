@@ -8,10 +8,11 @@ import CustomView from '../../../components/atoms/CustomView';
 import {addressFormat, deviceWidth, priceFormat} from '../../../utils/helper';
 
 const OrderDetailScreen = ({route}) => {
-  const {item, address} = route.params;
+  const {item} = route.params;
   const [productList, setProductList] = useState([]);
   const {onGetUserOrderDetail, language} = useContext(AuthContext);
   const {onGetProductByID} = useContext(MainContext);
+  const [orderAddress, setOrderAddress] = React.useState({})
 
   const orderStatusArr = [
     {status: language.arr_status_order_0, color: 'err'},
@@ -40,6 +41,11 @@ const OrderDetailScreen = ({route}) => {
 
   useEffect(() => {
     getData();
+    const address = route.params?.address
+    if (address != null){
+      setOrderAddress(address)
+
+    }
   }, []);
 
   return (
@@ -105,12 +111,12 @@ const OrderDetailScreen = ({route}) => {
           {language.orderDetail_text_shippingAddress}
         </CustomText>
         <CustomText hasFlex={true}>
-          {addressFormat(
-            address.addressName,
-            address.ward,
-            address.district,
-            address.city,
-          )}
+          {setOrderAddress ? addressFormat(
+            setOrderAddress.addressName,
+            setOrderAddress.ward,
+            setOrderAddress.district,
+            setOrderAddress.city,
+          ) : ""}
         </CustomText>
       </CustomView>
       <CustomView type={'rowJustify90'}>

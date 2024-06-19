@@ -178,21 +178,11 @@ export const AuthContextProvider = ({children}) => {
   };
 
   const insertUserAddress = async (
-    addressName,
-    ward,
-    district,
-    city,
-    status,
-    userID,
+    address
   ) => {
     try {
       const res = await insertAddress(
-        addressName,
-        ward,
-        district,
-        city,
-        status,
-        userID,
+        address
       );
       console.log('On Insert User Address success', res);
       return res;

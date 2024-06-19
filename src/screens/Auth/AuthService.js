@@ -1,5 +1,6 @@
 import database, { firebase } from '@react-native-firebase/database';
 
+
 // User
 export const signIn = async (username, password) => {
   const ref = database().ref('/users');
@@ -149,7 +150,6 @@ export const updateUserPassword = async (data, email) => {
 
 export const updateUserImage = async (data, email) => {
   const ref = database().ref('users')
-
   return await ref
     .orderByChild('email')
     .equalTo(email)
@@ -191,28 +191,23 @@ export const getAddressesByEmail = async email => {
 };
 
 export const insertAddress = async (
-  addressName,
-  ward,
-  district,
-  city,
-  status,
-  userID,
+  address
 ) => {
   const ref = database().ref('addresses');
   const newRef = ref.push();
 
   newRef.set({
     addressID: newRef.key,
-    addressName: addressName,
-    ward: ward,
-    district: district,
-    city: city,
-    status: status,
-    userID: userID
+    addressName: address.addressName,
+    ward: address.ward,
+    district: address.district,
+    city: address.city,
+    status: address.status,
+    userID: address.userID
   }).then(() => console.log('Address Inserted'))
 
 
-  return newRef;
+  return true;
 };
 
 export const updateAddressInfo = async (address) => {

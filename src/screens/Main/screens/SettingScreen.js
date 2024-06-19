@@ -24,6 +24,7 @@ const SettingScreen = () => {
   const getCurScheme = async () => {
     let curTheme = await AsyncStorage.getItem('theme');
     availableTheme.map(item => {
+      console.log("Current theme:", curTheme)
       if (item.type == curTheme) {
         setCurScheme(item.theme);
       }

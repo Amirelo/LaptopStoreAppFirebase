@@ -21,7 +21,7 @@ const Colors = {
   },
   green: {
     textColor: '#000',
-    textVariantColor: '#DDE9DC',
+    textVariantColor: '#303430',
     textConstrastColor: '#fff',
     backgroundColor: '#97A97C',
     noneColor: '#00000000',
@@ -39,7 +39,7 @@ const Colors = {
   },
   sky: {
     textColor: '#000',
-    textVariantColor: '#DDE9DC',
+    textVariantColor: '#474B47',
     textConstrastColor: '#fff',
     backgroundColor: '#AAC7DB',
     imageBackgroundColor: '#AAC7DB',
@@ -57,7 +57,7 @@ const Colors = {
   },
   thristle: {
     textColor: '#000',
-    textVariantColor: '#F9F4F5',
+    textVariantColor: '#484747',
     textConstrastColor: '#fff',
     backgroundColor: '#C8B8DB',
     imageBackgroundColor: '#C8B8DB',
@@ -75,7 +75,7 @@ const Colors = {
   },
   gold: {
     textColor: '#000',
-    textVariantColor: '#FFF2BB',
+    textVariantColor: '#5F5A44',
     textConstrastColor: '#fff',
     backgroundColor: '#FFD93D',
     imageBackgroundColor: '#FFD93D',

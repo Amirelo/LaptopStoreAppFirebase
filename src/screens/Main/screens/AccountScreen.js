@@ -96,9 +96,9 @@ const AccountScreen = ({route, navigation}) => {
     navigation.navigate('Settings');
   };
 
-  const onCardScreenPressed = () => {
-    navigation.navigate('Card', {cards: userCards});
-  };
+  // const onCardScreenPressed = () => {
+  //   navigation.navigate('Card', {cards: userCards});
+  // };
 
   const onSignOutPressed = () => {
     onSignOut();
@@ -129,7 +129,7 @@ const AccountScreen = ({route, navigation}) => {
         <AccountTab
           title={language.account_tabHeader_payment}
           subtitle={language.account_tabSub_payment}
-          onPress={onCardScreenPressed}
+          // onPress={onCardScreenPressed}
         />
         <AccountTab
           title={language.account_tabHeader_promo}
