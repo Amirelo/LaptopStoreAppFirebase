@@ -1,22 +1,30 @@
-import {Animated, ColorValue, DimensionValue, FlexAlignType, ScrollView, StyleSheet, View, ViewStyle} from 'react-native';
+import {
+  Animated,
+  ColorValue,
+  DimensionValue,
+  FlexAlignType,
+  ScrollView,
+  StyleSheet,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
 import {deviceHeight, deviceWidth} from '../../utils/helper';
-import { AuthContext } from '../../screens/Auth/AuthContext';
+import {AuthContext} from '../../screens/Auth/AuthContext';
 
-interface Props{
-  children?: any,
-  type?: keyof typeof styles,
-  marginTop?: DimensionValue,
-  backgroundColor?: ColorValue,
-  borderStyle?: any,
-  borderColor?: ColorValue,
-  scrollable?: boolean,
-  alignSelf?: FlexAlignType,
-  animated?: boolean,
-  customStyles?: any,
+interface Props {
+  children?: any;
+  type?: keyof typeof styles;
+  marginTop?: DimensionValue;
+  backgroundColor?: ColorValue;
+  borderStyle?: any;
+  borderColor?: ColorValue;
+  scrollable?: boolean;
+  alignSelf?: FlexAlignType;
+  customStyles?: any;
 }
 
-const CustomView = (props:Props) => {
+const CustomView = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
   let containerStyle = props.type ? styles[props.type] : styles.container;
@@ -25,61 +33,31 @@ const CustomView = (props:Props) => {
       ? colors[`${String(props.backgroundColor)}Color`]
       : colors.backgroundColor;
   const borderColor =
-    props.borderColor != null ? colors[`${String(props.borderColor)}Color`] : colors.borderColor;
-  return props.scrollable ? (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container_scrollView}
-      style={[
-        {
-          backgroundColor: backgroundColor,
-          borderColor: borderColor,
-          marginTop: props.marginTop
-          ? props.marginTop
-          : props.type == null
-          ? 0
-          : 8,
+    props.borderColor != null
+      ? colors[`${String(props.borderColor)}Color`]
+      : colors.borderColor;
 
-        },
-
-       
-      ]}>
-      {props.children}
-    </ScrollView>
-  ) : props.animated ? (
-    <Animated.View
+  const AnimatedView = Animated.createAnimatedComponent(View);
+  return (
+    <AnimatedView
       style={[
         {
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           alignSelf: props.alignSelf,
-          marginTop: props.marginTop != null
-          ? props.marginTop
-          : props.type == null
-          ? 0
-          : 8,
+          marginTop:
+            props.marginTop != null
+              ? props.marginTop
+              : props.type == null
+              ? 0
+              : 8,
         },
         containerStyle,
         props.borderStyle,
-        props.customStyles
+        props.customStyles,
       ]}>
       {props.children}
-    </Animated.View>
-  ) : (
-    <View
-      style={[
-        {
-          backgroundColor: backgroundColor,
-          borderColor: borderColor,
-          alignSelf: props.alignSelf,
-          marginTop: props.marginTop != null ? props.marginTop : 0
-        },
-        containerStyle,
-        props.borderStyle,
-        
-      ]}>
-      {props.children}
-    </View>
+    </AnimatedView>
   );
 };
 
@@ -128,11 +106,7 @@ const styles = StyleSheet.create({
     paddingEnd: '5%',
     flex: 1,
   },
-  container_scrollView: {
-    alignItems: 'center',
-    width: deviceWidth,
-    paddingBottom: 32,
-  },
+
   container_header: {
     flexDirection: 'row',
     alignItems: 'center',

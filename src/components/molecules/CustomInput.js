@@ -46,7 +46,7 @@ const CustomInput = ({
 
   return (
     <CustomView
-      type={'inputrow'}
+      type={'container_inputrow'}
       backgroundColor={'backgroundInput'}
       marginTop={marginTop}
       borderStyle={borderStyle}

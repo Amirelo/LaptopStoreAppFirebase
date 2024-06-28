@@ -18,8 +18,6 @@ interface Props{
 
 const CustomButtonBare = (props:Props) => {
   const {theme} = React.useContext(AuthContext);
-  const backgroundColor =
-    props.backgroundColor != null ? theme[`${String(props.backgroundColor)}Color`] : '';
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const fadeIn = () => {
@@ -43,6 +41,7 @@ const CustomButtonBare = (props:Props) => {
         [{
           alignSelf: props.alignSelf,
           marginTop: props.marginTop,
+          backgroundColor: props.backgroundColor,
           borderColor: props.borderColor != null
               ? {borderColor: theme[`${String(props.borderColor)}Color`]}
               : {borderColor: theme.borderColor},
@@ -57,7 +56,6 @@ const CustomButtonBare = (props:Props) => {
       onPressIn={fadeIn}
       disabled={props.disabled}>
       <CustomView
-        animated={true}
         marginTop={0}
         backgroundColor={'none'}
         type={props.type ? props.type : 'none'}
