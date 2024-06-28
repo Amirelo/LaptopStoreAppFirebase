@@ -6,7 +6,7 @@ import CustomText from '../atoms/CustomText';
 import CustomButton from './CustomButton';
 import {priceFormat} from '../../utils/helper';
 import CustomView from '../atoms/CustomView';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 
 const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
   const {onUpdateCartQuantity, onGetProductByID} = useContext(MainContext);

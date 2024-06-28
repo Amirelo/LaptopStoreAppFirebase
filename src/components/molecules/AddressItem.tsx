@@ -2,11 +2,18 @@ import React from 'react';
 import CustomView from '../atoms/CustomView';
 import CustomText from '../atoms/CustomText';
 import CustomButton from './CustomButton';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 import {AuthContext} from '../../screens/Auth/AuthContext';
+import AddressModel from '../../models/AddressModel';
 
-const AddressItem = ({data, onEditPressed, onlyInfo}) => {
-  console.log(data);
+interface Props{
+  data: any,
+  onEditPressed?(): void,
+  onlyInfo?: boolean,
+}
+
+const AddressItem = (props:Props) => {
+  console.log(props.data);
   const {language} = React.useContext(AuthContext);
 
   return (
@@ -15,33 +22,33 @@ const AddressItem = ({data, onEditPressed, onlyInfo}) => {
       borderStyle={borderTheme.textInput}
       backgroundColor={'backgroundInput'}>
       <CustomText>
-        {data.addressName +
+        {props.data.addressName +
           ', ' +
-          data.ward +
+          props.data.ward +
           ', ' +
-          data.district +
+          props.data.district +
           ', ' +
-          data.city}
+          props.data.city}
       </CustomText>
 
-      {onlyInfo ? (
+      {props.onlyInfo ? (
         <CustomView backgroundColor={'none'}>
-          <CustomText textStyle={'normalBold'}>{data.fullname}</CustomText>
+          <CustomText textStyle={'text_normalBold'}>{props.data.fullname +""}</CustomText>
 
-          <CustomText>{data.phonenumber}</CustomText>
+          <CustomText>{props.data.phonenumber}</CustomText>
         </CustomView>
       ) : (
         <CustomView backgroundColor={'transparent'} type={'rowJustify90'}>
           <CustomView backgroundColor={'transparent'} type={'row'}>
-            {data.status == 1 ? (
-              <CustomText textStyle={'normalBold'}>
+            {props.data.status == 1 ? (
+              <CustomText textStyle={'text_normalBold'}>
                 {language.arr_status_address_1}
               </CustomText>
             ) : (
               <></>
             )}
           </CustomView>
-          <CustomButton onPress={onEditPressed} type={'primarySmall'}>
+          <CustomButton onPress={props.onEditPressed} type={'primarySmall'}>
             {language.insertAddress_button_update}
           </CustomButton>
         </CustomView>

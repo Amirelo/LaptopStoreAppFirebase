@@ -5,7 +5,12 @@ import CustomButton from './CustomButton';
 import CustomText from '../atoms/CustomText';
 import {deviceHeight} from '../../utils/helper';
 
-const CartOption = ({onDeletePressed, onBackgroundPressed}) => {
+interface Props{
+  onDeletePressed(): void,
+onBackgroundPressed(): void,
+}
+
+const CartOption = (props:Props) => {
   const animatedValue = useRef(new Animated.Value(255)).current;
   const slideIn = () => {
     Animated.timing(animatedValue, {
@@ -27,7 +32,7 @@ const CartOption = ({onDeletePressed, onBackgroundPressed}) => {
     slideOut();
     fadeOut();
     setTimeout(() => {
-      onBackgroundPressed();
+      props.onBackgroundPressed();
     }, 200);
   };
 
@@ -57,7 +62,6 @@ const CartOption = ({onDeletePressed, onBackgroundPressed}) => {
     <CustomView
       marginTop={0}
       type={'absolute'}
-      animated={true}
       customStyles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
@@ -67,13 +71,12 @@ const CartOption = ({onDeletePressed, onBackgroundPressed}) => {
       />
       <CustomView
         customStyles={{transform: [{translateY: animatedValue}]}}
-        animated={true}
         type={'absoluteBottomItem'}>
-        <CustomText customStyles={styles.spacing} textStyle={'subtitleBold'}>
+        <CustomText customStyles={styles.spacing} textStyle={'text_subtitleBold'}>
           Action
         </CustomText>
         <CustomButton
-          onPress={onDeletePressed}
+          onPress={props.onDeletePressed}
           type={'tertiary'}
           customStyles={{marginBottom: 32}}>
           Delete

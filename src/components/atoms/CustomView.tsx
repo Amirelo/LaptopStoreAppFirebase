@@ -1,16 +1,19 @@
+// React and libs
+import React from 'react';
 import {
   Animated,
   ColorValue,
   DimensionValue,
   FlexAlignType,
-  ScrollView,
   StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native';
-import React from 'react';
-import {deviceHeight, deviceWidth} from '../../utils/helper';
+
+// Context
 import {AuthContext} from '../../screens/Auth/AuthContext';
+
+// Utilities
+import {deviceHeight, deviceWidth} from '../../utils/helper';
 
 interface Props {
   children?: any;
@@ -19,7 +22,6 @@ interface Props {
   backgroundColor?: ColorValue;
   borderStyle?: any;
   borderColor?: ColorValue;
-  scrollable?: boolean;
   alignSelf?: FlexAlignType;
   customStyles?: any;
 }
@@ -27,7 +29,6 @@ interface Props {
 const CustomView = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
-  let containerStyle = props.type ? styles[props.type] : styles.container;
   const backgroundColor =
     props.backgroundColor != null
       ? colors[`${String(props.backgroundColor)}Color`]
@@ -52,7 +53,7 @@ const CustomView = (props: Props) => {
               ? 0
               : 8,
         },
-        containerStyle,
+        props.type ? styles[props.type] : styles.container,
         props.borderStyle,
         props.customStyles,
       ]}>
@@ -68,72 +69,72 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  container_row: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  container_inputrow: {
+  inputrow: {
     flexDirection: 'row',
     width: deviceWidth * 0.9,
     height: 48,
     alignItems: 'center',
   },
-  container_rowJustify: {
+  rowJustify: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     flex: 1,
   },
-  container_rowJustify90: {
+  rowJustify90: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '90%',
   },
-  container_rowJustify90Screen: {
+  rowJustify90Screen: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: deviceWidth * 0.9,
   },
-  container_left: {
+  left: {
     alignSelf: 'flex-start',
     paddingHorizontal: 8,
     flex: 1,
   },
-  container_right: {
+  right: {
     alignSelf: 'flex-end',
     paddingEnd: '5%',
     flex: 1,
   },
 
-  container_header: {
+  header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 8,
   },
-  container_banner: {
+  banner: {
     width: deviceWidth * 0.9,
     height: deviceHeight * 0.3,
   },
-  container_tab: {
+  tab: {
     width: deviceWidth * 0.9,
     paddingBottom: 8,
     paddingHorizontal: 8,
   },
-  container_accountTab: {
+  accountTab: {
     width: deviceWidth * 0.9,
     paddingVertical: 16,
     paddingHorizontal: 8,
   },
-  container_absolute: {
+  absolute: {
     width: deviceWidth,
     position: 'absolute',
     height: '100%',
     backgroundColor: '#00000020',
   },
-  container_absoluteBottomItem: {
+  absoluteBottomItem: {
     width: '100%',
     borderTopStartRadius: 60,
     borderTopEndRadius: 60,
@@ -142,5 +143,5 @@ const styles = StyleSheet.create({
     position: 'absolute', //Here is the trick
     bottom: 0,
   },
-  container_none: {},
+  none: {},
 });

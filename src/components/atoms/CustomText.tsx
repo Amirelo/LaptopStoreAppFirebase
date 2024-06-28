@@ -1,6 +1,6 @@
 import {ColorValue, DimensionValue, StyleSheet, Text, TextStyle} from 'react-native';
 import React from 'react';
-import {textTheme} from '../../themes/textTheme';
+import {textTheme} from '../../preferences/textTheme';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
 interface Props{

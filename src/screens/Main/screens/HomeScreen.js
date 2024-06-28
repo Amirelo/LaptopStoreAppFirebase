@@ -10,7 +10,7 @@ import ProductVItem from '../../../components/molecules/ProductVItem';
 import * as images from '../../../assets/images';
 import CustomBanner from '../../../components/molecules/CustomBanner';
 import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
-import {borderTheme} from '../../../themes/borderTheme';
+import {borderTheme} from '../../../preferences/borderTheme';
 import {AuthContext} from '../../Auth/AuthContext';
 
 const HomeScreen = ({navigation}) => {

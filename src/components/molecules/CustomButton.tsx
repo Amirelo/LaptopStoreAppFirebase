@@ -1,37 +1,39 @@
-import {Animated, Pressable, StyleSheet, ActivityIndicator} from 'react-native';
+import {Animated, Pressable, StyleSheet, ActivityIndicator, DimensionValue, FlexStyle, ColorValue} from 'react-native';
 import React, {useRef} from 'react';
 import CustomImage from '../atoms/CustomImage';
 import CustomText from '../atoms/CustomText';
 import {deviceWidth} from '../../utils/helper';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
-const CustomButton = ({
-  children,
-  type,
-  marginTop,
-  alignSelf,
-  source,
-  onPress,
-  customStyles,
-  disabled,
-  noAnim,
-  backgroundColor,
-}) => {
+interface Props{
+  children?:any,
+  type?: keyof typeof styles,
+  marginTop?:DimensionValue,
+  alignSelf?: FlexStyle['alignSelf'],
+  source?: any,
+  onPress?(): void,
+  customStyles?: any,
+  disabled?: boolean,
+  noAnim?: boolean,
+  backgroundColor?: ColorValue,
+}
+
+const CustomButton = (props:Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
-  const buttonBackgroundColor = backgroundColor
-    ? colors[`${backgroundColor}Color`]
-    : type && type.includes('primary')
+  const buttonBackgroundColor = props.backgroundColor
+    ? colors[props.backgroundColor]
+    : props.type && props.type.includes('primary')
     ? colors.primaryColor
-    : type == 'social'
+    : props.type == 'social'
     ? colors.backgroundInputColor
     : 'transparent';
-  const borderColor = type == 'social' ? colors.borderColor : '';
+  const borderColor = props.type == 'social' ? colors.borderColor : '';
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const textColor =
-    type == 'tertiary' || type == 'social'
+    props.type == 'tertiary' || props.type == 'social'
       ? 'text'
-      : type == 'highlight'
+      : props.type == 'highlight'
       ? 'primary'
       : 'textConstrast';
   const fadeIn = () => {
@@ -52,31 +54,33 @@ const CustomButton = ({
   return (
     <Pressable
       style={[
-        alignSelf != null ? {alignSelf: alignSelf} : {},
-        marginTop != null ? {marginTop: marginTop} : {marginTop: 16},
+        {
+          alignSelf:props.alignSelf,
+          marginTop: props.marginTop
+        }
       ]}
-      onPress={onPress}
+      onPress={props.onPress}
       onPressIn={fadeIn}
-      disabled={disabled}>
+      disabled={props.disabled}>
       <Animated.View
         style={[
-          type != null ? styles[`button_${type}`] : {},
+          props.type != null ? styles[props.type] : {},
           {
             backgroundColor: buttonBackgroundColor,
             borderColor: borderColor,
           },
-          customStyles != null ? customStyles : {},
-          noAnim ? {} : {opacity: fadeAnim},
+          props.customStyles,
+          props.noAnim ? {} : {opacity: fadeAnim},
         ]}>
-        {type == 'social' ? (
-          <CustomImage source={source} type={'socialIcon'} />
-        ) : type == 'image' ? (
-          <CustomImage source={source} type={'inputIcon'} />
+        {props.type == 'social' ? (
+          <CustomImage source={props.source} type={'socialIcon'} />
+        ) : props.type == 'image' ? (
+          <CustomImage source={props.source} type={'inputIcon'} />
         ) : (
           <></>
         )}
-        {type != 'image' ? (
-          disabled == true && type == 'primary' ? (
+        {props.type != 'image' ? (
+          props.disabled == true && props.type == 'primary' ? (
             <ActivityIndicator
               size={'large'}
               color={colors.backgroundInputColor}
@@ -86,13 +90,13 @@ const CustomButton = ({
               marginTop={0}
               textColor={textColor}
               textStyle={
-                type == 'tertiary'
-                  ? 'normal'
-                  : type == 'social'
-                  ? 'center'
-                  : 'normalBold'
+                props.type == 'tertiary'
+                  ? 'text_normal'
+                  : props.type == 'social'
+                  ? 'text_center'
+                  : 'text_normalBold'
               }>
-              {children}
+              {props.children}
             </CustomText>
           )
         ) : (
@@ -106,19 +110,19 @@ const CustomButton = ({
 export default CustomButton;
 
 const styles = StyleSheet.create({
-  button_primary: {
+  primary: {
     width: deviceWidth * 0.9,
     height: 56,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
   },
-  button_primarySmall: {
+  primarySmall: {
     borderRadius: 4,
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
-  button_social: {
+  social: {
     flexDirection: 'row',
     width: deviceWidth * 0.9,
     height: 56,
@@ -128,13 +132,20 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 32,
   },
-  text_social: {
+  tertiary:{},
+  highlight:{},
+  image:{}
+  
+});
+
+const textStyles = StyleSheet.create({
+  social: {
     flex: 1,
     textAlign: 'center',
   },
-  text_primary: {
+  primary: {
     fontSize: 14,
     color: '#fff',
     fontWeight: 'bold',
   },
-});
+})

@@ -4,7 +4,7 @@ import CustomButton from '../../../components/molecules/CustomButton';
 import { AuthContext } from '../AuthContext';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomText from '../../../components/atoms/CustomText';
-import { textTheme } from '../../../themes/textTheme';
+import { textTheme } from '../../../preferences/textTheme';
 import CustomImage from '../../../components/atoms/CustomImage';
 import CustomView from '../../../components/atoms/CustomView';
 import { displayMessage, testEmailFormat } from '../../../utils/helper';

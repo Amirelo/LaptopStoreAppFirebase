@@ -4,7 +4,7 @@ import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
 import CustomButtonBare from '../../atoms/CustomButtonBare';
 import CustomView from '../../atoms/CustomView';
-import {borderTheme} from '../../../themes/borderTheme';
+import {borderTheme} from '../../../preferences/borderTheme';
 import { ColorValue, ImageStyle } from 'react-native';
 
 interface Props{

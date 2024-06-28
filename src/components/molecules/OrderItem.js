@@ -6,7 +6,7 @@ import CustomText from '../atoms/CustomText';
 import {priceFormat} from '../../utils/helper';
 import CustomButton from './CustomButton';
 import {AuthContext} from '../../screens/Auth/AuthContext';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 
 const OrderItem = ({item, address}) => {
   const [totalItems, setTotalItems] = useState(0);

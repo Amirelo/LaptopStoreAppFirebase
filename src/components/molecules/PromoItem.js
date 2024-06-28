@@ -4,7 +4,7 @@ import CustomView from '../atoms/CustomView';
 import CustomImage from '../atoms/CustomImage';
 import CustomText from '../atoms/CustomText';
 import {promoDetail} from '../../utils/helper';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 
 const PromoItem = ({data}) => {
   return (

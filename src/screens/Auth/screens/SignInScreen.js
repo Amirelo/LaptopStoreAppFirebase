@@ -9,8 +9,9 @@ import CustomButton from '../../../components/molecules/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {updateUserInfo} from '../AuthService';
-import {checkLanguage, useLanguage} from '../../../themes/languageTheme';
+import {checkLanguage, useLanguage} from '../../../preferences/languages/languageTheme';
 import { displayMessage } from '../../../utils/helper';
+import { TextInput } from 'react-native';
 
 const SignInScreen = ({navigation, route}) => {
   const [username, setUsername] = useState('');

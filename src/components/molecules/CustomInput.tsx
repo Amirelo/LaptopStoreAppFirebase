@@ -1,27 +1,29 @@
-import {Animated, StyleSheet, TextInput} from 'react-native';
+import {Animated, DimensionValue, KeyboardTypeOptions, StyleSheet, TextInput} from 'react-native';
 import React, {useRef, useState} from 'react';
 import CustomImage from '../atoms/CustomImage';
 import * as images from '../../assets/images';
 import CustomButton from './CustomButton';
 import CustomView from '../atoms/CustomView';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
+interface Props{
+  placeholder: String,
+  source?: any,
+  marginTop?: DimensionValue,
+  onChangeText?(): void,
+  keyboardType?: KeyboardTypeOptions,
+  value?: String,
+  disabled?: boolean,
+  isPassword?: boolean
+}
+
 //const internetImg = {uri:'https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg'}
-const CustomInput = ({
-  placeholder,
-  source,
-  marginTop,
-  onChangeText,
-  keyboardType,
-  value,
-  disabled,
-  type,
-}) => {
+const CustomInput = (props:Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
   const [showPassImg, setShowPassImg] = useState(images.ic_visibility);
-  const [secure, setSecure] = useState(type == 'password' ? true : false);
+  const [secure, setSecure] = useState(props.isPassword);
   const [isSelected, setIsSelected] = useState(false);
   let borderColor = isSelected ? 'primary' : 'border';
   let borderStyle = borderTheme.textInput;
@@ -34,7 +36,7 @@ const CustomInput = ({
   const borderCol = useRef(new Animated.Value(1)).current;
   const onFocus = () => {
     setIsSelected(true);
-    borderColor = borderCol.interpolate({
+    const borderColorAnim = borderCol.interpolate({
       inputRange: [0, 1],
       outputRange: [colors.textVariantColor, colors.primaryColor],
     });
@@ -46,29 +48,29 @@ const CustomInput = ({
 
   return (
     <CustomView
-      type={'container_inputrow'}
+      type={'inputrow'}
       backgroundColor={'backgroundInput'}
-      marginTop={marginTop}
+      marginTop={props.marginTop}
       borderStyle={borderStyle}
       borderColor={borderColor}>
-      {source != null ? (
-        <CustomImage source={source} type={'inputIcon'} />
+      {props.source != null ? (
+        <CustomImage source={props.source} type={'inputIcon'} />
       ) : (
         <></>
       )}
       <TextInput
-        onChangeText={onChangeText}
-        style={[styles.inputStyle, source == null ? {paddingStart: 10} : {}]}
-        value={value}
+        onChangeText={props.onChangeText}
+        style={[styles.inputStyle, props.source == null ? {paddingStart: 10} : {}]}
+        value={props.value+""}
         onFocus={onFocus}
         onBlur={onBlur}
-        editable={disabled}
-        selectTextOnFocus={disabled}
-        placeholder={placeholder}
-        keyboardType={keyboardType ? keyboardType : 'default'}
+        editable={props.disabled}
+        selectTextOnFocus={props.disabled}
+        placeholder={props.placeholder + ""}
+        keyboardType={props.keyboardType ? props.keyboardType : 'default'}
         secureTextEntry={secure}
       />
-      {type == 'password' ? (
+      {props.isPassword ? (
         <CustomButton
           source={showPassImg}
           type={'image'}

@@ -7,7 +7,7 @@ import CustomText from '../atoms/CustomText';
 import { MainContext } from '../../screens/Main/MainContext';
 import { useNavigation } from '@react-navigation/native';
 import { CustomButtonBare } from '../atoms';
-import { borderTheme } from '../../themes/borderTheme';
+import { borderTheme } from '../../preferences/borderTheme';
 
 const ProductVItem = ({ data }) => {
   const navigation = useNavigation();

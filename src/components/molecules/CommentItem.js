@@ -1,6 +1,6 @@
 import React from 'react';
 import {CustomText, CustomView} from '../atoms';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 
 const CommentItem = ({data}) => {
   console.log('data:', data)

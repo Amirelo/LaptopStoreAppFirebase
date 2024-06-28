@@ -22,8 +22,8 @@ import {
   checkUserName,
 } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {checkLanguage} from '../../themes/languageTheme';
-import {setThemeColors} from '../../themes/colorTheme';
+import {checkLanguage} from '../../preferences/languages/languageTheme';
+import {setThemeColors} from '../../preferences/colorTheme';
 import AddressModel from '../../models/AddressModel';
 
 export const AuthContext = createContext();

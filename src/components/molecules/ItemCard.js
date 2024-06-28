@@ -2,7 +2,7 @@ import React from 'react';
 import CustomText from '../atoms/CustomText';
 import CustomView from '../atoms/CustomView';
 import CustomButton from './CustomButton';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 import {useNavigation} from '@react-navigation/native';
 
 const ItemCard = ({data}) => {

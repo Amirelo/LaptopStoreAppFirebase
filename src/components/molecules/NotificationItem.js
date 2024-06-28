@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import CustomText from '../atoms/CustomText';
 import CustomButton from './CustomButton';
 import CustomView from '../atoms/CustomView';
-import {borderTheme} from '../../themes/borderTheme';
+import {borderTheme} from '../../preferences/borderTheme';
 import { Animated } from 'react-native';
 import { AuthContext } from '../../screens/Auth/AuthContext';
 
