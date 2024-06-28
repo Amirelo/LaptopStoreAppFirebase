@@ -101,6 +101,10 @@ const SignInScreen = ({navigation, route}) => {
     }
   };
 
+  const onAnonymousSignIn = async() => {
+    onSocialSignIn();
+  }
+
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
@@ -164,6 +168,9 @@ const SignInScreen = ({navigation, route}) => {
       <CustomText marginTop={18}>
         {language.login_text_other_signin_option}
       </CustomText>
+      <CustomButton onPress={onAnonymousSignIn} type={'primary'}>
+        Anonymous Sign In
+      </CustomButton>
       <CustomButton
         onPress={onGoogleSignInPressed}
         type={'social'}

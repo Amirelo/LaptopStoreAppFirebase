@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
 import CustomImage from '../../../components/atoms/CustomImage';
-import AccountTab from '../../../components/molecules/AccountTab';
+import AccountTab from '../../../components/molecules/account/AccountTab';
 import {AuthContext} from '../../Auth/AuthContext';
 
 const ProfileScreen = ({route, navigation}) => {

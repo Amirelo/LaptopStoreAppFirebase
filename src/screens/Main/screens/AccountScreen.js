@@ -2,7 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AuthContext} from '../../Auth/AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
-import AccountTab from '../../../components/molecules/AccountTab';
+import AccountTab from '../../../components/molecules/account/AccountTab';
+import UserTab from '../../../components/molecules/account/UserTab';
 
 const AccountScreen = ({route, navigation}) => {
   const {
@@ -107,10 +108,9 @@ const AccountScreen = ({route, navigation}) => {
   return (
     <CustomView>
       <CustomView scrollable={true}>
-        <AccountTab
+        <UserTab
           title={userData ? userData.username : ''}
           subtitle={userData ? userData.email : ''}
-          type={'usertab'}
           source={userData ? userData.imageLink : ''}
           onPress={onPressUserTab}
         />
@@ -122,7 +122,7 @@ const AccountScreen = ({route, navigation}) => {
         <AccountTab
           title={language.account_tabHeader_adderss}
           subtitle={
-            userAddresses.length + ' ' + language.account_tabSub_adderss
+            userAddresses ? userAddresses.length + ' ' + language.account_tabSub_adderss : ''
           }
           onPress={onShippingAddressPress}
         />
