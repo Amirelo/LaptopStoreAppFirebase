@@ -31,7 +31,9 @@ const CustomText = (props:Props) => {
 
       },
       props.customStyles,
-      props.hasBox ? styles.box : null
+      props.hasBox ? {padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 10,} : null
       ]}>
       {props.children}
     </Text>
@@ -42,8 +44,6 @@ export default CustomText;
 
 const styles = StyleSheet.create({
   box: {
-    padding: 16,
-    backgroundColor: 'white',
-    borderRadius: 10,
+    
   },
 });
