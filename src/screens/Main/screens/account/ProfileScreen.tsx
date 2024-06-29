@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import CustomView from '../../../../components/atoms/CustomView';
-import CustomButtonBare from '../../../../components/atoms/CustomButtonBare';
+import CustomButtonBare from '../../../../components/molecules/button/CustomButtonBare';
 import CustomImage from '../../../../components/atoms/CustomImage';
 import AccountTab from '../../../../components/molecules/account/AccountTab';
 import {AuthContext} from '../../../Auth/AuthContext';

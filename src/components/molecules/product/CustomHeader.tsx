@@ -7,7 +7,7 @@ import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
 import CustomView from '../../atoms/CustomView';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import CustomButtonBare from '../../atoms/CustomButtonBare';
+import CustomButtonBare from '../button/CustomButtonBare';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 interface Props{

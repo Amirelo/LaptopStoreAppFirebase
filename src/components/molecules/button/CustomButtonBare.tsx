@@ -1,7 +1,7 @@
 import {Animated, ColorValue, DimensionValue, FlexStyle, Pressable} from 'react-native';
 import React, {useRef} from 'react';
-import {AuthContext} from '../../screens/Auth/AuthContext';
-import { CustomView } from '.';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
+import { CustomView } from '../../atoms';
 
 interface Props{
   children:any,

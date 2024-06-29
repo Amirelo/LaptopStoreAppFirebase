@@ -33,9 +33,9 @@ interface Props{
 }
 
 export const AuthContextProvider = (props:Props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [language, setLanguage] = useState(checkLanguage('en'));
-  const [theme, setTheme] = useState(setThemeColors());
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [language, setLanguage] = React.useState(checkLanguage('en'));
+  const [theme, setTheme] = React.useState(setThemeColors());
 
   const changeLanguage = async (lang:keyof typeof language) => {
     setLanguage(checkLanguage(lang));

@@ -16,14 +16,14 @@ import {AuthContext} from '../../screens/Auth/AuthContext';
 import {deviceHeight, deviceWidth} from '../../utils/helper';
 
 interface Props {
-  children?: any;
-  type?: keyof typeof styles;
-  marginTop?: DimensionValue;
+  children: any;
+  preset?: keyof typeof styles;
+  marginBottom?: DimensionValue;
   backgroundColor?: ColorValue;
-  borderStyle?: any;
+  border?: keyof typeof borderStyles;
   borderColor?: ColorValue;
   alignSelf?: FlexAlignType;
-  customStyles?: any;
+  styles?: any;
 }
 
 const CustomView = (props: Props) => {
@@ -46,16 +46,16 @@ const CustomView = (props: Props) => {
           backgroundColor: backgroundColor,
           borderColor: borderColor,
           alignSelf: props.alignSelf,
-          marginTop:
-            props.marginTop != null
-              ? props.marginTop
-              : props.type == null
+          marginBottom:
+            props.marginBottom != null
+              ? props.marginBottom
+              : props.preset == null
               ? 0
               : 8,
         },
-        props.type ? styles[props.type] : styles.container,
-        props.borderStyle,
-        props.customStyles,
+        props.preset ? styles[props.preset] : styles.container,
+        props.border ? borderStyles[props.border] : null,
+        props.styles,
       ]}>
       {props.children}
     </AnimatedView>
@@ -144,4 +144,11 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   none: {},
+});
+
+const borderStyles = StyleSheet.create({
+  textInput: {borderRadius: 6, borderWidth: 3},
+  button: {borderRadius: 10},
+  banner: {borderRadius: 20},
+  borderOnly: {borderRadius: 0, borderWidth: 3},
 });

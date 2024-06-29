@@ -1,52 +1,46 @@
-import {StyleSheet, Image, DimensionValue, ColorValue, ImageStyle, ImageSourcePropType} from 'react-native';
+// React and libs
 import React from 'react';
+import {
+  StyleSheet,
+  Image,
+  DimensionValue,
+  ColorValue,
+  ImageStyle,
+  ImageSourcePropType,
+  ImageResizeMode,
+} from 'react-native';
+
+// Contexts
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
-interface Props{
-  source: ImageSourcePropType|undefined,
-  type?: keyof typeof styles,
-  marginTop ?: DimensionValue,
-  customStyles?: ImageStyle,
-  linkType?: 'uri' | null,
-  tintColor?: ColorValue,
-  width?: DimensionValue,
-  resizeMode?: ImageStyle['resizeMode'],
+interface Props {
+  source: ImageSourcePropType;
+  preset?: keyof typeof styles;
+  marginBottom?: DimensionValue;
+  customStyles?: ImageStyle;
+  tintColor?: ColorValue;
+  width?: DimensionValue;
+  resizeMode?: ImageResizeMode;
 }
 
-const CustomImage = (
-  props:Props
-) => {
+const CustomImage = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
-  const tintColor = props.tintColor ? colors[`${String(props.tintColor)}Color`] : '';
-  return (
-    typeof props.source === 'string' ?
-    <Image
-      
-      resizeMode={props.resizeMode ? props.resizeMode : 'cover'}
-      source={{uri: props.source}}
-      style={[{
-        marginTop: props.marginTop,
-        tintColor: tintColor,
-        width: props.width,
-      },
-        props.type ? styles[props.type] : null,
-        props.customStyles
-      ]}
-    />
 
-    :
+  return (
     <Image
-      
       resizeMode={props.resizeMode ? props.resizeMode : 'cover'}
-      source={props.source}
-      style={[{
-        marginTop: props.marginTop,
-        tintColor: tintColor,
-        width: props.width,
-      },
-        props.type ? styles[props.type] : null,
-        props.customStyles
+      source={
+        typeof props.source === 'string' ? {uri: props.source} : props.source
+      }
+      style={[
+        {
+          marginBottom: props.marginBottom,
+          tintColor: props.tintColor ? colors[props.tintColor] : '',
+          width: props.width,
+        },
+        props.preset ? styles[props.preset] : null,
+        props.customStyles,
       ]}
     />
   );

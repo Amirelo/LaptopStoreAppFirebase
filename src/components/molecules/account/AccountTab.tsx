@@ -2,7 +2,7 @@ import React from 'react';
 import * as images from '../../../assets/images';
 import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
-import CustomButtonBare from '../../atoms/CustomButtonBare';
+import CustomButtonBare from '../button/CustomButtonBare';
 import CustomView from '../../atoms/CustomView';
 import {borderTheme} from '../../../preferences/borderTheme';
 import { ColorValue, ImageStyle } from 'react-native';

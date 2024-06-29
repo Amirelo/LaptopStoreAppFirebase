@@ -9,7 +9,7 @@ import CustomButton from '../../../../components/molecules/button/CustomButton';
 import ProductVItem from '../../../../components/molecules/product/ProductVItem';
 import * as images from '../../../../assets/images';
 import CustomBanner from '../../../../components/molecules/product/CustomBanner';
-import CustomButtonBare from '../../../../components/atoms/CustomButtonBare';
+import CustomButtonBare from '../../../../components/molecules/button/CustomButtonBare';
 import {borderTheme} from '../../../../preferences/borderTheme';
 import {AuthContext} from '../../../Auth/AuthContext';
 import { NavigationProp, useNavigation } from '@react-navigation/native';

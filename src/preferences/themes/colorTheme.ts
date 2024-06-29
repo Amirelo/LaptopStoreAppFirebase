@@ -7,7 +7,7 @@ import gold from './gold';
 import pink from './pink';
 import dark from './dark';
 
-const Colors = {
+export const ColorTheme = {
   light,
   green,
   sky,
@@ -19,15 +19,15 @@ const Colors = {
 
 export const useThemeColors = () => {
   const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme];
+  const colors = ColorTheme[colorScheme];
   return colors;
 };
 
-export const setThemeColors = (type?:keyof typeof Colors) => {
-  if (Colors[type] == null) {
+export const setThemeColors = (type?:keyof typeof ColorTheme) => {
+  if (ColorTheme[type] == null) {
     const colorScheme = useColorScheme();
-    const colors = Colors[colorScheme];
+    const colors = ColorTheme[colorScheme];
     return colors;
   }
-  return Colors[type];
+  return ColorTheme[type];
 };
