@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import CustomView from '../../atoms/CustomView';
 import CustomText from '../../atoms/CustomText';
 import {priceFormat} from '../../../utils/helper';
@@ -8,9 +8,14 @@ import CustomButton from '../button/CustomButton';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 import {borderTheme} from '../../../preferences/borderTheme';
 
-const OrderItem = ({item, address}) => {
+interface Props{
+  item?:any,
+address?:any,
+}
+
+const OrderItem = (props:Props) => {
   const [totalItems, setTotalItems] = useState(0);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<any>>();
   const {onGetUserOrderDetail, language} = useContext(AuthContext);
 
   const orderStatusArr = [
@@ -21,38 +26,38 @@ const OrderItem = ({item, address}) => {
     {status: language.arr_status_order_4, color: 'success'},
   ];
 
-  const itemDate = item.arrivedDate
-    ? item.arrivedDate
-    : item.deliveryDate
-    ? item.deliveryDate
-    : item.prepareDate
-    ? item.prepareDate
-    : item.pendingDate;
+  const itemDate = props.item.arrivedDate
+    ? props.item.arrivedDate
+    : props.item.deliveryDate
+    ? props.item.deliveryDate
+    : props.item.prepareDate
+    ? props.item.prepareDate
+    : props.item.pendingDate;
 
-  const orderAddress = addressID => {
-    return address.filter(addressItem => {
+  const orderAddress = (addressID:String) => {
+    return props.address.filter(addressItem => {
       console.log('Address item', addressItem);
       return addressItem.addressID == addressID;
     })[0];
   };
 
   const initData = async () => {
-    console.log("---OrderItem:", item);
+    console.log("---OrderItem:", props.item);
     setTotalItems(0);
-    const orderDetailResult = await onGetUserOrderDetail(item.orderID);
+    const orderDetailResult = await onGetUserOrderDetail(props.item.orderID);
     orderDetailResult.map(curItem => {
       setTotalItems(prev => prev + curItem.productQuantity);
     });
   };
 
   const getOrderStatus = () => {
-    return orderStatusArr[item.status].status;
+    return orderStatusArr[props.item.status].status;
   };
   const status = getOrderStatus();
 
   const onDetailButtonPressed = () => {
     navigation.navigate('Order Details', {
-      item: item,
+      item: props.item,
       address: orderAddress(item.addressID),
     });
   };
@@ -67,35 +72,35 @@ const OrderItem = ({item, address}) => {
       borderStyle={borderTheme.textInput}
       type={'tab'}>
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'normalBold'} hasFlex={true}>
+        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
           {language.order_text_orderNumber}
         </CustomText>
-        <CustomText hasFlex={true}>{item.orderID}</CustomText>
+        <CustomText hasFlex={true}>{props.item.orderID}</CustomText>
         <CustomText>{itemDate}</CustomText>
       </CustomView>
 
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'normalBold'} hasFlex={true}>
+        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
           {language.order_text_quantity}
         </CustomText>
-        <CustomText hasFlex={true}>{totalItems}</CustomText>
+        <CustomText hasFlex={true}>{totalItems+""}</CustomText>
       </CustomView>
 
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'normalBold'} hasFlex={true}>
+        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
           {language.order_text_total}
         </CustomText>
-        <CustomText hasFlex={true}>{priceFormat(item.totalPrice)}</CustomText>
+        <CustomText hasFlex={true}>{priceFormat(props.item.totalPrice)}</CustomText>
       </CustomView>
 
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'normalBold'} hasFlex={true}>
+        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
           {language.order_text_status}
         </CustomText>
         <CustomText
           hasFlex={true}
-          textStyle={'normalBold'}
-          textColor={orderStatusArr[item.status].color}>
+          textStyle={'text_normalBold'}
+          textColor={orderStatusArr[props.item.status].color}>
           {status}
         </CustomText>
       </CustomView>

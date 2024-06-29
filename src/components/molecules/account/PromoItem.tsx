@@ -6,7 +6,11 @@ import CustomText from '../../atoms/CustomText';
 import {promoDetail} from '../../../utils/helper';
 import {borderTheme} from '../../../preferences/borderTheme';
 
-const PromoItem = ({data}) => {
+interface Props{
+  data:any
+}
+
+const PromoItem = (props:Props) => {
   return (
     <CustomView
       backgroundColor={'backgroundInput'}
@@ -15,10 +19,10 @@ const PromoItem = ({data}) => {
       type={'rowJustify90'}>
       <CustomView backgroundColor={'none'}>
         <CustomView backgroundColor={'none'} type={'row'}>
-          <CustomText textStyle={'normalBold'}>{data.name}</CustomText>
+          <CustomText textStyle={'text_normalBold'}>{props.data.name}</CustomText>
         </CustomView>
         <CustomText marginTop={8}>
-          {promoDetail(data.effect, data.maxEffectValue)}
+          {promoDetail(props.data.effect, props.data.maxEffectValue)}
         </CustomText>
       </CustomView>
     </CustomView>

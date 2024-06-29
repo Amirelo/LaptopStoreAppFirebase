@@ -4,7 +4,7 @@ import {textTheme} from '../../preferences/textTheme';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
 interface Props{
-  children: String,
+  children?: String,
   textColor?: ColorValue,
   textStyle?: keyof typeof textTheme,
   customStyles?: TextStyle,

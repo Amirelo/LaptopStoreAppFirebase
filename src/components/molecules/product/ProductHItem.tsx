@@ -11,11 +11,15 @@ import {
 } from '../../../utils/helper';
 import {MainContext} from '../../../screens/Main/MainContext';
 import {borderTheme} from '../../../preferences/borderTheme';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 
-const ProductHItem = ({data}) => {
-  const navigation = useNavigation();
+interface Props{
+  data: any
+}
+
+const ProductHItem = (props:Props) => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const {
     onGetProductProcessor,
     onGetProductMemory,
@@ -33,7 +37,7 @@ const ProductHItem = ({data}) => {
 
   const onProductPressed = () => {
     navigation.navigate('Product Detail', {
-      item: data,
+      item: props.data,
       itemProcessor: itemProcessor,
       itemMemory: itemMemory,
       itemScreen: itemScreen,
@@ -43,16 +47,16 @@ const ProductHItem = ({data}) => {
 
   const getInitData = async () => {
     setIsDisabled(true);
-    const processor = await onGetProductProcessor(data.processorID);
+    const processor = await onGetProductProcessor(props.data.processorID);
     setItemProcessor(processor);
 
-    const memory = await onGetProductMemory(data.memoryID);
+    const memory = await onGetProductMemory(props.data.memoryID);
     setItemMemory(memory);
 
-    const screen = await onGetProductScreen(data.screenID);
+    const screen = await onGetProductScreen(props.data.screenID);
     setitemScreen(screen);
 
-    const storage = await onGetProductStorage(data.storageID);
+    const storage = await onGetProductStorage(props.data.storageID);
     setitemStorage(storage);
     setIsDisabled(false);
   };
@@ -97,48 +101,47 @@ const ProductHItem = ({data}) => {
           opacity: fadeAnim,
         }}>
         <CustomImage
-          source={data.productImageLink}
+          source={props.data.productImageLink}
           linkType={'uri'}
           type={'productItem'}
-          backgroundColor={'imageBackground'}
         />
-        <CustomText maxLines={2} textStyle={'normalBold'}>
-          {data.productName}
+        <CustomText maxLines={2} textStyle={'text_normalBold'}>
+          {props.data.productName}
         </CustomText>
-        <CustomText textStyle={'small'} marginTop={4}>
+        <CustomText textStyle={'text_small'} marginTop={4}>
           {itemProcessor ? itemProcessor.name : <ActivityIndicator />}
         </CustomText>
-        <CustomText textStyle={'small'} marginTop={4}>
+        <CustomText textStyle={'text_small'} marginTop={4}>
           {itemMemory ? itemMemory.currentRAM +
             ' ' +
             itemMemory.type +
             ' ' +
             itemMemory.speed : <ActivityIndicator />}
         </CustomText>
-        <CustomText textStyle={'small'} marginTop={4}>
+        <CustomText textStyle={'text_small'} marginTop={4}>
           {itemScreen
             ? itemScreen.resolution + ' ' + itemScreen.screenSize
             : <ActivityIndicator />}
         </CustomText>
-        <CustomText textStyle={'small'} marginTop={4}>
+        <CustomText textStyle={'text_small'} marginTop={4}>
           {itemStorage ? itemStorage.type + ' ' + itemStorage.currentStorage : <ActivityIndicator />}
         </CustomText>
-        <CustomText textColor={'err'} textStyle={'normalBold'}>
-          {priceFormat(data.currentPrice)}
+        <CustomText textColor={'err'} textStyle={'text_normalBold'}>
+          {priceFormat(props.data.currentPrice)}
         </CustomText>
-        {data.currentPrice != data.productPrice ? (
+        {props.data.currentPrice != props.data.productPrice ? (
           <CustomView
             backgroundColor={'transparent'}
             type={'rowJustify'}
             marginTop={4}>
             <CustomText
-              textStyle={'smallStrike'}
+              textStyle={'text_smallStrike'}
               textColor={'textVariant'}
               marginTop={0}>
-              {priceFormat(data.productPrice)}
+              {priceFormat(props.data.productPrice)}
             </CustomText>
-            <CustomText textStyle={'small'} textColor={'err'} marginTop={0}>
-              {discountFormat(data.onSale)}
+            <CustomText textStyle={'text_small'} textColor={'err'} marginTop={0}>
+              {discountFormat(props.data.onSale)}
             </CustomText>
           </CustomView>
         ) : (

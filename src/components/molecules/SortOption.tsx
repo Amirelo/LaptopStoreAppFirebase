@@ -7,11 +7,17 @@ import CustomView from '../atoms/CustomView';
 import {deviceHeight} from '../../utils/helper';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
-const SortOption = ({setSortOption, setSortPressed, onBackgroundPressed}) => {
+interface Props{
+  setSortOption(text:number): void,
+  setSortPressed(value: boolean): void,
+  onBackgroundPressed(): void,
+}
+
+const SortOption = (props:Props) => {
   const {language} = React.useContext(AuthContext);
-  const changeOption = type => {
-    setSortOption(type);
-    setSortPressed(false);
+  const changeOption = (type:number) => {
+    props.setSortOption(type);
+    props.setSortPressed(false);
   };
   const animatedValue = useRef(new Animated.Value(255)).current;
   const slideIn = () => {
@@ -34,7 +40,7 @@ const SortOption = ({setSortOption, setSortPressed, onBackgroundPressed}) => {
     slideOut();
     fadeOut();
     setTimeout(() => {
-      onBackgroundPressed();
+      props.onBackgroundPressed();
     }, 200);
   };
 
@@ -64,7 +70,6 @@ const SortOption = ({setSortOption, setSortPressed, onBackgroundPressed}) => {
     <CustomView
       marginTop={0}
       type={'absolute'}
-      animated={true}
       customStyles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
@@ -74,9 +79,8 @@ const SortOption = ({setSortOption, setSortPressed, onBackgroundPressed}) => {
       />
       <CustomView
         customStyles={{transform: [{translateY: animatedValue}]}}
-        animated={true}
         type={'absoluteBottomItem'}>
-        <CustomText customStyles={styles.spacing} textStyle={'subtitleBold'}>
+        <CustomText customStyles={styles.spacing} textStyle={'text_subtitleBold'}>
           {language.explore_option_header}
         </CustomText>
         <CustomButton onPress={() => changeOption(1)} type={'tertiary'}>

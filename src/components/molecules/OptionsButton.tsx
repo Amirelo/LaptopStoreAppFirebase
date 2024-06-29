@@ -6,7 +6,12 @@ import CustomView from '../atoms/CustomView';
 import {deviceHeight} from '../../utils/helper';
 import {CustomText} from '../atoms';
 
-const OptionsButton = ({children, onBackgroundPressed}) => {
+interface Props{
+  children?():any,
+onBackgroundPressed():void,
+}
+
+const OptionsButton = (props:Props) => {
   const animatedValue = useRef(new Animated.Value(255)).current;
   const slideIn = () => {
     Animated.timing(animatedValue, {
@@ -28,7 +33,7 @@ const OptionsButton = ({children, onBackgroundPressed}) => {
     slideOut();
     fadeOut();
     setTimeout(() => {
-      onBackgroundPressed();
+      props.onBackgroundPressed();
     }, 200);
   };
 
@@ -58,7 +63,6 @@ const OptionsButton = ({children, onBackgroundPressed}) => {
     <CustomView
       marginTop={0}
       type={'absolute'}
-      animated={true}
       customStyles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
@@ -68,9 +72,8 @@ const OptionsButton = ({children, onBackgroundPressed}) => {
       />
       <CustomView
         customStyles={{transform: [{translateY: animatedValue}]}}
-        animated={true}
         type={'absoluteBottomItem'}>
-        {children}
+        {props.children}
         <CustomText />
       </CustomView>
     </CustomView>
