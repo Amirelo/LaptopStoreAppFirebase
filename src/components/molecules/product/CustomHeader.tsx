@@ -16,7 +16,7 @@ onSearchText?(): void,
 onViewListPressed?():void,
 onSortPressed?(): void,
 onFilterPressed?(): void,
-sortType: any,
+sortType?: any,
 }
 
 const CustomHeader = (props:Props) => {

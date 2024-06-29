@@ -8,7 +8,7 @@ export const getAllProduct = async () => {
   });
 };
 
-export const getProductByID = async productID => {
+export const getProductByID = async (productID:any) => {
   const ref = database().ref('products');
   return await ref
     .orderByChild('productID')
@@ -30,7 +30,7 @@ export const getAllProductImages = async () => {
   });
 };
 
-export const getProductImagesByProductID = async productID => {
+export const getProductImagesByProductID = async (productID:any) => {
   const ref = database().ref('productImages');
   let returnItem = [];
   return await ref
@@ -61,7 +61,7 @@ export const getAllScreens = async () => {
   });
 };
 
-export const getProductScreen = async screenID => {
+export const getProductScreen = async (screenID:any) => {
   const ref = database().ref('screens');
   return await ref
     .orderByChild('screenID')
@@ -83,7 +83,7 @@ export const getAllOperatingSystems = async () => {
   });
 };
 
-export const getProductOperatingSystem = async operatingSystemID => {
+export const getProductOperatingSystem = async (operatingSystemID:any) => {
   const ref = database().ref('operatingSystems');
   return await ref
     .orderByChild('operatingSystemID')
@@ -105,7 +105,7 @@ export const getAllProcessors = async () => {
   });
 };
 
-export const getProductProcessor = async processorID => {
+export const getProductProcessor = async (processorID:any) => {
   const ref = database().ref('processors');
   return await ref
     .orderByChild('processorID')
@@ -127,7 +127,7 @@ export const getAllMemories = async () => {
   });
 };
 
-export const getProductMemory = async memoryID => {
+export const getProductMemory = async (memoryID:any) => {
   const ref = database().ref('memories');
   return await ref
     .orderByChild('memoryID')
@@ -149,7 +149,7 @@ export const getAllStorages = async () => {
   });
 };
 
-export const getProductStorage = async storageID => {
+export const getProductStorage = async (storageID:any) => {
   const ref = database().ref('storages');
   return await ref
     .orderByChild('storageID')
@@ -164,7 +164,7 @@ export const getProductStorage = async storageID => {
     });
 };
 
-export const getUserCart = async username => {
+export const getUserCart = async (username:String) => {
   const data = {
     username: username,
   };
@@ -172,7 +172,7 @@ export const getUserCart = async username => {
   return res;
 };
 
-export const insertCart = async (itemQuantity, userID, productID) => {
+export const insertCart = async (itemQuantity:number, userID:any, productID:any) => {
   const newRef = database().ref('/carts').push();
   return newRef
     .set({
@@ -190,7 +190,7 @@ export const insertCart = async (itemQuantity, userID, productID) => {
     });
 };
 
-export const getCartByEmail = async email => {
+export const getCartByEmail = async (email:string) => {
   const ref = database().ref('users');
   return await ref
     .orderByChild('email')
@@ -220,7 +220,7 @@ export const getCartByEmail = async email => {
     });
 };
 
-export const updateCartQuantity = async (cartID, quantity) => {
+export const updateCartQuantity = async (cartID:any, quantity:number) => {
   const ref = database().ref('carts');
   return ref.orderByChild('cartID').equalTo(cartID).once('value').then(snapshot=>{
     snapshot.forEach(item => {
@@ -232,7 +232,7 @@ export const updateCartQuantity = async (cartID, quantity) => {
   });
 };
 
-export const deleteCart = async cartID => {
+export const deleteCart = async (cartID:any) => {
   const ref = database().ref('carts');
   return ref
     .orderByChild('cartID')
@@ -249,7 +249,7 @@ export const deleteCart = async cartID => {
     });
 };
 
-export const getUserFavorite = async userID => {
+export const getUserFavorite = async (userID:any) => {
   const ref = database().ref('favorites');
   return ref
     .orderByChild('userID')
@@ -264,7 +264,7 @@ export const getUserFavorite = async userID => {
     });
 };
 
-export const insertUserFavorite = async (userID, productID) => {
+export const insertUserFavorite = async (userID:any, productID:any) => {
   const ref = database().ref('favorites').push();
   return ref
     .set({
@@ -282,7 +282,7 @@ export const insertUserFavorite = async (userID, productID) => {
     });
 };
 
-export const checkUserFavorite = async (userID, productID) => {
+export const checkUserFavorite = async (userID:any, productID:any) => {
   const ref = database().ref('favorites');
   return ref
     .orderByChild('userID')
@@ -306,15 +306,15 @@ export const checkUserFavorite = async (userID, productID) => {
 };
 
 export const insertUserOrder = async (
-  totalPrice,
-  originalPrice,
-  note,
-  receiver,
-  shippingFee,
-  addressID,
-  userID,
-  couponID,
-  cardID,
+  totalPrice:number,
+  originalPrice:number,
+  note:string,
+  receiver:string,
+  shippingFee:number,
+  addressID: any,
+  userID: any,
+  couponID: any,
+  cardID: any,
 ) => {
   const ref = database().ref('userOrders').push();
   return ref.set({
@@ -332,10 +332,10 @@ export const insertUserOrder = async (
 };
 
 export const insertOrderDetail = async (
-  productQuantity,
-  userOrderID,
-  productID,
-  cartID,
+  productQuantity:number,
+  userOrderID:any,
+  productID:any,
+  cartID:any,
 ) => {
   const data = {
     
@@ -349,7 +349,7 @@ export const insertOrderDetail = async (
   })
 };
 
-export const getProductRatingsByID = async productID => {
+export const getProductRatingsByID = async (productID:any) => {
   const ref = database().ref('ratings');
   return ref.orderByChild('productID').equalTo(productID).once('value').then(snapshot=> {
     let list = [];
@@ -360,7 +360,7 @@ export const getProductRatingsByID = async productID => {
   })
 };
 
-export const insertUserRating = async (rating, comment, userID, productID) => {
+export const insertUserRating = async (rating:number, comment:string, userID:any, productID:any) => {
   const ref = database().ref('ratings').push();
   return ref.set({
     ratingID: ref.key,

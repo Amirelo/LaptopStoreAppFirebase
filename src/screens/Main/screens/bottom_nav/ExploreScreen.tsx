@@ -1,16 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import {MainContext} from '../MainContext';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomHeader from '../../../components/molecules/product/CustomHeader';
-import ProductVItem from '../../../components/molecules/product/ProductVItem';
-import ProductHItem from '../../../components/molecules/product/ProductHItem';
-import CustomText from '../../../components/atoms/CustomText';
-import SortOption from '../../../components/molecules/SortOption';
-import {deviceHeight} from '../../../utils/helper';
-import {AuthContext} from '../../Auth/AuthContext';
+import {MainContext} from '../../MainContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomHeader from '../../../../components/molecules/product/CustomHeader';
+import ProductVItem from '../../../../components/molecules/product/ProductVItem';
+import ProductHItem from '../../../../components/molecules/product/ProductHItem';
+import CustomText from '../../../../components/atoms/CustomText';
+import SortOption from '../../../../components/molecules/SortOption';
+import {deviceHeight} from '../../../../utils/helper';
+import {AuthContext} from '../../../Auth/AuthContext';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const ExploreScreen = ({navigation}) => {
+const ExploreScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const {onGetAllProduct} = useContext(MainContext);
   const {language} = useContext(AuthContext);
 

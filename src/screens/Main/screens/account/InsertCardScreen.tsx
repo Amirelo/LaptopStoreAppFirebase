@@ -1,13 +1,14 @@
 import React, {useContext, useState} from 'react';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import {AuthContext} from '../../Auth/AuthContext';
-import OptionsButton from '../../../components/molecules/OptionsButton';
-import {CustomText} from '../../../components/atoms';
-import {useNavigation} from '@react-navigation/native';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomInput from '../../../../components/molecules/CustomInput';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import {AuthContext} from '../../../Auth/AuthContext';
+import OptionsButton from '../../../../components/molecules/OptionsButton';
+import {CustomText} from '../../../../components/atoms';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 
-const InsertCardScreen = ({route}) => {
+const InsertCardScreen = () => {
+  const route = useRoute<RouteProp<{params:{userInfo:any}}>>();
   const {userInfo} = route.params;
   let data = null;
   if (route.params) {
@@ -53,7 +54,7 @@ const InsertCardScreen = ({route}) => {
     }
   };
 
-  const onOptionSelected = index => {
+  const onOptionSelected = (index:any) => {
     setStatus(index);
     setShowStatusOption(false);
   };

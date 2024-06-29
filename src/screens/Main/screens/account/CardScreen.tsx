@@ -1,10 +1,12 @@
 import {FlatList} from 'react-native';
 import React from 'react';
-import {CustomText, CustomView} from '../../../components/atoms';
-import ItemCard from '../../../components/molecules/account/ItemCard';
-import {deviceWidth} from '../../../utils/helper';
+import {CustomText, CustomView} from '../../../../components/atoms';
+import ItemCard from '../../../../components/molecules/account/ItemCard';
+import {deviceWidth} from '../../../../utils/helper';
+import { RouteProp, useRoute } from '@react-navigation/native';
 
-const CardScreen = ({route}) => {
+const CardScreen = () => {
+  const route = useRoute<RouteProp<{params: {cards:any}}>>();
   const {cards} = route.params;
   console.log('Card screen', cards);
 
@@ -12,8 +14,6 @@ const CardScreen = ({route}) => {
     <CustomView>
       {cards != null ? (
         <FlatList
-          width={deviceWidth}
-          marginTop={12}
           contentContainerStyle={{
             gap: 16,
             flexGrow: 0,

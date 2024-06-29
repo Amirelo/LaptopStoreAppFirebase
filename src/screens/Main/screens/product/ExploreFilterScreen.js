@@ -1,9 +1,9 @@
 import React from 'react';
-import * as images from '../../../assets/images';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomText from '../../../components/atoms/CustomText';
-import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
-import CustomImage from '../../../components/atoms/CustomImage';
+import * as images from '../../../../assets/images';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomText from '../../../../components/atoms/CustomText';
+import CustomButtonBare from '../../../../components/atoms/CustomButtonBare';
+import CustomImage from '../../../../components/atoms/CustomImage';
 
 const ExploreFilterScreen = () => {
   return (

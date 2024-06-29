@@ -1,19 +1,21 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import CustomView from '../../../components/atoms/CustomView';
-import {MainContext} from '../MainContext';
-import ProductHItem from '../../../components/molecules/product/ProductHItem';
-import CustomText from '../../../components/atoms/CustomText';
-import {deviceWidth} from '../../../utils/helper';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import ProductVItem from '../../../components/molecules/product/ProductVItem';
-import * as images from '../../../assets/images';
-import CustomBanner from '../../../components/molecules/product/CustomBanner';
-import CustomButtonBare from '../../../components/atoms/CustomButtonBare';
-import {borderTheme} from '../../../preferences/borderTheme';
-import {AuthContext} from '../../Auth/AuthContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import {MainContext} from '../../MainContext';
+import ProductHItem from '../../../../components/molecules/product/ProductHItem';
+import CustomText from '../../../../components/atoms/CustomText';
+import {deviceWidth} from '../../../../utils/helper';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import ProductVItem from '../../../../components/molecules/product/ProductVItem';
+import * as images from '../../../../assets/images';
+import CustomBanner from '../../../../components/molecules/product/CustomBanner';
+import CustomButtonBare from '../../../../components/atoms/CustomButtonBare';
+import {borderTheme} from '../../../../preferences/borderTheme';
+import {AuthContext} from '../../../Auth/AuthContext';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const [listProducts, setListProducts] = useState([]);
   const [listPopProducts, setListPopProducts] = useState([]);
   const [listBestBuy, setListBestBuy] = useState([]);

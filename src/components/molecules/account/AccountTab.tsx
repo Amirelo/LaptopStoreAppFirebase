@@ -13,7 +13,6 @@ titleColor?:ColorValue,
 subtitle?:String,
 onPress?(): void,
 type?: 'usertab' | 'profile',
-source: any,
 }
 
 const AccountTab = (props:Props) => {

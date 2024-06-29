@@ -1,20 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
-import * as images from '../../../assets/images';
+import * as images from '../../../../assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { AuthContext } from '../../Auth/AuthContext';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import CustomInput from '../../../components/molecules/CustomInput';
-import LocationOptions from '../../../components/molecules/account/LocationOptions';
-import { displayMessage } from '../../../utils/helper';
+import { AuthContext } from '../../../Auth/AuthContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import CustomInput from '../../../../components/molecules/CustomInput';
+import LocationOptions from '../../../../components/molecules/account/LocationOptions';
+import { displayMessage } from '../../../../utils/helper';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const CartRecipientScreen = ({ navigation, route }) => {
+const CartRecipientScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const route = useRoute<RouteProp<{params:{totalPrice: number, cart: any}}>>()
   const [location, setLocation] = useState();
   const [showLocation, setShowLocation] = useState(false);
   const [userAddresses, setUserAddresses] = useState([]);
-  const [fullName, setFullName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [note, setNote] = useState('');
+  const [fullName, setFullName] = useState<String>('');
+  const [phoneNumber, setPhoneNumber] = useState<String>('');
+  const [note, setNote] = useState<String>('');
   const [userID, setUserID] = useState();
 
   const [isDisabled, setIsDisabled] = React.useState(true)
@@ -71,7 +74,7 @@ const CartRecipientScreen = ({ navigation, route }) => {
     setShowLocation(false);
   };
 
-  const onLocationSelected = item => {
+  const onLocationSelected = (item:any) => {
     setShowLocation(false);
     setLocation(item);
   };

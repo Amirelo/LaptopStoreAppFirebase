@@ -1,11 +1,11 @@
 import { View, Text, FlatList } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
-import { CustomText, CustomView } from '../../../components/atoms';
-import { MainContext } from '../MainContext';
-import { deviceWidth } from '../../../utils/helper';
-import CommentItem from '../../../components/molecules/product/CommentItem';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import { AuthContext } from '../../Auth/AuthContext';
+import { CustomText, CustomView } from '../../../../components/atoms';
+import { MainContext } from '../../MainContext';
+import { deviceWidth } from '../../../../utils/helper';
+import CommentItem from '../../../../components/molecules/product/CommentItem';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import { AuthContext } from '../../../Auth/AuthContext';
 
 const ProductCommentScreen = ({ navigation, route }) => {
   const { onGetProductRatingsByID } = useContext(MainContext);

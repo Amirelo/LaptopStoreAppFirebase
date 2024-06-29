@@ -5,7 +5,7 @@ export const deviceHeight = Dimensions.get('window').height;
 
 const emailRegex = /^[a-z0-9.]{1,64}@[a-z0-9.]{1,64}$/i;
 
-export const priceFormat = price => {
+export const priceFormat = (price:any) => {
   const formatter = new Intl.NumberFormat('vi-VN', {
     style: 'currency',
     currency: 'VND',
@@ -13,7 +13,7 @@ export const priceFormat = price => {
   return formatter.format(price);
 };
 
-export const discountFormat = discount => {
+export const discountFormat = (discount:any) => {
   let result = '';
   if (discount.substring(0, 1) == '%') {
     result = discount.substring(1, 3) + '% off';
@@ -24,7 +24,7 @@ export const discountFormat = discount => {
   return result;
 };
 
-export const promoDetail = (percentOff, maxEffect) => {
+export const promoDetail = (percentOff:any, maxEffect:any) => {
   let result =
     percentOff.slice(1, 3) +
     percentOff.slice(0, 1) +
@@ -33,11 +33,11 @@ export const promoDetail = (percentOff, maxEffect) => {
   return result;
 };
 
-export const addressFormat = (addressName, ward, district, city) => {
+export const addressFormat = (addressName:any, ward:any, district:any, city:any) => {
   return addressName + ', ' + ward + ', ' + district + ', ' + city;
 };
 
-export const displayMessage = (message) => {
+export const displayMessage = (message:any) => {
   if (Platform.OS == "android"){
     ToastAndroid.show(message, ToastAndroid.SHORT)
   }
@@ -46,7 +46,7 @@ export const displayMessage = (message) => {
   }
 }
 
-export const testEmailFormat = (email) =>{
+export const testEmailFormat = (email:any) =>{
   const res = emailRegex.test(email)
   res ? null : displayMessage("Email format is not acceptable")
   return res

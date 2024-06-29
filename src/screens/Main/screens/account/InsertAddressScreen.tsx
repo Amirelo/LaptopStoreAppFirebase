@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import { AuthContext } from '../../Auth/AuthContext';
-import OptionsButton from '../../../components/molecules/OptionsButton';
-import { CustomText } from '../../../components/atoms';
-import { useNavigation } from '@react-navigation/native';
-import AddressModel from '../../../models/AddressModel';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomInput from '../../../../components/molecules/CustomInput';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import { AuthContext } from '../../../Auth/AuthContext';
+import OptionsButton from '../../../../components/molecules/OptionsButton';
+import { CustomText } from '../../../../components/atoms';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import AddressModel from '../../../../models/AddressModel';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const InsertAddressScreen = ({ route }) => {
+const InsertAddressScreen = () => {
+  const route = useRoute<RouteProp<{params:{userInfo:any}}>>();
   const { userInfo } = route.params;
   const [data, setData] = React.useState()
 
@@ -49,7 +50,7 @@ const InsertAddressScreen = ({ route }) => {
     }
   };
 
-  const onOptionSelected = index => {
+  const onOptionSelected = (index:any) => {
     setStatus(index);
     setShowStatusOption(false);
   };

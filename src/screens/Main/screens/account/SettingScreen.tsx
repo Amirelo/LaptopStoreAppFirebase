@@ -1,8 +1,8 @@
 import React from 'react';
-import {CustomText, CustomView} from '../../../components/atoms';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import {AuthContext} from '../../Auth/AuthContext';
-import OptionsButton from '../../../components/molecules/OptionsButton';
+import {CustomText, CustomView} from '../../../../components/atoms';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import {AuthContext} from '../../../Auth/AuthContext';
+import OptionsButton from '../../../../components/molecules/OptionsButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SettingScreen = () => {

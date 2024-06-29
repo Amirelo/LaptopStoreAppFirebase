@@ -27,10 +27,13 @@ import {
   insertUserRating,
 } from './MainService';
 
-export const MainContext = createContext();
+export const MainContext = createContext({} as any);
 
-export const MainContextProvider = props => {
-  const {children} = props;
+interface Props{
+  children: any
+}
+
+export const MainContextProvider = (props:Props) => {
 
   const onGetAllProduct = async () => {
     try {
@@ -42,7 +45,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductByID = async productID => {
+  const onGetProductByID = async (productID:any) => {
     try {
       const res = await getProductByID(productID);
       return res;
@@ -62,7 +65,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductImagesByProductID = async productID => {
+  const onGetProductImagesByProductID = async (productID:any) => {
     try {
       const res = await getProductImagesByProductID(productID);
       return res;
@@ -82,7 +85,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductProcessor = async processorID => {
+  const onGetProductProcessor = async (processorID:any) => {
     try {
       const res = await getProductProcessor(processorID);
       return res;
@@ -102,7 +105,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductMemory = async memoryID => {
+  const onGetProductMemory = async (memoryID:any) => {
     try {
       const res = await getProductMemory(memoryID);
       return res;
@@ -122,7 +125,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductScreen = async screenID => {
+  const onGetProductScreen = async (screenID:any) => {
     try {
       const res = await getProductScreen(screenID);
       return res;
@@ -142,7 +145,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductStorage = async storageID => {
+  const onGetProductStorage = async (storageID:any) => {
     try {
       const res = await getProductStorage(storageID);
       return res;
@@ -152,7 +155,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetUserCart = async username => {
+  const onGetUserCart = async (username:String) => {
     try {
       const res = await getUserCart(username);
       return res;
@@ -172,7 +175,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductOS = async operatingSystemID => {
+  const onGetProductOS = async (operatingSystemID:any) => {
     try {
       const res = await getProductOperatingSystem(operatingSystemID);
       return res;
@@ -182,7 +185,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetUserFavorite = async userID => {
+  const onGetUserFavorite = async (userID:any) => {
     try {
       const res = await getUserFavorite(userID);
       return res;
@@ -192,7 +195,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onCheckUserFavorite = async (userID, productID) => {
+  const onCheckUserFavorite = async (userID:any, productID:any) => {
     try {
       const res = await checkUserFavorite(userID, productID);
       return res;
@@ -202,7 +205,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onInsertCart = async (itemQuantity, userID, productID) => {
+  const onInsertCart = async (itemQuantity:number, userID:any, productID:any) => {
     try {
       const res = await insertCart(itemQuantity, userID, productID);
       console.log('On Insert Cart Result:', res);
@@ -213,7 +216,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetCartByEmail = async email => {
+  const onGetCartByEmail = async (email:string) => {
     try {
       const res = await getCartByEmail(email);
       console.log('cart result:', res);
@@ -224,7 +227,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onUpdateCartQuantity = async (cartID, quantity) => {
+  const onUpdateCartQuantity = async (cartID:any, quantity:number) => {
     try {
       const res = await updateCartQuantity(cartID, quantity);
       return res;
@@ -234,7 +237,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onDeleteCart = async cartID => {
+  const onDeleteCart = async (cartID:any) => {
     try {
       const res = await deleteCart(cartID);
       return res;
@@ -245,16 +248,16 @@ export const MainContextProvider = props => {
   };
 
   const onInsertUserOrder = async (
-    totalPrice,
-    originalPrice,
-    note,
-    receiver,
-    shippingFee,
-    addressID,
-    userID,
-    couponID,
-    cardID,
-    cartID,
+    totalPrice:number,
+    originalPrice:number,
+    note:string,
+    receiver:string,
+    shippingFee:number,
+    addressID: any,
+    userID: any,
+    couponID: any,
+    cardID: any,
+    cartID: any,
   ) => {
     try {
       const res = await insertUserOrder(
@@ -277,10 +280,10 @@ export const MainContextProvider = props => {
   };
 
   const onInsertOrderDetail = async (
-    productQuantity,
-    userOrderID,
-    productID,
-    cartID,
+    productQuantity: any,
+    userOrderID: any,
+    productID: any,
+    cartID: any,
   ) => {
     try {
       const res = await insertOrderDetail(
@@ -296,7 +299,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onGetProductRatingsByID = async productID => {
+  const onGetProductRatingsByID = async (productID:any) => {
     try {
       const res = await getProductRatingsByID(productID);
       console.log('On get product rating by id', res);
@@ -307,7 +310,7 @@ export const MainContextProvider = props => {
     }
   };
 
-  const onInsertUserRating = async (rating, comment, userID, productID) => {
+  const onInsertUserRating = async (rating:number, comment:string, userID:any, productID:any) => {
     try {
       const res = await insertUserRating(rating, comment, userID, productID);
       return res;
@@ -346,7 +349,7 @@ export const MainContextProvider = props => {
         onGetProductRatingsByID,
         onInsertUserRating,
       }}>
-      {children}
+      {props.children}
     </MainContext.Provider>
   );
 };

@@ -1,11 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AuthContext} from '../../Auth/AuthContext';
-import CustomView from '../../../components/atoms/CustomView';
-import AccountTab from '../../../components/molecules/account/AccountTab';
-import UserTab from '../../../components/molecules/account/UserTab';
+import {AuthContext} from '../../../Auth/AuthContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import AccountTab from '../../../../components/molecules/account/AccountTab';
+import UserTab from '../../../../components/molecules/account/UserTab';
+import CustomScroll from '../../../../components/atoms/CustomScroll';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const AccountScreen = ({route, navigation}) => {
+const AccountScreen = () => {
+  const route = useRoute<RouteProp<any>>();
+  const navigation = useNavigation<NavigationProp<any>>()
   const {
     onGetUserOrder,
     onSignOut,
@@ -46,7 +50,7 @@ const AccountScreen = ({route, navigation}) => {
     setUserCards(userCard);
   };
 
-  const onGoBackAccount = data => {
+  const onGoBackAccount = (data:any) => {
     setUserData(data);
   };
 
@@ -107,7 +111,7 @@ const AccountScreen = ({route, navigation}) => {
 
   return (
     <CustomView>
-      <CustomView scrollable={true}>
+      <CustomScroll>
         <UserTab
           title={userData ? userData.username : ''}
           subtitle={userData ? userData.email : ''}
@@ -146,16 +150,14 @@ const AccountScreen = ({route, navigation}) => {
           titleColor={'err'}
           subtitle={language.account_tabSub_changePass}
           onPress={onChangePasswordPressed}
-          isHighlight={true}
         />
         <AccountTab
           title={language.account_tabHeader_logout}
           titleColor={'err'}
           subtitle={language.account_tabSub_logout}
           onPress={onSignOutPressed}
-          isHighlight={true}
         />
-      </CustomView>
+      </CustomScroll>
     </CustomView>
   );
 };

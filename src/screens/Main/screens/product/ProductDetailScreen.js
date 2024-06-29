@@ -1,16 +1,16 @@
 import { FlatList } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
-import * as images from '../../../assets/images';
+import * as images from '../../../../assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { AuthContext } from '../../Auth/AuthContext';
-import { MainContext } from '../MainContext';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomImage from '../../../components/atoms/CustomImage';
-import CustomText from '../../../components/atoms/CustomText';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import { displayMessage, priceFormat } from '../../../utils/helper';
-import { deviceWidth } from '../../../utils/helper';
+import { AuthContext } from '../../../Auth/AuthContext';
+import { MainContext } from '../../MainContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomImage from '../../../../components/atoms/CustomImage';
+import CustomText from '../../../../components/atoms/CustomText';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import { displayMessage, priceFormat } from '../../../../utils/helper';
+import { deviceWidth } from '../../../../utils/helper';
 
 const ProductDetailScreen = ({ route }) => {
   const navigation = useNavigation();

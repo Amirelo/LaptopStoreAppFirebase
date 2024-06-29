@@ -1,18 +1,20 @@
 import React, {useContext, useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {FlatList} from 'react-native';
-import CustomView from '../../../components/atoms/CustomView';
-import {AuthContext} from '../../Auth/AuthContext';
-import {MainContext} from '../MainContext';
-import ProductVItem from '../../../components/molecules/product/ProductVItem';
+import CustomView from '../../../../components/atoms/CustomView';
+import {AuthContext} from '../../../Auth/AuthContext';
+import {MainContext} from '../../MainContext';
+import ProductVItem from '../../../../components/molecules/product/ProductVItem';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const FavoriteScreen = ({navigation}) => {
+const FavoriteScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>()
   const {onGetUserByEmail} = useContext(AuthContext);
   const {onGetUserFavorite, onGetProductByID} = useContext(MainContext);
 
   const [listFavorites, setListFavorites] = useState([]);
 
-  const onItemPressed = item => {
+  const onItemPressed = (item:any) => {
     navigation.navigate('Product Details', {item: item});
   };
 

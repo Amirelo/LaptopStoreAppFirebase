@@ -1,7 +1,7 @@
 import {FlatList} from 'react-native';
 import React from 'react';
-import CustomView from '../../../components/atoms/CustomView';
-import PromoItem from '../../../components/molecules/account/PromoItem';
+import CustomView from '../../../../components/atoms/CustomView';
+import PromoItem from '../../../../components/molecules/account/PromoItem';
 
 const PromoCodeScreen = ({route}) => {
   const {userPromoCodes} = route.params;

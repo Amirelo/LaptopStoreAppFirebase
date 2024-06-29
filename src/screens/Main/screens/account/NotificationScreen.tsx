@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useContext} from 'react';
-import NotificationItem from '../../../components/molecules/account/NotificationItem';
-import CustomView from '../../../components/atoms/CustomView';
+import NotificationItem from '../../../../components/molecules/account/NotificationItem';
+import CustomView from '../../../../components/atoms/CustomView';
 import {FlatList} from 'react-native';
-import {deviceWidth, displayMessage} from '../../../utils/helper';
-import {AuthContext} from '../../Auth/AuthContext';
+import {deviceWidth, displayMessage} from '../../../../utils/helper';
+import {AuthContext} from '../../../Auth/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const NotificationScreen = () => {

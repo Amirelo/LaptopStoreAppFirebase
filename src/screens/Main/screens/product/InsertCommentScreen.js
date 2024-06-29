@@ -1,11 +1,11 @@
 import {View, Text} from 'react-native';
 import React, {useState, useContext} from 'react';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import CustomInput from '../../../components/molecules/CustomInput';
-import {CustomView} from '../../../components/atoms';
-import {MainContext} from '../MainContext';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import CustomInput from '../../../../components/molecules/CustomInput';
+import {CustomView} from '../../../../components/atoms';
+import {MainContext} from '../../MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AuthContext} from '../../Auth/AuthContext';
+import {AuthContext} from '../../../Auth/AuthContext';
 
 const InsertCommentScreen = ({route, navigation}) => {
   const [rating, setRating] = useState();

@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AuthContext} from '../../Auth/AuthContext';
-import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import CustomInput from '../../../components/molecules/CustomInput';
+import {AuthContext} from '../../../Auth/AuthContext';
+import CustomView from '../../../../components/atoms/CustomView';
+import CustomButton from '../../../../components/molecules/button/CustomButton';
+import CustomInput from '../../../../components/molecules/CustomInput';
 
 const UpdateInfoScreen = ({route, navigation}) => {
   const {email, type} = route.params;
