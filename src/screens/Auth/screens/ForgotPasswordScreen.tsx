@@ -4,11 +4,15 @@ import {AuthContext} from '../AuthContext';
 import { CustomView, CustomText } from '../../../components/atoms';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/button/CustomButton';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const ForgotPasswordScreen = ({navigation, route}) => {
-  const [pass, setPass] = useState();
-  const [confirmPass, setConfirmPass] = useState();
-  const [error, setError] = useState();
+const ForgotPasswordScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const route = useRoute<RouteProp<{params:{email:String, type:String}}>>();
+
+  const [pass, setPass] = React.useState<String>('');
+  const [confirmPass, setConfirmPass] = useState<String>('');
+  const [error, setError] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
   const {email, type} = route.params;
 
@@ -40,7 +44,7 @@ const ForgotPasswordScreen = ({navigation, route}) => {
         marginTop={103}
         onChangeText={setPass}
         disabled={!isDisabled}
-        type={'password'}
+        isPassword
       />
       <CustomInput
         source={images.ic_password}
@@ -48,10 +52,10 @@ const ForgotPasswordScreen = ({navigation, route}) => {
         onChangeText={setConfirmPass}
         disabled={!isDisabled}
         marginTop={8}
-        type={'password'}
+        isPassword
       />
       {error != null ? (
-        <CustomText textStyle={'normal'} textColor={'err'}>
+        <CustomText textStyle={'text_normal'} textColor={'err'}>
           {error}
         </CustomText>
       ) : (

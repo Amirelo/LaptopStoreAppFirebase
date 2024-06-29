@@ -8,16 +8,18 @@ import CustomView from '../../../components/atoms/CustomView';
 import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {updateUserInfo} from '../AuthService';
 import {checkLanguage, useLanguage} from '../../../preferences/languages/languageTheme';
 import { displayMessage } from '../../../utils/helper';
-import { TextInput } from 'react-native';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const SignInScreen = ({navigation, route}) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const SignInScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const [username, setUsername] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+  const [error, setError] = useState<String>('');
   const [isDisabled, setIsDisabled] = useState(false);
+
+  const {onUpdateUserInfo} = useContext(AuthContext)
 
   const {
     onSignIn,
@@ -49,7 +51,7 @@ const SignInScreen = ({navigation, route}) => {
     setIsDisabled(false);
   };
 
-  const onSocialSignInPress = async email => {
+  const onSocialSignInPress = async (email:string) => {
     await AsyncStorage.setItem('email', email);
     onSocialSignIn();
   };
@@ -86,7 +88,7 @@ const SignInScreen = ({navigation, route}) => {
           null,
         );
         if (signUp.response_code == 1) {
-          const updateImage = await updateUserInfo(
+          await onUpdateUserInfo(
             userInfo.user.photo,
             userInfo.user.email,
             'IMAGELINK',
@@ -121,10 +123,10 @@ const SignInScreen = ({navigation, route}) => {
   return (
     <CustomView>
       <CustomImage type={'header'} source={images.app_logo_splash} />
-      <CustomText textColor={'text'} textStyle={'subtitle'}>
+      <CustomText textColor={'text'} textStyle={'text_subtitle'}>
         {language.login_text_header}
       </CustomText>
-      <CustomText textColor={'text'} textStyle={'small'} marginTop={0}>
+      <CustomText textColor={'text'} textStyle={'text_small'} marginTop={0}>
         {language.login_text_sub_header}
       </CustomText>
 
@@ -143,10 +145,10 @@ const SignInScreen = ({navigation, route}) => {
         source={images.ic_password}
         disabled={!isDisabled}
         marginTop={12}
-        type={'password'}
+        isPassword
       />
       {error ? (
-        <CustomText marginTop={4} textColor={'err'} textStyle={'small'}>
+        <CustomText marginTop={4} textColor={'err'} textStyle={'text_small'}>
           {error}
         </CustomText>
       ) : (
@@ -170,7 +172,7 @@ const SignInScreen = ({navigation, route}) => {
         {language.login_text_other_signin_option}
       </CustomText>
       <CustomButton onPress={onAnonymousSignIn} type={'primary'}>
-        Anonymous Sign In
+        Without Account
       </CustomButton>
       <CustomButton
         onPress={onGoogleSignInPressed}
@@ -185,12 +187,11 @@ const SignInScreen = ({navigation, route}) => {
         disabled={isDisabled}>
         <CustomView type={'row'} marginTop={24}>
           <CustomText marginTop={0}>
-            {language.login_button_signup_1}{' '}
+            {language.login_button_signup_1 + ''}
           </CustomText>
           <CustomText
-            type={'highlight'}
             textColor={'primary'}
-            textStyle={'normalBold'}
+            textStyle={'text_normalBold'}
             marginTop={0}>
             {language.login_button_signup_2}
           </CustomText>

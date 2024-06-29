@@ -5,7 +5,7 @@ import de from './de';
 import fr from './fr';
 import ja from './ja';
 
-const languageTheme = {
+export const languageTheme = {
   vn,
   en,
   de,

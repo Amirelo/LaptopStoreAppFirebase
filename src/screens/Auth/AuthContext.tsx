@@ -22,23 +22,27 @@ import {
   checkUserName,
 } from './AuthService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {checkLanguage} from '../../preferences/languages/languageTheme';
-import {setThemeColors} from '../../preferences/colorTheme';
-import AddressModel from '../../models/AddressModel';
+import {checkLanguage, languageTheme} from '../../preferences/languages/languageTheme';
+import {setThemeColors} from '../../preferences/themes/colorTheme';
 
-export const AuthContext = createContext();
 
-export const AuthContextProvider = ({children}) => {
+export const AuthContext = createContext({} as any);
+
+interface Props{
+  children: any
+}
+
+export const AuthContextProvider = (props:Props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [language, setLanguage] = useState(checkLanguage('en'));
   const [theme, setTheme] = useState(setThemeColors());
 
-  const changeLanguage = async lang => {
+  const changeLanguage = async (lang:keyof typeof language) => {
     setLanguage(checkLanguage(lang));
     await AsyncStorage.setItem('language', lang);
   };
 
-  const changeTheme = async themeType => {
+  const changeTheme = async (themeType: keyof typeof theme) => {
     setTheme(setThemeColors(themeType));
     await AsyncStorage.setItem('theme', themeType);
   };
@@ -56,7 +60,7 @@ export const AuthContextProvider = ({children}) => {
     setIsLoggedIn(true);
   };
 
-  const onSignIn = async (username, password) => {
+  const onSignIn = async (username:String, password:String) => {
     try {
       const res = await signIn(username, password);
       console.log('On Sign In Result: ', res);
@@ -77,12 +81,12 @@ export const AuthContextProvider = ({children}) => {
   };
 
   const onSignUp = async (
-    username,
-    password,
-    email,
-    phoneNumber,
-    fullName,
-    birthday,
+    username:String,
+    password:String,
+    email:String,
+    phoneNumber:String,
+    fullName:String,
+    birthday:String,
   ) => {
     try {
       const res = await signUp(
@@ -107,9 +111,9 @@ export const AuthContextProvider = ({children}) => {
 
 
 
-  const onCheckEmail = async (email, type) => {
+  const onCheckEmail = async (email:String, type:String) => {
     try {
-      const res = await checkEmail(email, type);
+      const res = await checkEmail(email);
       console.log('On Check Email success', res);
       return res;
     } catch (error) {
@@ -118,7 +122,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onCheckUsername = async(username)=>{
+  const onCheckUsername = async(username:String)=>{
     try{
       return await checkUserName(username);
     } catch(error){
@@ -127,7 +131,7 @@ export const AuthContextProvider = ({children}) => {
     
   }
 
-  const onUpdateUserInfo = async (data, email, type) => {
+  const onUpdateUserInfo = async (data:String, email:String, type:String) => {
     try {
       let res;
       switch(type){
@@ -155,7 +159,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserByEmail = async email => {
+  const onGetUserByEmail = async (email:String) => {
     try {
       const res = await getUserByEmail(email);
       console.log('On Get User info success', res);
@@ -166,7 +170,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetAddressesByEmail = async email => {
+  const onGetAddressesByEmail = async (email:String) => {
     try {
       const res = await getAddressesByEmail(email);
       console.log('On Get User Address success', res);
@@ -178,7 +182,7 @@ export const AuthContextProvider = ({children}) => {
   };
 
   const insertUserAddress = async (
-    address
+    address:any
   ) => {
     try {
       const res = await insertAddress(
@@ -192,7 +196,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const updateUserAddress = async (address) => {
+  const updateUserAddress = async (address:any) => {
     try {
       
       const res = await updateAddressInfo(address);
@@ -204,7 +208,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserNotification = async userID => {
+  const onGetUserNotification = async (userID:any) => {
     try {
       const res = await getUserNotification(userID);
       console.log('On Get User Notification success', res);
@@ -216,8 +220,8 @@ export const AuthContextProvider = ({children}) => {
   };
 
   const onUpdateUserNotificationStatus = async (
-    status,
-    notificationID,
+    status:number,
+    notificationID:any,
   ) => {
     try {
       const res = await updateNotificationStatus(
@@ -232,7 +236,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onInsertNotification = async (title, detail, userID) => {
+  const onInsertNotification = async (title:String, detail:String, userID:any) => {
     try {
       const res = await insertNotification(title, detail, userID);
       console.log('On Get User Notification success', res);
@@ -243,7 +247,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserOrder = async userID => {
+  const onGetUserOrder = async (userID:any) => {
     try {
       const res = await getUserOrders(userID);
       console.log('On Get User Order success', res);
@@ -254,7 +258,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserOrderDetail = async orderID => {
+  const onGetUserOrderDetail = async (orderID:any) => {
     try {
       const res = await getUserOrderDetail(orderID);
       console.log('On Get Order Detail success', res);
@@ -265,7 +269,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserCoupon = async userID => {
+  const onGetUserCoupon = async (userID:any) => {
     try {
       const res = await getUserCoupon(userID);
       console.log('On Get user coupon success', res);
@@ -276,7 +280,7 @@ export const AuthContextProvider = ({children}) => {
     }
   };
 
-  const onGetUserCards = async userID => {
+  const onGetUserCards = async (userID:any) => {
     try {
       const res = await getUserCards(userID);
       console.log('On Get user coupon success', res);
@@ -288,7 +292,7 @@ export const AuthContextProvider = ({children}) => {
   };
 
   const getCurLanguage = async () => {
-    const langKey = await AsyncStorage.getItem('language');
+    const langKey:keyof typeof languageTheme = await AsyncStorage.getItem('language');
     console.log('key', langKey);
     setLanguage(checkLanguage(langKey));
   };
@@ -334,7 +338,7 @@ export const AuthContextProvider = ({children}) => {
         theme,
         changeTheme,
       }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   );
 };

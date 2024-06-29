@@ -11,7 +11,7 @@ interface Props{
   placeholder: String,
   source?: any,
   marginTop?: DimensionValue,
-  onChangeText?(): void,
+  onChangeText?(text:String): void,
   keyboardType?: KeyboardTypeOptions,
   value?: String,
   disabled?: boolean,

@@ -5,8 +5,10 @@ import CustomImage from '../../../components/atoms/CustomImage';
 import CustomText from '../../../components/atoms/CustomText';
 import {deviceHeight} from '../../../utils/helper';
 import {AuthContext} from '../AuthContext';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const SplashScreen = ({navigation}) => {
+const SplashScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const {language} = useContext(AuthContext);
   setTimeout(() => {
     navigation.reset({
@@ -22,7 +24,7 @@ const SplashScreen = ({navigation}) => {
         type={'header'}
       />
       <CustomText
-        textStyle={'titleBold'}
+        textStyle={'text_titleBold'}
         textColor={'textConstrast'}
         marginTop={20}>
         {language.splash_text_motto}

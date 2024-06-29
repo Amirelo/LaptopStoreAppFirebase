@@ -1,8 +1,9 @@
 import database, { firebase } from '@react-native-firebase/database';
+import AddressModel from '../../models/AddressModel';
 
 
 // User
-export const signIn = async (username, password) => {
+export const signIn = async (username:string, password:string) => {
   const ref = database().ref('/users');
   const res = await ref
     .orderByChild('username')
@@ -26,12 +27,12 @@ export const signIn = async (username, password) => {
 };
 
 export const signUp = async (
-  username,
-  password,
-  email,
-  phoneNumber,
-  fullName,
-  birthday,
+  username:String,
+  password:String,
+  email:String,
+  phoneNumber:String,
+  fullName:String,
+  birthday:String,
 ) => {
   const newReference = database().ref('/users').push();
   newReference
@@ -48,7 +49,7 @@ export const signUp = async (
     .then(() => console.log('User added'));
 };
 
-export const checkEmail = async (email, type) => {
+export const checkEmail = async (email:String) => {
   const ref = database().ref('/users');
   return await ref
     .orderByChild('email')
@@ -67,7 +68,7 @@ export const checkEmail = async (email, type) => {
     });
 };
 
-export const checkUserName = async (username) => {
+export const checkUserName = async (username:String) => {
   const ref = database().ref('users');
   return ref.once('value').then(snapshot => {
     let isUsed = false;
@@ -80,7 +81,7 @@ export const checkUserName = async (username) => {
   })
 }
 
-export const updateUserFullname = async (data, email) => {
+export const updateUserFullname = async (data:string, email:string) => {
   const ref = database().ref('users')
 
   return await ref
@@ -97,7 +98,7 @@ export const updateUserFullname = async (data, email) => {
     })
 };
 
-export const updateUserPhoneNumber = async (data, email) => {
+export const updateUserPhoneNumber = async (data:string, email:string) => {
   const ref = database().ref('users')
 
   return await ref
@@ -114,7 +115,7 @@ export const updateUserPhoneNumber = async (data, email) => {
     })
 };
 
-export const updateUserBirthday = async (data, email) => {
+export const updateUserBirthday = async (data:string, email:string) => {
   const ref = database().ref('users')
 
   return await ref
@@ -131,7 +132,7 @@ export const updateUserBirthday = async (data, email) => {
     })
 };
 
-export const updateUserPassword = async (data, email) => {
+export const updateUserPassword = async (data:string, email:string) => {
   const ref = database().ref('users')
 
   return await ref
@@ -148,7 +149,7 @@ export const updateUserPassword = async (data, email) => {
     })
 };
 
-export const updateUserImage = async (data, email) => {
+export const updateUserImage = async (data:string, email:string) => {
   const ref = database().ref('users')
   return await ref
     .orderByChild('email')
@@ -164,7 +165,7 @@ export const updateUserImage = async (data, email) => {
     })
 };
 
-export const getAddressesByEmail = async email => {
+export const getAddressesByEmail = async (email:string) => {
   const ref = database().ref('users');
   return await ref
     .orderByChild('email')
@@ -191,7 +192,7 @@ export const getAddressesByEmail = async email => {
 };
 
 export const insertAddress = async (
-  address
+  address:AddressModel
 ) => {
   const ref = database().ref('addresses');
   const newRef = ref.push();
@@ -210,7 +211,7 @@ export const insertAddress = async (
   return true;
 };
 
-export const updateAddressInfo = async (address) => {
+export const updateAddressInfo = async (address:AddressModel) => {
   const ref = database().ref('addresses/' + address.id);
   await ref.update({
     addressName: address.addressName,
@@ -224,7 +225,7 @@ export const updateAddressInfo = async (address) => {
 
 // Coupon
 
-export const getUserCoupon = async userID => {
+export const getUserCoupon = async (userID:any) => {
   const ref = database().ref('coupons');
   return await ref
     .orderByChild('userID')
@@ -240,7 +241,7 @@ export const getUserCoupon = async userID => {
 };
 
 // Favorite
-export const getUserFavorite = async userID => {
+export const getUserFavorite = async (userID:any) => {
   const ref = database().ref('favorites');
   const res = ref.orderByChild('userID').equalTo(userID).once('value').then(() => {
     console.log('get success');
@@ -249,9 +250,9 @@ export const getUserFavorite = async userID => {
 };
 
 export const updateUserFavoriteStatus = async (
-  favoriteID,
-  userID,
-  isFavorite,
+  favoriteID:any,
+  userID:any,
+  isFavorite: boolean,
 ) => {
   const ref = database().ref('favorites/' + favoriteID);
   return ref.update({
@@ -261,7 +262,7 @@ export const updateUserFavoriteStatus = async (
 
 // Rating
 
-export const getUserAllRatings = async userID => {
+export const getUserAllRatings = async (userID:any) => {
   return database.ref('ratings').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
     let list = [];
     snapshot.forEach(item => {
@@ -272,12 +273,12 @@ export const getUserAllRatings = async userID => {
 };
 
 export const updateUserRating = async (
-  ratingID,
-  rating,
-  comment,
-  status,
-  userID,
-  productID,
+  ratingID:any,
+  rating:number,
+  comment:string,
+  status:boolean,
+  userID:any,
+  productID:any,
 ) => {
   return database().ref('ratings/' + ratingID).update({
     rating: rating,
@@ -286,7 +287,7 @@ export const updateUserRating = async (
   })
 };
 
-export const updateUserRatingStatus = async (ratingID, userID, status) => {
+export const updateUserRatingStatus = async (ratingID:any, userID:any, status:boolean) => {
   return database().ref('ratings/' + ratingID).update({
     status: status,
   })
@@ -296,7 +297,7 @@ export const getRatingImage = async () => {
   return database.ref('ratingImages').once('value');
 };
 
-export const getRatingImageByRatingID = async ratingID => {
+export const getRatingImageByRatingID = async (ratingID:any) => {
   return database.ref('ratingImages').orderByChild('ratingID').equalTo(ratingID).once('value').then(snapshot => {
     let list = [];
     snapshot.forEach(item => {
@@ -306,7 +307,7 @@ export const getRatingImageByRatingID = async ratingID => {
   })
 };
 
-export const getUserNotification = async userID => {
+export const getUserNotification = async (userID:any) => {
   return database().ref('notifications').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
     let list = [];
     snapshot.forEach(item => {
@@ -317,8 +318,8 @@ export const getUserNotification = async userID => {
 };
 
 export const updateNotificationStatus = async (
-  status,
-  notificationID,
+  status:boolean,
+  notificationID:any,
 ) => {
   try{
     await database().ref('notifications/' + notificationID).update({
@@ -331,7 +332,7 @@ export const updateNotificationStatus = async (
   }
 };
 
-export const insertNotification = async (title, detail, userID) => {
+export const insertNotification = async (title:string, detail:string, userID:any) => {
   const ref = database().ref('notifications').push();
   return ref.set({
     title: title,
@@ -342,7 +343,7 @@ export const insertNotification = async (title, detail, userID) => {
 
 // User Order
 
-export const getUserOrders = async userID => {
+export const getUserOrders = async (userID:any) => {
   const ref = database().ref('orders');
   return await ref
     .orderByChild('userID')
@@ -358,15 +359,15 @@ export const getUserOrders = async userID => {
 };
 
 export const insertUserOrder = async (
-  totalPrice,
-  originalPrice,
-  note,
-  receiver,
-  shippingFee,
-  paymentType,
-  addressID,
-  userID,
-  couponID,
+  totalPrice:number,
+  originalPrice:number,
+  note:string,
+  receiver:string,
+  shippingFee:number,
+  paymentType:any,
+  addressID:any,
+  userID:any,
+  couponID:any,
 ) => {
   const ref = database.ref('orders');
   ref.set({
@@ -384,7 +385,7 @@ export const insertUserOrder = async (
   return true;
 };
 
-export const getUserOrderDetail = async orderID => {
+export const getUserOrderDetail = async (orderID:String) => {
   const res = await database().ref('orderDetails').orderByChild('orderID').equalTo(orderID).once('value').then(snapshot => {
     list = []
     snapshot.forEach(item => {
@@ -397,9 +398,9 @@ export const getUserOrderDetail = async orderID => {
 };
 
 export const insertUserOrderDetail = async (
-  productQuantity,
-  orderID,
-  productID,
+  productQuantity:number,
+  orderID:any,
+  productID:any,
 ) => {
   const ref = database().ref('orders').push();
   return ref.set({
@@ -409,7 +410,7 @@ export const insertUserOrderDetail = async (
   })
 };
 
-export const getUserByEmail = async email => {
+export const getUserByEmail = async (email:string) => {
   const ref = database().ref('users');
   return await ref
     .orderByChild('email')
@@ -425,7 +426,7 @@ export const getUserByEmail = async email => {
     });
 };
 
-export const getUserCards = async userID => {
+export const getUserCards = async (userID:any) => {
   const ref = database().ref('cards');
   return await ref
     .orderByChild('userID')

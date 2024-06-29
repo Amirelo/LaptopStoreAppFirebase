@@ -6,24 +6,27 @@ import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/button/CustomButton';
 import { CustomText } from '../../../components/atoms';
 import { displayMessage } from '../../../utils/helper';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const SignUpScreen = ({ navigation, route }) => {
+const SignUpScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const route = useRoute<RouteProp<{params:{email:String, userData: any}}>>();
   const { email, userData } = route.params;
 
-  const [username, setUsername] = useState();
-  const [fullName, setFullName] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
-  const [birthday, setBirthday] = useState('');
+  const [username, setUsername] = useState<String>('');
+  const [fullName, setFullName] = useState<String>('');
+  const [password, setPassword] = useState<String>('');
+  const [confirmPassword, setConfirmPassword] = useState<String>('');
+  const [phoneNumber, setPhoneNumber] = useState<String>('');
+  const [birthday, setBirthday] = useState<String>('');
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState<String>('');
   const [isDisabled, setIsDisabled] = useState(false)
 
   const { onSignUp, onUpdateUserInfo, language, onCheckUsername } = useContext(AuthContext);
 
   const onConfirmPressed = async () => {
-    isDisabled = true;
+    setIsDisabled(true)
     let allowSignUp = checkInput();
     console.warn(error);
     if (error == '' && allowSignUp == true) {
@@ -46,7 +49,7 @@ const SignUpScreen = ({ navigation, route }) => {
         navigation.navigate('Sign In', { title: 'Sign Up fail' });
       }
     } else{
-      isDisabled = false;
+      setIsDisabled(false)
     }
   };
 
@@ -100,7 +103,7 @@ const SignUpScreen = ({ navigation, route }) => {
         placeholder={language.placeholder_password}
         marginTop={8}
         onChangeText={setPassword}
-        type={'password'}
+        isPassword
         disabled={!isDisabled}
       />
       <CustomInput
@@ -108,7 +111,7 @@ const SignUpScreen = ({ navigation, route }) => {
         placeholder={language.placeholder_password_confirm}
         marginTop={8}
         onChangeText={setConfirmPassword}
-        type={'password'}
+        isPassword
         disabled={!isDisabled}
       />
       <CustomInput
@@ -136,7 +139,7 @@ const SignUpScreen = ({ navigation, route }) => {
         disabled={!isDisabled}
       />
 
-      <CustomText marginTop={4} textColor={'err'} textStyle={'small'} >{error}</CustomText>
+      <CustomText marginTop={4} textColor={'err'} textStyle={'text_small'} >{error}</CustomText>
 
       <CustomButton disabled={isDisabled} type={'primary'} onPress={onConfirmPressed} marginTop={48}>
         {language.signUp_button_confirm}

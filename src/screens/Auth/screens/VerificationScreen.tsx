@@ -4,14 +4,15 @@ import CustomButton from '../../../components/molecules/button/CustomButton';
 import { AuthContext } from '../AuthContext';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomText from '../../../components/atoms/CustomText';
-import { textTheme } from '../../../preferences/textTheme';
-import CustomImage from '../../../components/atoms/CustomImage';
 import CustomView from '../../../components/atoms/CustomView';
 import { displayMessage, testEmailFormat } from '../../../utils/helper';
+import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 
-const VerificationScreen = ({ navigation, route }) => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+const VerificationScreen = () => {
+  const navigation = useNavigation<NavigationProp<any>>();
+  const route = useRoute<RouteProp<{params:{paramKey: any}}>>()
+  const [email, setEmail] = useState<String>('');
+  const [error, setError] = useState<String>('');
   const [isDisabled, setIsDisabled] = useState(false);
 
   const { onCheckEmail, language } =
@@ -66,12 +67,12 @@ const VerificationScreen = ({ navigation, route }) => {
       />
       <CustomText
         textColor={'text'}
-        textStyle={textTheme.text_normal}
+        textStyle={'text_normal'}
         marginTop={8}>
         {language.verify_text_description}
       </CustomText>
       {error != null ? (
-        <CustomText textColor={'err'} textStyle={'normal'}>
+        <CustomText textColor={'err'} textStyle={'text_normal'}>
           {error}
         </CustomText>
       ) : (
@@ -94,9 +95,8 @@ const VerificationScreen = ({ navigation, route }) => {
               {language.verify_button_signin_1}
             </CustomText>
             <CustomText
-              type={'highlight'}
               textColor={'primary'}
-              textStyle={'normalBold'}
+              textStyle={'text_normalBold'}
               marginTop={0}>
               {language.verify_button_signin_2}
             </CustomText>
