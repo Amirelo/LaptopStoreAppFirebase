@@ -9,16 +9,21 @@ const bannerData = {
   minute: 30,
 };
 
-const CustomBanner = ({source, header}) => {
+interface Props {
+  source: any;
+  header: String;
+}
+
+const CustomBanner = (props: Props) => {
   return (
     <CustomView type={'banner'}>
-      <Image style={styles.banner_image} source={source} />
+      <Image style={styles.banner_image} source={props.source} />
       <CustomText
         customStyles={{marginStart: '5%'}}
         marginTop={32}
-        textStyle={'titleBold'}
+        textStyle={'text_titleBold'}
         textColor={'textConstrast'}>
-        {header}
+        {props.header}
       </CustomText>
       {/* <View style={styles.timerContainer}>
         <CustomText hasBox={true} textStyle={'normalBold'}>

@@ -8,42 +8,48 @@ import {priceFormat} from '../../utils/helper';
 import CustomView from '../atoms/CustomView';
 import {borderTheme} from '../../preferences/borderTheme';
 
-const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
+interface Props {
+  item?: any;
+  setTotalPrice?: any;
+  onActionOptionPressed(): any;
+}
+
+const ItemCart = (props: Props) => {
   const {onUpdateCartQuantity, onGetProductByID} = useContext(MainContext);
   const [curProduct, setCurProduct] = useState([]);
 
-  const [quantity, setQuantity] = useState(item.itemQuantity);
-  const [canEdit, setCanEdit] = React.useState(true)
+  const [quantity, setQuantity] = useState(props.item.itemQuantity);
+  const [canEdit, setCanEdit] = React.useState(true);
 
   const getData = async () => {
-    const result = await onGetProductByID(item.productID);
+    const result = await onGetProductByID(props.item.productID);
     console.log('item result:', result);
     setCurProduct(result);
   };
 
   const onAddQuantityPressed = async () => {
-    setCanEdit(false)
+    setCanEdit(false);
     if (quantity < curProduct.productQuantity) {
-        await onUpdateCartQuantity(item.cartID, 1);
-        setQuantity(quantity + 1);
-        
-        setTotalPrice(price => price + curProduct.productPrice);
+      await onUpdateCartQuantity(props.item.cartID, 1);
+      setQuantity(quantity + 1);
+
+      setTotalPrice(price => price + curProduct.productPrice);
     } else {
       console.log('Not enough quantity');
     }
-    setCanEdit(true)
+    setCanEdit(true);
   };
 
   const onSubtractQuantityPressed = async () => {
-    setCanEdit(false)
+    setCanEdit(false);
     if (quantity > 1) {
-        await onUpdateCartQuantity(item.cartID, -1);
-        setQuantity(quantity - 1);
-        setTotalPrice(price => price - curProduct.productPrice);
+      await onUpdateCartQuantity(props.item.cartID, -1);
+      setQuantity(quantity - 1);
+      setTotalPrice(price => price - curProduct.productPrice);
     } else {
       console.log('Fail');
     }
-    setCanEdit(true)
+    setCanEdit(true);
   };
 
   useEffect(() => {
@@ -64,17 +70,20 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
         />
         <CustomView type={'left'} backgroundColor={'transparent'}>
           <CustomView backgroundColor={'none'} type={'row'}>
-            <CustomText maxLines={2} textStyle={'normalBold'} hasFlex={true}>
+            <CustomText
+              maxLines={2}
+              textStyle={'text_normalBold'}
+              hasFlex={true}>
               {curProduct.productName}
             </CustomText>
             <CustomButton
               source={images.ic_more_vert}
-              onPress={() => onActionOptionPressed(item)}
+              onPress={() => props.onActionOptionPressed(item)}
               type={'image'}
               marginTop={8}
             />
           </CustomView>
-          <CustomText textStyle={'normalBold'} maxLines={2} textColor={'err'}>
+          <CustomText textStyle={'text_normalBold'} maxLines={2} textColor={'err'}>
             {priceFormat(curProduct.productPrice * quantity)}
           </CustomText>
           <CustomView backgroundColor={'transparent'} type={'row'}>
@@ -86,7 +95,7 @@ const ItemCart = ({item, setTotalPrice, onActionOptionPressed}) => {
             />
             <CustomText>{quantity}</CustomText>
             <CustomButton
-            disabled={!canEdit}
+              disabled={!canEdit}
               onPress={onAddQuantityPressed}
               source={images.ic_add}
               type={'image'}

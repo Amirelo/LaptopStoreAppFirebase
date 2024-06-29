@@ -3,18 +3,22 @@ import CustomText from '../atoms/CustomText';
 import CustomView from '../atoms/CustomView';
 import CustomButton from './CustomButton';
 import {borderTheme} from '../../preferences/borderTheme';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-const ItemCard = ({data}) => {
-  const navigation = useNavigation();
+interface Props{
+  data: any
+}
+
+const ItemCard = (props:Props) => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const cardNumber = () => {
-    let cardNumber = data.cardNumber;
+    let cardNumber = props.data.cardNumber;
     let hiddenNum = '**** **** **** ' + cardNumber.slice(-3);
     return hiddenNum;
   };
 
   const onEditPressed = () => {
-    navigation.navigate('New Card', {data: data});
+    navigation.navigate('New Card', {data: props.data});
   };
 
   return (
@@ -25,12 +29,12 @@ const ItemCard = ({data}) => {
       backgroundColor={'backgroundInput'}>
       <CustomText>{cardNumber()}</CustomText>
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'normalBold'}>Card holder</CustomText>
-        <CustomText textStyle={'normalBold'}>Expiry date</CustomText>
+        <CustomText textStyle={'text_normalBold'}>Card holder</CustomText>
+        <CustomText textStyle={'text_normalBold'}>Expiry date</CustomText>
       </CustomView>
       <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText>{data.cardHolder}</CustomText>
-        <CustomText>{data.expiryMonth + '/' + data.expiryYear}</CustomText>
+        <CustomText>{props.data.cardHolder}</CustomText>
+        <CustomText>{props.data.expiryMonth + '/' + props.data.expiryYear}</CustomText>
       </CustomView>
       <CustomButton type={'primarySmall'} onPress={onEditPressed}>Edit</CustomButton>
     </CustomView>

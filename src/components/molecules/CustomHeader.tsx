@@ -1,25 +1,27 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
-import * as images from '../../assets/images/';
+import * as images from '../../assets/images';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 import CustomImage from '../atoms/CustomImage';
 import CustomText from '../atoms/CustomText';
 import CustomView from '../atoms/CustomView';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import CustomButtonBare from '../atoms/CustomButtonBare';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
-const CustomHeader = ({
-  type,
-  onSearchText,
-  onViewListPressed,
-  onSortPressed,
-  onFilterPressed,
-  sortType,
-}) => {
+interface Props{
+  type: 'home' |undefined,
+onSearchText?(): void,
+onViewListPressed?():void,
+onSortPressed?(): void,
+onFilterPressed?(): void,
+sortType: any,
+}
+
+const CustomHeader = (props:Props) => {
   const [viewListPressed, setViewListPressed] = useState(true);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<any>>();
   const {language} = React.useContext(AuthContext);
 
   const exploreSortArr = [
@@ -40,12 +42,12 @@ const CustomHeader = ({
 
   const onViewIconPressed = () => {
     setViewListPressed(!viewListPressed);
-    onViewListPressed();
+    props.onViewListPressed ? props.onViewListPressed() : null;
   };
 
   return (
     <>
-      {type == 'home' ? (
+      {props.type == 'home' ? (
         <CustomView backgroundColor={'none'} type={'header'}>
           <CustomView backgroundColor={'none'} type={'row'}>
             <CustomButton
@@ -66,10 +68,8 @@ const CustomHeader = ({
         <CustomView marginTop={32} type={'none'}>
           <CustomInput
             source={images.ic_search}
-            type={'tertiary'}
-            onChangeText={onSearchText}
+            onChangeText={props.onSearchText}
             placeholder={language.placeholder_search}
-            width={'90%'}
           />
           <CustomView marginTop={12} type={'rowJustify90Screen'}>
             {/* <CustomButtonBare type={'rowJustify'} onPress={onFilterPressed}>
@@ -84,15 +84,15 @@ const CustomHeader = ({
                 </CustomText>
               </CustomView> 
             </CustomButtonBare>*/}
-            <CustomButtonBare type={'none'} onPress={onSortPressed}>
+            <CustomButtonBare type={'none'} onPress={props.onSortPressed}>
               <CustomView type={'row'}>
                 <CustomImage
                   tintColor={'text'}
                   source={images.ic_sort}
                   type={'searchBarIcon'}
                 />
-                <CustomText textStyle={'normal'} marginTop={0}>
-                  {exploreSortArr[sortType]}
+                <CustomText textStyle={'text_normal'} marginTop={0}>
+                  {exploreSortArr[props.sortType]}
                 </CustomText>
               </CustomView>
             </CustomButtonBare>

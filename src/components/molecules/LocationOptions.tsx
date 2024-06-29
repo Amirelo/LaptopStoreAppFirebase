@@ -4,11 +4,17 @@ import CustomView from '../atoms/CustomView';
 import CustomText from '../atoms/CustomText';
 import CustomButton from './CustomButton';
 import {deviceHeight} from '../../utils/helper';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
-const LocationOptions = ({data, onLocationSelected, onBackgroundPressed}) => {
-  const navigation = useNavigation();
+interface Props{
+  data: any,
+   onLocationSelected(item:String): void,
+    onBackgroundPressed(): void 
+}
+
+const LocationOptions = (props:Props) => {
+  const navigation = useNavigation<NavigationProp<any>>();
   const {language} = React.useContext(AuthContext);
   const animatedValue = useRef(new Animated.Value(255)).current;
   const slideIn = () => {
@@ -31,7 +37,7 @@ const LocationOptions = ({data, onLocationSelected, onBackgroundPressed}) => {
     slideOut();
     fadeOut();
     setTimeout(() => {
-      onBackgroundPressed();
+      props.onBackgroundPressed();
     }, 200);
   };
 
@@ -66,7 +72,6 @@ const LocationOptions = ({data, onLocationSelected, onBackgroundPressed}) => {
     <CustomView
       marginTop={0}
       type={'absolute'}
-      animated={true}
       customStyles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
@@ -76,24 +81,22 @@ const LocationOptions = ({data, onLocationSelected, onBackgroundPressed}) => {
       />
       <CustomView
         customStyles={{transform: [{translateY: animatedValue}]}}
-        animated={true}
         type={'absoluteBottomItem'}>
-        <CustomText customStyles={styles.spacing} textStyle={'subtitleBold'}>
+        <CustomText customStyles={styles.spacing} textStyle={'text_subtitleBold'}>
           {language.cartRecipient_tabHeader_address}
         </CustomText>
 
         <FlatList
-          width={'100%'}
           contentContainerStyle={{alignItems: 'center'}}
-          data={data}
+          data={props.data}
           initialNumToRender={3}
           keyExtractor={item => item.addressID}
           renderItem={({item}) => {
             return (
-              <CustomView style={[styles.container]}>
+              <CustomView>
                 <CustomButton
                   type={'tertiary'}
-                  onPress={() => onLocationSelected(item)}
+                  onPress={() => props.onLocationSelected(item)}
                   customStyles={styles.spacing}>
                   {item.addressName +
                     ', ' +
