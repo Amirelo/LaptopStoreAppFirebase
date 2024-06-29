@@ -1,18 +1,18 @@
 import {Animated, Pressable, StyleSheet, ActivityIndicator} from 'react-native';
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import CustomText from '../atoms/CustomText';
-import CustomImage from '../atoms/CustomImage';
-import CustomView from '../atoms/CustomView';
+import CustomText from '../../atoms/CustomText';
+import CustomImage from '../../atoms/CustomImage';
+import CustomView from '../../atoms/CustomView';
 import {
   deviceHeight,
   deviceWidth,
   discountFormat,
   priceFormat,
-} from '../../utils/helper';
-import {MainContext} from '../../screens/Main/MainContext';
-import {borderTheme} from '../../preferences/borderTheme';
+} from '../../../utils/helper';
+import {MainContext} from '../../../screens/Main/MainContext';
+import {borderTheme} from '../../../preferences/borderTheme';
 import {useNavigation} from '@react-navigation/native';
-import {AuthContext} from '../../screens/Auth/AuthContext';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 const ProductHItem = ({data}) => {
   const navigation = useNavigation();

@@ -1,10 +1,10 @@
 import React from 'react';
-import * as images from '../../assets/images';
-import CustomView from '../atoms/CustomView';
-import CustomImage from '../atoms/CustomImage';
-import CustomText from '../atoms/CustomText';
-import {promoDetail} from '../../utils/helper';
-import {borderTheme} from '../../preferences/borderTheme';
+import * as images from '../../../assets/images';
+import CustomView from '../../atoms/CustomView';
+import CustomImage from '../../atoms/CustomImage';
+import CustomText from '../../atoms/CustomText';
+import {promoDetail} from '../../../utils/helper';
+import {borderTheme} from '../../../preferences/borderTheme';
 
 const PromoItem = ({data}) => {
   return (

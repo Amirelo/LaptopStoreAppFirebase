@@ -2,7 +2,7 @@ import {Animated, DimensionValue, KeyboardTypeOptions, StyleSheet, TextInput} fr
 import React, {useRef, useState} from 'react';
 import CustomImage from '../atoms/CustomImage';
 import * as images from '../../assets/images';
-import CustomButton from './CustomButton';
+import CustomButton from './button/CustomButton';
 import CustomView from '../atoms/CustomView';
 import {borderTheme} from '../../preferences/borderTheme';
 import {AuthContext} from '../../screens/Auth/AuthContext';

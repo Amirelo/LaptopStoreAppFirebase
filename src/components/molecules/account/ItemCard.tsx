@@ -1,8 +1,8 @@
 import React from 'react';
-import CustomText from '../atoms/CustomText';
-import CustomView from '../atoms/CustomView';
-import CustomButton from './CustomButton';
-import {borderTheme} from '../../preferences/borderTheme';
+import CustomText from '../../atoms/CustomText';
+import CustomView from '../../atoms/CustomView';
+import CustomButton from '../button/CustomButton';
+import {borderTheme} from '../../../preferences/borderTheme';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface Props{

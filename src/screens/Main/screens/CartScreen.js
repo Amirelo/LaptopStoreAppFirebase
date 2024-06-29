@@ -2,12 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import {MainContext} from '../MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ItemCart from '../../../components/molecules/ItemCart';
-import CustomButton from '../../../components/molecules/CustomButton';
+import ItemCart from '../../../components/molecules/account/ItemCart';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomText from '../../../components/atoms/CustomText';
 import {priceFormat} from '../../../utils/helper';
 import CustomView from '../../../components/atoms/CustomView';
-import CartOption from '../../../components/molecules/CartOption';
+import CartOption from '../../../components/molecules/account/CartOption';
 import {AuthContext} from '../../Auth/AuthContext';
 
 const CartScreen = ({navigation}) => {

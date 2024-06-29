@@ -1,12 +1,17 @@
 import React, { useContext } from 'react';
-import CustomText from '../atoms/CustomText';
-import CustomButton from './CustomButton';
-import CustomView from '../atoms/CustomView';
-import {borderTheme} from '../../preferences/borderTheme';
+import CustomText from '../../atoms/CustomText';
+import CustomButton from '../button/CustomButton';
+import CustomView from '../../atoms/CustomView';
+import {borderTheme} from '../../../preferences/borderTheme';
 import { Animated } from 'react-native';
-import { AuthContext } from '../../screens/Auth/AuthContext';
+import { AuthContext } from '../../../screens/Auth/AuthContext';
 
-const NotificationItem = ({data, onDeletePressed}) => {
+interface Props{
+  data: any,
+  onDeletePressed():void,
+}
+
+const NotificationItem = (props: Props) => {
   const anim = new Animated.Value(0);
 
   const {onUpdateUserNotificationStatus} = useContext(AuthContext)
@@ -20,9 +25,9 @@ const NotificationItem = ({data, onDeletePressed}) => {
   }
 
   const onReadPressed = async() =>{
-    const res  = await onUpdateUserNotificationStatus(1, data.notificationID);
+    const res  = await onUpdateUserNotificationStatus(1, props.data.notificationID);
     if (res==true){
-      data.status = 1
+      props.data.status = 1
     }
   }
 
@@ -32,28 +37,27 @@ const NotificationItem = ({data, onDeletePressed}) => {
 
   return (
     <CustomView
-      animated={true}
-      backgroundColor={data.status ==1 ? 'none' : 'backgroundInput'}
+      backgroundColor={props.data.status ==1 ? 'none' : 'backgroundInput'}
       type={'tab'}
       customStyles={{opacity:anim}}
       borderStyle={borderTheme.textInput}>
-      <CustomText textStyle={'normalBold'}>
-        {data.title + ""}
+      <CustomText textStyle={'text_normalBold'}>
+        {props.data.title + ""}
       </CustomText>
       
-      <CustomText textStyle={'normal'}>
-        {data.detail + ""}
+      <CustomText textStyle={'text_normal'}>
+        {props.data.detail + ""}
       </CustomText>
       <CustomView
         alignSelf={'flex-end'}
         backgroundColor={'transparent'}
         type={'row'}>
-          {data.status != 1 ?
+          {props.data.status != 1 ?
         <CustomButton onPress={onReadPressed} customStyles={{width:100, height: 36}} type={'primary'}>
           Mark as read
         </CustomButton>
         :<></>}
-        <CustomButton  onPress={()=>onDeletePressed(data.notificationID)} customStyles={{marginHorizontal: 8, width:100, height: 36}} type={'primary'}>
+        <CustomButton  onPress={()=>props.onDeletePressed(data.notificationID)} customStyles={{marginHorizontal: 8, width:100, height: 36}} type={'primary'}>
           Delete
         </CustomButton>
       </CustomView>

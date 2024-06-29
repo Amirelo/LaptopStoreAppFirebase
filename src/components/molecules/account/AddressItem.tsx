@@ -1,10 +1,10 @@
 import React from 'react';
-import CustomView from '../atoms/CustomView';
-import CustomText from '../atoms/CustomText';
-import CustomButton from './CustomButton';
-import {borderTheme} from '../../preferences/borderTheme';
-import {AuthContext} from '../../screens/Auth/AuthContext';
-import AddressModel from '../../models/AddressModel';
+import CustomView from '../../atoms/CustomView';
+import CustomText from '../../atoms/CustomText';
+import CustomButton from '../button/CustomButton';
+import {borderTheme} from '../../../preferences/borderTheme';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
+import AddressModel from '../../../models/AddressModel';
 
 interface Props{
   data: any,

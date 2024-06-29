@@ -1,7 +1,7 @@
 import {StyleSheet, Animated} from 'react-native';
 import {useEffect, useRef} from 'react';
 import React from 'react';
-import CustomButton from './CustomButton';
+import CustomButton from './button/CustomButton';
 import CustomView from '../atoms/CustomView';
 import {deviceHeight} from '../../utils/helper';
 import {CustomText} from '../atoms';

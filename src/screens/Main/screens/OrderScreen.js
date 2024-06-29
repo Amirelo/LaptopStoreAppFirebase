@@ -1,6 +1,6 @@
 import {FlatList} from 'react-native';
 import React from 'react';
-import OrderItem from '../../../components/molecules/OrderItem';
+import OrderItem from '../../../components/molecules/account/OrderItem';
 import CustomView from '../../../components/atoms/CustomView';
 
 const OrderScreen = ({route}) => {

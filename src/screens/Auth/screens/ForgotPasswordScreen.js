@@ -3,7 +3,7 @@ import * as images from '../../../assets/images';
 import {AuthContext} from '../AuthContext';
 import { CustomView, CustomText } from '../../../components/atoms';
 import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 
 const ForgotPasswordScreen = ({navigation, route}) => {
   const [pass, setPass] = useState();

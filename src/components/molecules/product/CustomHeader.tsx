@@ -1,14 +1,14 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
-import * as images from '../../assets/images';
-import CustomInput from './CustomInput';
-import CustomButton from './CustomButton';
-import CustomImage from '../atoms/CustomImage';
-import CustomText from '../atoms/CustomText';
-import CustomView from '../atoms/CustomView';
+import * as images from '../../../assets/images';
+import CustomInput from '../CustomInput';
+import CustomButton from '../button/CustomButton';
+import CustomImage from '../../atoms/CustomImage';
+import CustomText from '../../atoms/CustomText';
+import CustomView from '../../atoms/CustomView';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import CustomButtonBare from '../atoms/CustomButtonBare';
-import {AuthContext} from '../../screens/Auth/AuthContext';
+import CustomButtonBare from '../../atoms/CustomButtonBare';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 interface Props{
   type: 'home' |undefined,

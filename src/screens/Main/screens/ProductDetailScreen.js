@@ -8,7 +8,7 @@ import { MainContext } from '../MainContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomImage from '../../../components/atoms/CustomImage';
 import CustomText from '../../../components/atoms/CustomText';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import { displayMessage, priceFormat } from '../../../utils/helper';
 import { deviceWidth } from '../../../utils/helper';
 

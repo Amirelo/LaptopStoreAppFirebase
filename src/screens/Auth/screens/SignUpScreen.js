@@ -3,7 +3,7 @@ import * as images from '../../../assets/images';
 import { AuthContext } from '../AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import { CustomText } from '../../../components/atoms';
 import { displayMessage } from '../../../utils/helper';
 

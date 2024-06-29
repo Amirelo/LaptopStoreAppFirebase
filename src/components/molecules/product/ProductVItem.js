@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { priceFormat } from '../../utils/helper';
-import CustomView from '../atoms/CustomView';
-import CustomImage from '../atoms/CustomImage';
-import CustomText from '../atoms/CustomText';
-import { MainContext } from '../../screens/Main/MainContext';
+import { priceFormat } from '../../../utils/helper';
+import CustomView from '../../atoms/CustomView';
+import CustomImage from '../../atoms/CustomImage';
+import CustomText from '../../atoms/CustomText';
+import { MainContext } from '../../../screens/Main/MainContext';
 import { useNavigation } from '@react-navigation/native';
-import { CustomButtonBare } from '../atoms';
-import { borderTheme } from '../../preferences/borderTheme';
+import { CustomButtonBare } from '../../atoms';
+import { borderTheme } from '../../../preferences/borderTheme';
 
 const ProductVItem = ({ data }) => {
   const navigation = useNavigation();

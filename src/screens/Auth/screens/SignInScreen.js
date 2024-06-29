@@ -5,7 +5,7 @@ import CustomText from '../../../components/atoms/CustomText';
 import CustomImage from '../../../components/atoms/CustomImage';
 import * as images from '../../../assets/images';
 import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {updateUserInfo} from '../AuthService';

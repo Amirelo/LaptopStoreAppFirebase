@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import { AuthContext } from '../../Auth/AuthContext';
 import OptionsButton from '../../../components/molecules/OptionsButton';
 import { CustomText } from '../../../components/atoms';

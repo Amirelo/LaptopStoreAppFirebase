@@ -1,8 +1,8 @@
 import {FlatList} from 'react-native';
 import React, {useState} from 'react';
-import AddressItem from '../../../components/molecules/AddressItem';
+import AddressItem from '../../../components/molecules/account/AddressItem';
 import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../Auth/AuthContext';
 

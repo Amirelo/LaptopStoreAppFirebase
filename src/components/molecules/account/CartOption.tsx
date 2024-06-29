@@ -1,9 +1,9 @@
 import {Animated, StyleSheet} from 'react-native';
 import React, {useEffect, useRef} from 'react';
-import CustomView from '../atoms/CustomView';
-import CustomButton from './CustomButton';
-import CustomText from '../atoms/CustomText';
-import {deviceHeight} from '../../utils/helper';
+import CustomView from '../../atoms/CustomView';
+import CustomButton from '../button/CustomButton';
+import CustomText from '../../atoms/CustomText';
+import {deviceHeight} from '../../../utils/helper';
 
 interface Props{
   onDeletePressed(): void,

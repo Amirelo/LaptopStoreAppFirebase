@@ -3,9 +3,9 @@ import * as images from '../../../assets/images';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContext } from '../../Auth/AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
-import LocationOptions from '../../../components/molecules/LocationOptions';
+import LocationOptions from '../../../components/molecules/account/LocationOptions';
 import { displayMessage } from '../../../utils/helper';
 
 const CartRecipientScreen = ({ navigation, route }) => {

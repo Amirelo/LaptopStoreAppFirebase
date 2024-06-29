@@ -1,6 +1,6 @@
 import {View, Text} from 'react-native';
 import React, {useState, useContext} from 'react';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {CustomView} from '../../../components/atoms';
 import {MainContext} from '../MainContext';

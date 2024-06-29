@@ -1,6 +1,6 @@
 import React from 'react';
-import {CustomText, CustomView} from '../atoms';
-import {borderTheme} from '../../preferences/borderTheme';
+import {CustomText, CustomView} from '../../atoms';
+import {borderTheme} from '../../../preferences/borderTheme';
 
 interface Props{
   data: CommentModel

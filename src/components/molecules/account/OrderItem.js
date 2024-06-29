@@ -1,12 +1,12 @@
 import {StyleSheet} from 'react-native';
 import React, {useContext, useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import CustomView from '../atoms/CustomView';
-import CustomText from '../atoms/CustomText';
-import {priceFormat} from '../../utils/helper';
-import CustomButton from './CustomButton';
-import {AuthContext} from '../../screens/Auth/AuthContext';
-import {borderTheme} from '../../preferences/borderTheme';
+import CustomView from '../../atoms/CustomView';
+import CustomText from '../../atoms/CustomText';
+import {priceFormat} from '../../../utils/helper';
+import CustomButton from '../button/CustomButton';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
+import {borderTheme} from '../../../preferences/borderTheme';
 
 const OrderItem = ({item, address}) => {
   const [totalItems, setTotalItems] = useState(0);

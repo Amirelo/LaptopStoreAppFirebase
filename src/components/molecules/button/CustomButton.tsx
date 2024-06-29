@@ -1,9 +1,9 @@
 import {Animated, Pressable, StyleSheet, ActivityIndicator, DimensionValue, FlexStyle, ColorValue} from 'react-native';
 import React, {useRef} from 'react';
-import CustomImage from '../atoms/CustomImage';
-import CustomText from '../atoms/CustomText';
-import {deviceWidth} from '../../utils/helper';
-import {AuthContext} from '../../screens/Auth/AuthContext';
+import CustomImage from '../../atoms/CustomImage';
+import CustomText from '../../atoms/CustomText';
+import {deviceWidth} from '../../../utils/helper';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 interface Props{
   children?:any,

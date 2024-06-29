@@ -1,7 +1,7 @@
 import {StyleSheet, View, Image} from 'react-native';
 import React from 'react';
-import CustomText from '../atoms/CustomText';
-import CustomView from '../atoms/CustomView';
+import CustomText from '../../atoms/CustomText';
+import CustomView from '../../atoms/CustomView';
 
 const bannerData = {
   day: 21,

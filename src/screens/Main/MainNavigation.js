@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ExploreScreen from './screens/ExploreScreen';
 import * as images from '../../assets/images';
 import CustomImage from '../../components/atoms/CustomImage';
-import CustomHeader from '../../components/molecules/CustomHeader';
+import CustomHeader from '../../components/molecules/product/CustomHeader';
 import ExploreFilterScreen from './screens/ExploreFilterScreen';
 import CartScreen from './screens/CartScreen';
 import CartRecipientScreen from './screens/CartRecipientScreen';

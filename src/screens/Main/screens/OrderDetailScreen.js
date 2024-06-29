@@ -2,7 +2,7 @@ import {FlatList} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../Auth/AuthContext';
 import {MainContext} from '../MainContext';
-import ProductVItem from '../../../components/molecules/ProductVItem';
+import ProductVItem from '../../../components/molecules/product/ProductVItem';
 import CustomText from '../../../components/atoms/CustomText';
 import CustomView from '../../../components/atoms/CustomView';
 import {addressFormat, deviceWidth, priceFormat} from '../../../utils/helper';

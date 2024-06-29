@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import * as images from '../../../assets/images';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import { AuthContext } from '../AuthContext';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomText from '../../../components/atoms/CustomText';

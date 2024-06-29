@@ -1,7 +1,7 @@
 import {FlatList} from 'react-native';
 import React from 'react';
 import {CustomText, CustomView} from '../../../components/atoms';
-import ItemCard from '../../../components/molecules/ItemCard';
+import ItemCard from '../../../components/molecules/account/ItemCard';
 import {deviceWidth} from '../../../utils/helper';
 
 const CardScreen = ({route}) => {

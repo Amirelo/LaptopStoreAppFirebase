@@ -4,7 +4,7 @@ import {FlatList} from 'react-native';
 import CustomView from '../../../components/atoms/CustomView';
 import {AuthContext} from '../../Auth/AuthContext';
 import {MainContext} from '../MainContext';
-import ProductVItem from '../../../components/molecules/ProductVItem';
+import ProductVItem from '../../../components/molecules/product/ProductVItem';
 
 const FavoriteScreen = ({navigation}) => {
   const {onGetUserByEmail} = useContext(AuthContext);

@@ -1,11 +1,11 @@
 import {StyleSheet, FlatList, Animated} from 'react-native';
 import React, {useEffect, useRef} from 'react';
-import CustomView from '../atoms/CustomView';
-import CustomText from '../atoms/CustomText';
-import CustomButton from './CustomButton';
-import {deviceHeight} from '../../utils/helper';
+import CustomView from '../../atoms/CustomView';
+import CustomText from '../../atoms/CustomText';
+import CustomButton from '../button/CustomButton';
+import {deviceHeight} from '../../../utils/helper';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthContext} from '../../screens/Auth/AuthContext';
+import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 interface Props{
   data: any,

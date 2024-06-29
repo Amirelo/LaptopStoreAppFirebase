@@ -2,9 +2,9 @@ import React, {useContext, useState, useEffect} from 'react';
 import {MainContext} from '../MainContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomText from '../../../components/atoms/CustomText';
-import CustomButton from '../../../components/molecules/CustomButton';
+import CustomButton from '../../../components/molecules/button/CustomButton';
 import {displayMessage, priceFormat} from '../../../utils/helper';
-import AddressItem from '../../../components/molecules/AddressItem';
+import AddressItem from '../../../components/molecules/account/AddressItem';
 import {AuthContext} from '../../Auth/AuthContext';
 
 const CheckOutScreen = ({navigation, route}) => {

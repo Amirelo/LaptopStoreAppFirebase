@@ -1,12 +1,12 @@
 import React, {useContext, useEffect, useState} from 'react';
-import * as images from '../../assets/images';
-import {MainContext} from '../../screens/Main/MainContext';
-import CustomImage from '../atoms/CustomImage';
-import CustomText from '../atoms/CustomText';
-import CustomButton from './CustomButton';
-import {priceFormat} from '../../utils/helper';
-import CustomView from '../atoms/CustomView';
-import {borderTheme} from '../../preferences/borderTheme';
+import * as images from '../../../assets/images';
+import {MainContext} from '../../../screens/Main/MainContext';
+import CustomImage from '../../atoms/CustomImage';
+import CustomText from '../../atoms/CustomText';
+import CustomButton from '../button/CustomButton';
+import {priceFormat} from '../../../utils/helper';
+import CustomView from '../../atoms/CustomView';
+import {borderTheme} from '../../../preferences/borderTheme';
 
 interface Props {
   item?: any;
