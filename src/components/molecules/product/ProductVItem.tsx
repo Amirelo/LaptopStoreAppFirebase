@@ -7,7 +7,6 @@ import CustomText from '../../atoms/CustomText';
 import { MainContext } from '../../../screens/Main/MainContext';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { CustomButtonBare } from '../../atoms';
-import { borderTheme } from '../../../preferences/borderTheme';
 
 interface Props{
   data:any

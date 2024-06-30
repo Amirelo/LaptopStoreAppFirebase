@@ -7,6 +7,7 @@ import {
   FlexAlignType,
   StyleSheet,
   View,
+  ViewStyle,
 } from 'react-native';
 
 // Context
@@ -14,14 +15,15 @@ import {AuthContext} from '../../screens/Auth/AuthContext';
 
 // Utilities
 import {deviceHeight, deviceWidth} from '../../utils/helper';
+import {ColorTheme} from '../../preferences/themes/colorTheme';
 
 interface Props {
   children: any;
   preset?: keyof typeof styles;
   marginBottom?: DimensionValue;
-  backgroundColor?: ColorValue;
+  backgroundColor?: keyof (typeof ColorTheme)['light'];
   border?: keyof typeof borderStyles;
-  borderColor?: ColorValue;
+  borderColor?: keyof (typeof ColorTheme)['light'];
   alignSelf?: FlexAlignType;
   styles?: any;
 }
@@ -31,12 +33,10 @@ const CustomView = (props: Props) => {
   const colors = theme;
   const backgroundColor =
     props.backgroundColor != null
-      ? colors[`${String(props.backgroundColor)}Color`]
+      ? colors[props.backgroundColor]
       : colors.backgroundColor;
   const borderColor =
-    props.borderColor != null
-      ? colors[`${String(props.borderColor)}Color`]
-      : colors.borderColor;
+    props.borderColor != null ? colors[props.borderColor] : colors.borderColor;
 
   const AnimatedView = Animated.createAnimatedComponent(View);
   return (

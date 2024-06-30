@@ -4,38 +4,37 @@ import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
 import CustomButtonBare from '../button/CustomButtonBare';
 import CustomView from '../../atoms/CustomView';
-import {borderTheme} from '../../../preferences/borderTheme';
-import { ColorValue, ImageStyle } from 'react-native';
+import {ColorValue, ImageStyle} from 'react-native';
+import {ColorTheme} from '../../../preferences/themes/colorTheme';
 
-interface Props{
-  title:String,
-titleColor?:ColorValue,
-subtitle?:String,
-onPress?(): void,
-type?: 'usertab' | 'profile',
+interface Props {
+  title: String;
+  titleColor?: keyof (typeof ColorTheme)['light'];
+  subtitle?: String;
+  onPress?(): void;
 }
 
-const AccountTab = (props:Props) => {
+const AccountTab = (props: Props) => {
   return (
     <CustomButtonBare marginTop={12} onPress={props.onPress}>
       <CustomView
-        type={'container_accountTab'}
+        preset={'accountTab'}
         backgroundColor={'backgroundInput'}
-        borderStyle={borderTheme.textInput}>
-        <CustomView backgroundColor={'none'} type={'container_rowJustify'}>
-              <CustomView backgroundColor={'none'} type={'container_left'}>
-                <CustomText
-                  textColor={props.titleColor ? props.titleColor : 'text'}
-                  textStyle={'text_subtitleBold'}
-                  marginTop={2}>
-                  {props.title}
-                </CustomText>
-                <CustomText marginTop={2}>{props.subtitle + ""}</CustomText>
-              </CustomView>
-              <CustomImage
-                type={'searchBarIcon'}
-                source={images.ic_arrow_right}
-              />
+        border={'textInput'}>
+        <CustomView backgroundColor={'none'} preset={'rowJustify'}>
+          <CustomView backgroundColor={'none'} preset={'left'}>
+            <CustomText
+              color={props.titleColor ? props.titleColor : 'text'}
+              preset={'subtitleBold'}
+              marginBottom={2}>
+              {props.title}
+            </CustomText>
+            <CustomText marginBottom={2}>{props.subtitle + ''}</CustomText>
+          </CustomView>
+          <CustomImage
+            preset={'searchBarIcon'}
+            source={images.ic_arrow_right}
+          />
         </CustomView>
       </CustomView>
     </CustomButtonBare>

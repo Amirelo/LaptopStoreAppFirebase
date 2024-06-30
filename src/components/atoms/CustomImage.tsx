@@ -14,7 +14,7 @@ import {
 import {AuthContext} from '../../screens/Auth/AuthContext';
 
 interface Props {
-  source: ImageSourcePropType;
+  source: ImageSourcePropType|string;
   preset?: keyof typeof styles;
   marginBottom?: DimensionValue;
   customStyles?: ImageStyle;

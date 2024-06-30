@@ -6,11 +6,13 @@ import CustomText from '../../atoms/CustomText';
 import {priceFormat} from '../../../utils/helper';
 import CustomButton from '../button/CustomButton';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
-import {borderTheme} from '../../../preferences/borderTheme';
+import AddressModel from '../../../models/AddressModel';
+import OrderModel from '../../../models/OrderModel';
+import OrderDetailModel from '../../../models/OrderDetailModel';
 
 interface Props{
-  item?:any,
-address?:any,
+  item:OrderModel,
+  address:Array<AddressModel>,
 }
 
 const OrderItem = (props:Props) => {
@@ -18,7 +20,7 @@ const OrderItem = (props:Props) => {
   const navigation = useNavigation<NavigationProp<any>>();
   const {onGetUserOrderDetail, language} = useContext(AuthContext);
 
-  const orderStatusArr = [
+  const orderStatusArr= [
     {status: language.arr_status_order_0, color: 'err'},
     {status: language.arr_status_order_1, color: 'process'},
     {status: language.arr_status_order_2, color: 'text'},
@@ -35,9 +37,9 @@ const OrderItem = (props:Props) => {
     : props.item.pendingDate;
 
   const orderAddress = (addressID:String) => {
-    return props.address.filter(addressItem => {
+    return props.address.filter((addressItem:AddressModel) => {
       console.log('Address item', addressItem);
-      return addressItem.addressID == addressID;
+      return addressItem.id == addressID;
     })[0];
   };
 
@@ -45,7 +47,7 @@ const OrderItem = (props:Props) => {
     console.log("---OrderItem:", props.item);
     setTotalItems(0);
     const orderDetailResult = await onGetUserOrderDetail(props.item.orderID);
-    orderDetailResult.map(curItem => {
+    orderDetailResult.map((curItem: OrderDetailModel) => {
       setTotalItems(prev => prev + curItem.productQuantity);
     });
   };
@@ -58,7 +60,7 @@ const OrderItem = (props:Props) => {
   const onDetailButtonPressed = () => {
     navigation.navigate('Order Details', {
       item: props.item,
-      address: orderAddress(item.addressID),
+      address: orderAddress(props.item.addressID+''),
     });
   };
 
@@ -69,47 +71,47 @@ const OrderItem = (props:Props) => {
   return (
     <CustomView
       backgroundColor={'backgroundInput'}
-      borderStyle={borderTheme.textInput}
-      type={'tab'}>
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
+      border={'textInput'}
+      preset={'tab'}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+        <CustomText preset={'normalBold'} flex={true}>
           {language.order_text_orderNumber}
         </CustomText>
-        <CustomText hasFlex={true}>{props.item.orderID}</CustomText>
-        <CustomText>{itemDate}</CustomText>
+        <CustomText flex={true}>{props.item.orderID+""}</CustomText>
+        <CustomText>{itemDate+""}</CustomText>
       </CustomView>
 
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+        <CustomText preset={'normalBold'} flex={true}>
           {language.order_text_quantity}
         </CustomText>
-        <CustomText hasFlex={true}>{totalItems+""}</CustomText>
+        <CustomText flex={true}>{totalItems+""}</CustomText>
       </CustomView>
 
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+        <CustomText preset={'normalBold'} flex={true}>
           {language.order_text_total}
         </CustomText>
-        <CustomText hasFlex={true}>{priceFormat(props.item.totalPrice)}</CustomText>
+        <CustomText flex={true}>{priceFormat(props.item.totalPrice)}</CustomText>
       </CustomView>
 
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'text_normalBold'} hasFlex={true}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+        <CustomText preset={'normalBold'} flex={true}>
           {language.order_text_status}
         </CustomText>
         <CustomText
-          hasFlex={true}
-          textStyle={'text_normalBold'}
-          textColor={orderStatusArr[props.item.status].color}>
+          flex={true}
+          preset={'normalBold'}
+          // color={orderStatusArr[props.item.status].color}
+          >
           {status}
         </CustomText>
       </CustomView>
 
-      <CustomView type={'rowJustify90'} backgroundColor={'none'}>
+      <CustomView preset={'rowJustify90'} backgroundColor={'none'}>
         <CustomButton
           type={'primarySmall'}
-          onPress={onDetailButtonPressed}
-          customStyles={styles.itemMargin}>
+          onPress={onDetailButtonPressed}>
           {language.order_button_detail}
         </CustomButton>
       </CustomView>

@@ -2,7 +2,6 @@ import React from 'react';
 import CustomView from '../../atoms/CustomView';
 import CustomText from '../../atoms/CustomText';
 import CustomButton from '../button/CustomButton';
-import {borderTheme} from '../../../preferences/borderTheme';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 import AddressModel from '../../../models/AddressModel';
 
@@ -18,8 +17,8 @@ const AddressItem = (props:Props) => {
 
   return (
     <CustomView
-      type={'tab'}
-      borderStyle={borderTheme.textInput}
+      preset={'tab'}
+      border={'textInput'}
       backgroundColor={'backgroundInput'}>
       <CustomText>
         {props.data.addressName +
@@ -33,15 +32,15 @@ const AddressItem = (props:Props) => {
 
       {props.onlyInfo ? (
         <CustomView backgroundColor={'none'}>
-          <CustomText textStyle={'text_normalBold'}>{props.data.fullname +""}</CustomText>
+          <CustomText preset={'normalBold'}>{props.data.fullname +""}</CustomText>
 
           <CustomText>{props.data.phonenumber}</CustomText>
         </CustomView>
       ) : (
-        <CustomView backgroundColor={'transparent'} type={'rowJustify90'}>
-          <CustomView backgroundColor={'transparent'} type={'row'}>
+        <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+          <CustomView backgroundColor={'none'} preset={'row'}>
             {props.data.status == 1 ? (
-              <CustomText textStyle={'text_normalBold'}>
+              <CustomText preset={'normalBold'}>
                 {language.arr_status_address_1}
               </CustomText>
             ) : (

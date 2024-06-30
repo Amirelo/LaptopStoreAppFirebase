@@ -4,12 +4,12 @@ import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
 import CustomButtonBare from '../button/CustomButtonBare';
 import CustomView from '../../atoms/CustomView';
-import {borderTheme} from '../../../preferences/borderTheme';
 import { ColorValue, ImageStyle } from 'react-native';
+import { ColorTheme } from '../../../preferences/themes/colorTheme';
 
 interface Props{
   title:String,
-titleColor?:ColorValue,
+titleColor?:keyof typeof ColorTheme['light'],
 subtitle?:String,
 onPress?(): void,
 source: any,
@@ -19,25 +19,25 @@ const UserTab = (props:Props) => {
   return (
     <CustomButtonBare marginTop={12} onPress={props.onPress}>
       <CustomView
-        type={'container_accountTab'}
+        preset={'accountTab'}
         backgroundColor={'backgroundInput'}
-        borderStyle={borderTheme.textInput}>
-        <CustomView backgroundColor={'none'} type={'container_rowJustify'}>
-            <CustomImage source={props.source} linkType={'uri'} type={'logo'} />
+        border={'textInput'}>
+        <CustomView backgroundColor={'none'} preset={'rowJustify'}>
+            <CustomImage source={props.source} preset={'logo'} />
               <CustomText
-                textColor={props.titleColor ? props.titleColor : ''}
-                marginTop={0}
-                textStyle={'text_subtitleBold'}>
+                color={props.titleColor}
+                marginBottom={0}
+                preset={'subtitleBold'}>
                 {props.title}
               </CustomText>
-              <CustomView marginTop={0} backgroundColor={'none'} type={'container_row'}>
+              <CustomView marginBottom={0} backgroundColor={'none'} preset={'row'}>
                 <CustomText
-                  textColor={props.titleColor ? props.titleColor : ''}
-                  marginTop={0}>
+                  color={props.titleColor}
+                  marginBottom={0}>
                   {props.subtitle + ""}
                 </CustomText>
                 <CustomImage
-                  type={'searchBarIcon'}
+                  preset={'searchBarIcon'}
                   source={images.ic_arrow_right}
                 />
               </CustomView>

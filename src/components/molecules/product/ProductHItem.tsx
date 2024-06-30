@@ -10,7 +10,6 @@ import {
   priceFormat,
 } from '../../../utils/helper';
 import {MainContext} from '../../../screens/Main/MainContext';
-import {borderTheme} from '../../../preferences/borderTheme';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 

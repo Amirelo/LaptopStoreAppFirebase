@@ -1,27 +1,29 @@
 class AddressModel {
-    id;
-    addressName;
-    ward;
-    district;
-    city;
-    status;
-    userID;
+  id: number | string;
+  addressName: string;
+  ward: string;
+  district: string;
+  city: string;
+  status: number;
+  userID: number | string;
 
-    constructor(id,
-        addressName,
-        ward,
-        district,
-        city,
-        status,
-        userID) {
-        this.id = id
-        this.addressName = addressName
-        this.ward = ward
-        this.district = district
-        this.city = city
-        this.status = status
-        this.userID = userID
-    }
+  constructor(
+    id: number | string,
+    addressName: string,
+    ward: string,
+    district: string,
+    city: string,
+    status: number,
+    userID: number | string,
+  ) {
+    this.id = id;
+    this.addressName = addressName;
+    this.ward = ward;
+    this.district = district;
+    this.city = city;
+    this.status = status;
+    this.userID = userID;
+  }
 }
 
-export default AddressModel
+export default AddressModel;

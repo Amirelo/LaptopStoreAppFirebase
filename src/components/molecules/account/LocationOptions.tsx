@@ -70,9 +70,9 @@ const LocationOptions = (props:Props) => {
 
   return (
     <CustomView
-      marginTop={0}
-      type={'absolute'}
-      customStyles={{opacity: backgroundAnimated}}>
+      marginBottom={0}
+      preset={'absolute'}
+      styles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
         noAnim={true}
@@ -80,9 +80,9 @@ const LocationOptions = (props:Props) => {
         marginTop={0}
       />
       <CustomView
-        customStyles={{transform: [{translateY: animatedValue}]}}
-        type={'absoluteBottomItem'}>
-        <CustomText customStyles={styles.spacing} textStyle={'text_subtitleBold'}>
+        styles={{transform: [{translateY: animatedValue}]}}
+        preset={'absoluteBottomItem'}>
+        <CustomText styles={styles.spacing} preset={'subtitleBold'}>
           {language.cartRecipient_tabHeader_address}
         </CustomText>
 

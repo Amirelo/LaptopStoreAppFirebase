@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import CustomText from '../../atoms/CustomText';
 import CustomButton from '../button/CustomButton';
 import CustomView from '../../atoms/CustomView';
-import {borderTheme} from '../../../preferences/borderTheme';
 import { Animated } from 'react-native';
 import { AuthContext } from '../../../screens/Auth/AuthContext';
+import NotificationModel from '../../../models/NotificationModel';
 
 interface Props{
-  data: any,
-  onDeletePressed():void,
+  data: NotificationModel,
+  onDeletePressed(value:string|number):void,
 }
 
 const NotificationItem = (props: Props) => {
@@ -25,7 +25,7 @@ const NotificationItem = (props: Props) => {
   }
 
   const onReadPressed = async() =>{
-    const res  = await onUpdateUserNotificationStatus(1, props.data.notificationID);
+    const res  = await onUpdateUserNotificationStatus(1, props.data.id);
     if (res==true){
       props.data.status = 1
     }
@@ -38,26 +38,26 @@ const NotificationItem = (props: Props) => {
   return (
     <CustomView
       backgroundColor={props.data.status ==1 ? 'none' : 'backgroundInput'}
-      type={'tab'}
-      customStyles={{opacity:anim}}
-      borderStyle={borderTheme.textInput}>
-      <CustomText textStyle={'text_normalBold'}>
+      preset={'tab'}
+      styles={{opacity:anim}}
+      border={'textInput'}>
+      <CustomText preset={'normalBold'}>
         {props.data.title + ""}
       </CustomText>
       
-      <CustomText textStyle={'text_normal'}>
+      <CustomText preset={'normal'}>
         {props.data.detail + ""}
       </CustomText>
       <CustomView
         alignSelf={'flex-end'}
-        backgroundColor={'transparent'}
-        type={'row'}>
+        backgroundColor={'none'}
+        preset={'row'}>
           {props.data.status != 1 ?
         <CustomButton onPress={onReadPressed} customStyles={{width:100, height: 36}} type={'primary'}>
           Mark as read
         </CustomButton>
         :<></>}
-        <CustomButton  onPress={()=>props.onDeletePressed(data.notificationID)} customStyles={{marginHorizontal: 8, width:100, height: 36}} type={'primary'}>
+        <CustomButton  onPress={()=>props.onDeletePressed(props.data.id)} customStyles={{marginHorizontal: 8, width:100, height: 36}} type={'primary'}>
           Delete
         </CustomButton>
       </CustomView>

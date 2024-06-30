@@ -1,20 +1,20 @@
 class CommentModel {
-  id: String;
+  id: string | number;
   comment: String;
   dateAdded: Date;
   rating: number;
   status: boolean;
-  userID: String;
-  productID: String;
+  userID: string | number;
+  productID: string | number;
 
   constructor(
-    id: String,
+    id: string | number,
     comment: String,
     dateAdded: Date,
     rating: number,
     status: boolean,
-    userID: String,
-    productID: String,
+    userID: string | number,
+    productID: string | number,
   ) {
     this.id = id;
     this.comment = comment;

@@ -6,20 +6,21 @@ import CustomText from '../../atoms/CustomText';
 import CustomButton from '../button/CustomButton';
 import {priceFormat} from '../../../utils/helper';
 import CustomView from '../../atoms/CustomView';
-import {borderTheme} from '../../../preferences/borderTheme';
+import ProductModel from '../../../models/ProductModel';
+import CartModel from '../../../models/CartModel';
 
 interface Props {
-  item?: any;
+  item: CartModel;
   setTotalPrice?: any;
-  onActionOptionPressed(): any;
+  onActionOptionPressed(cart:CartModel): any;
 }
 
 const ItemCart = (props: Props) => {
   const {onUpdateCartQuantity, onGetProductByID} = useContext(MainContext);
-  const [curProduct, setCurProduct] = useState([]);
+  const [curProduct, setCurProduct] = useState<ProductModel>();
 
-  const [quantity, setQuantity] = useState(props.item.itemQuantity);
-  const [canEdit, setCanEdit] = React.useState(true);
+  const [quantity, setQuantity] = useState<number>(props.item.itemQuantity);
+  const [canEdit, setCanEdit] = React.useState<boolean>(true);
 
   const getData = async () => {
     const result = await onGetProductByID(props.item.productID);
@@ -29,11 +30,11 @@ const ItemCart = (props: Props) => {
 
   const onAddQuantityPressed = async () => {
     setCanEdit(false);
-    if (quantity < curProduct.productQuantity) {
-      await onUpdateCartQuantity(props.item.cartID, 1);
+    if (curProduct && quantity < curProduct.productQuantity) {
+      await onUpdateCartQuantity(props.item.id, 1);
       setQuantity(quantity + 1);
 
-      setTotalPrice(price => price + curProduct.productPrice);
+      props.setTotalPrice((price:number) => price + curProduct.productPrice);
     } else {
       console.log('Not enough quantity');
     }
@@ -42,10 +43,10 @@ const ItemCart = (props: Props) => {
 
   const onSubtractQuantityPressed = async () => {
     setCanEdit(false);
-    if (quantity > 1) {
-      await onUpdateCartQuantity(props.item.cartID, -1);
+    if (quantity > 1 ) {
+      await onUpdateCartQuantity(props.item.id, -1);
       setQuantity(quantity - 1);
-      setTotalPrice(price => price - curProduct.productPrice);
+      props.setTotalPrice((price:number) => price - curProduct!.productPrice);
     } else {
       console.log('Fail');
     }
@@ -58,42 +59,41 @@ const ItemCart = (props: Props) => {
 
   return (
     <CustomView
-      type={'tab'}
+      preset={'tab'}
       borderColor={'border'}
-      borderStyle={borderTheme.textInput}
+      border={'textInput'}
       backgroundColor={'backgroundInput'}>
-      <CustomView backgroundColor={'transparent'} type={'row'}>
+      <CustomView backgroundColor={'none'} preset={'row'}>
         <CustomImage
-          source={curProduct.productImageLink}
-          linkType={'uri'}
-          type={'cartItem'}
+          source={curProduct!.productImageLink}
+          preset={'cartItem'}
         />
-        <CustomView type={'left'} backgroundColor={'transparent'}>
-          <CustomView backgroundColor={'none'} type={'row'}>
+        <CustomView preset={'left'} backgroundColor={'none'}>
+          <CustomView backgroundColor={'none'} preset={'row'}>
             <CustomText
               maxLines={2}
-              textStyle={'text_normalBold'}
-              hasFlex={true}>
-              {curProduct.productName}
+              preset={'normalBold'}
+              flex={true}>
+              {curProduct!.productName}
             </CustomText>
             <CustomButton
               source={images.ic_more_vert}
-              onPress={() => props.onActionOptionPressed(item)}
+              onPress={() => props.onActionOptionPressed(props.item)}
               type={'image'}
               marginTop={8}
             />
           </CustomView>
-          <CustomText textStyle={'text_normalBold'} maxLines={2} textColor={'err'}>
-            {priceFormat(curProduct.productPrice * quantity)}
+          <CustomText preset={'normalBold'} maxLines={2} color={'err'}>
+            {priceFormat(curProduct!.productPrice * quantity)}
           </CustomText>
-          <CustomView backgroundColor={'transparent'} type={'row'}>
+          <CustomView backgroundColor={'none'} preset={'row'}>
             <CustomButton
               disabled={!canEdit}
               onPress={onSubtractQuantityPressed}
               source={images.ic_minus}
               type={'image'}
             />
-            <CustomText>{quantity}</CustomText>
+            <CustomText>{quantity+''}</CustomText>
             <CustomButton
               disabled={!canEdit}
               onPress={onAddQuantityPressed}

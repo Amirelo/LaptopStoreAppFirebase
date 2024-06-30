@@ -2,7 +2,6 @@ import React from 'react';
 import CustomText from '../../atoms/CustomText';
 import CustomView from '../../atoms/CustomView';
 import CustomButton from '../button/CustomButton';
-import {borderTheme} from '../../../preferences/borderTheme';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 interface Props{
@@ -23,16 +22,16 @@ const ItemCard = (props:Props) => {
 
   return (
     <CustomView
-      type={'tab'}
+      preset={'tab'}
       borderColor={'border'}
-      borderStyle={borderTheme.textInput}
+      border={'textInput'}
       backgroundColor={'backgroundInput'}>
       <CustomText>{cardNumber()}</CustomText>
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
-        <CustomText textStyle={'text_normalBold'}>Card holder</CustomText>
-        <CustomText textStyle={'text_normalBold'}>Expiry date</CustomText>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
+        <CustomText preset={'normalBold'}>Card holder</CustomText>
+        <CustomText preset={'normalBold'}>Expiry date</CustomText>
       </CustomView>
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
         <CustomText>{props.data.cardHolder}</CustomText>
         <CustomText>{props.data.expiryMonth + '/' + props.data.expiryYear}</CustomText>
       </CustomView>
