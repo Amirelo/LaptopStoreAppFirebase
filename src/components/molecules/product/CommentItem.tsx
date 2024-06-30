@@ -9,12 +9,12 @@ const CommentItem = (props:Props) => {
   console.log('data:', props.data)
   return (
     <CustomView
-      type={'tab'}
-      borderStyle={borderTheme.textInput}
+      preset={'tab'}
+      border={'textInput'}
       backgroundColor={'backgroundInput'}>
-      <CustomView backgroundColor={'none'} type={'rowJustify90'}>
+      <CustomView backgroundColor={'none'} preset={'rowJustify90'}>
         <CustomText>{props.data.comment}</CustomText>
-        <CustomText textColor={'warn'} textStyle={'text_subtitleBold'}>
+        <CustomText color={'warn'} preset={'subtitleBold'}>
           {props.data.rating+""}
         </CustomText>
       </CustomView>

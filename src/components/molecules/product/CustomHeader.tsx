@@ -48,8 +48,8 @@ const CustomHeader = (props:Props) => {
   return (
     <>
       {props.type == 'home' ? (
-        <CustomView backgroundColor={'none'} type={'header'}>
-          <CustomView backgroundColor={'none'} type={'row'}>
+        <CustomView backgroundColor={'none'} preset={'header'}>
+          <CustomView backgroundColor={'none'} preset={'row'}>
             <CustomButton
               type={'image'}
               source={images.ic_favorite}
@@ -65,13 +65,13 @@ const CustomHeader = (props:Props) => {
           </CustomView>
         </CustomView>
       ) : (
-        <CustomView marginTop={32} type={'none'}>
+        <CustomView marginBottom={32} preset={'none'}>
           <CustomInput
             source={images.ic_search}
             onChangeText={props.onSearchText}
             placeholder={language.placeholder_search}
           />
-          <CustomView marginTop={12} type={'rowJustify90Screen'}>
+          <CustomView marginBottom={12} preset={'rowJustify90Screen'}>
             {/* <CustomButtonBare type={'rowJustify'} onPress={onFilterPressed}>
               <CustomView type={'row'}>
                 <CustomImage
@@ -85,13 +85,13 @@ const CustomHeader = (props:Props) => {
               </CustomView> 
             </CustomButtonBare>*/}
             <CustomButtonBare type={'none'} onPress={props.onSortPressed}>
-              <CustomView type={'row'}>
+              <CustomView preset={'row'}>
                 <CustomImage
                   tintColor={'text'}
                   source={images.ic_sort}
-                  type={'searchBarIcon'}
+                  preset={'searchBarIcon'}
                 />
-                <CustomText textStyle={'text_normal'} marginTop={0}>
+                <CustomText preset={'normal'} marginBottom={0}>
                   {exploreSortArr[props.sortType]}
                 </CustomText>
               </CustomView>
@@ -101,12 +101,12 @@ const CustomHeader = (props:Props) => {
                 <CustomImage
                   tintColor={'text'}
                   source={images.ic_view_list}
-                  type={'searchBarIcon'}
+                  preset={'searchBarIcon'}
                 />
               ) : (
                 <CustomImage
                   source={images.ic_view_module}
-                  type={'searchBarIcon'}
+                  preset={'searchBarIcon'}
                 />
               )}
             </CustomButtonBare>

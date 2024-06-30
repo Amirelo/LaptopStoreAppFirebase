@@ -7,6 +7,10 @@ import CustomText from '../../atoms/CustomText';
 import { MainContext } from '../../../screens/Main/MainContext';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { CustomButtonBare } from '../../atoms';
+import ProcessorModel from '../../../models/product/ProcessorModel';
+import MemoryModel from '../../../models/product/MemoryModel';
+import ScreenModel from '../../../models/product/ScreenModel';
+import StorageModel from '../../../models/product/StorageModel';
 
 interface Props{
   data:any
@@ -20,10 +24,10 @@ const ProductVItem = (props:Props) => {
     onGetProductScreen,
     onGetProductStorage,
   } = useContext(MainContext);
-  const [itemProcessor, setItemProcessor] = useState();
-  const [itemMemory, setItemMemory] = useState();
-  const [itemScreen, setitemScreen] = useState();
-  const [itemStorage, setitemStorage] = useState();
+  const [itemProcessor, setItemProcessor] = useState<ProcessorModel>();
+  const [itemMemory, setItemMemory] = useState<MemoryModel>();
+  const [itemScreen, setitemScreen] = useState<ScreenModel>();
+  const [itemStorage, setitemStorage] = useState<StorageModel>();
   const [isDisabled, setIsDisabled] = useState<boolean>();
 
   const onProductPressed = () => {
@@ -63,26 +67,30 @@ const ProductVItem = (props:Props) => {
       onPress={onProductPressed}
       borderColor={'border'}
       backgroundColor={'backgroundInput'}
-      borderStyle={borderTheme.textInput}
+      border={'textInput'}
       type={'rowJustify90Screen'}
       disabled={isDisabled}
       paddingVertical={8}>
       <CustomImage
-        marginTop={0}
+        marginBottom={0}
         source={props.data.productImageLink}
-        type={'productItem'}
-        linkType={'uri'}
+        preset={'productItem'}
       />
-      <CustomView marginTop={0} backgroundColor={'none'} type={'left'}>
-        <CustomText textStyle={'text_normalBold'} maxLines={2} marginTop={0}>
+      <CustomView marginBottom={0} backgroundColor={'none'} preset={'left'}>
+        <CustomText preset={'normalBold'} maxLines={2} marginBottom={0}>
           {props.data.productName}
         </CustomText>
-        <CustomText textStyle={'text_small'} marginTop={2}>
-          {itemProcessor ? itemProcessor.name : <ActivityIndicator />}
+        {
+          itemProcessor ?
+          <CustomText preset={'small'} marginBottom={2}>
+          {itemProcessor.name }
         </CustomText>
+          :<ActivityIndicator/>
+        }
+        
         {
           itemMemory ? 
-          <CustomText textStyle={'text_small'} marginTop={2}>
+          <CustomText preset={'small'} marginBottom={2}>
           {itemMemory.currentRAM +
             ' ' +
             itemMemory.type +
@@ -94,26 +102,26 @@ const ProductVItem = (props:Props) => {
         }
         {
           itemStorage ? 
-          <CustomText textStyle={'text_small'} marginTop={2}>
+          <CustomText preset={'small'} marginBottom={2}>
           {itemStorage.type + ' ' + itemStorage.currentStorage }
         </CustomText>: <ActivityIndicator/>
         }
         {itemScreen?
-        <CustomText textStyle={'text_small'} marginTop={2}>
+        <CustomText preset={'small'} marginBottom={2}>
         {itemScreen.resolution + ' ' + itemScreen.screenSize}
       </CustomText> : <ActivityIndicator/>
         }
 
-        <CustomView backgroundColor={'none'} type={'rowJustify'}>
-          <CustomText textColor={'err'} textStyle={'text_normalBold'} marginTop={0}>
-            {priceFormat(data.currentPrice)}
+        <CustomView backgroundColor={'none'} preset={'rowJustify'}>
+          <CustomText color={'err'} preset={'normalBold'} marginBottom={0}>
+            {priceFormat(props.data.currentPrice)}
           </CustomText>
 
           {props.data.currentPrice != props.data.productPrice ? (
             <CustomText
-              textStyle={'text_smallStrike'}
-              textColor={'textVariant'}
-              marginTop={0}>
+            preset={'smallStrike'}
+              color={'textVariant'}
+              marginBottom={0}>
               {priceFormat(props.data.productPrice)}
             </CustomText>
           ) : (

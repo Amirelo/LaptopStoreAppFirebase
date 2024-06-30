@@ -71,4 +71,6 @@ const styles = StyleSheet.create({
 
   header: {fontSize: 22},
   headerBold: {fontSize: 22, fontWeight: 'bold'},
+
+  center:{textAlign:'center'}
 });

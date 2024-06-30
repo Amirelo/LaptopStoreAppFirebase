@@ -61,9 +61,9 @@ const OptionsButton = (props:Props) => {
   }, []);
   return (
     <CustomView
-      marginTop={0}
-      type={'absolute'}
-      customStyles={{opacity: backgroundAnimated}}>
+      marginBottom={0}
+      preset={'absolute'}
+      styles={{opacity: backgroundAnimated}}>
       <CustomButton
         onPress={onOutsidePressed}
         noAnim={true}
@@ -71,10 +71,10 @@ const OptionsButton = (props:Props) => {
         marginTop={0}
       />
       <CustomView
-        customStyles={{transform: [{translateY: animatedValue}]}}
-        type={'absoluteBottomItem'}>
+        styles={{transform: [{translateY: animatedValue}]}}
+        preset={'absoluteBottomItem'}>
         {props.children}
-        <CustomText />
+        <CustomText>{''}</CustomText>
       </CustomView>
     </CustomView>
   );

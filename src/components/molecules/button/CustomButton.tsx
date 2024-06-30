@@ -1,24 +1,32 @@
-import {Animated, Pressable, StyleSheet, ActivityIndicator, DimensionValue, FlexStyle, ColorValue} from 'react-native';
+import {
+  Animated,
+  Pressable,
+  StyleSheet,
+  ActivityIndicator,
+  DimensionValue,
+  FlexStyle,
+  ColorValue,
+} from 'react-native';
 import React, {useRef} from 'react';
 import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
 import {deviceWidth} from '../../../utils/helper';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 
-interface Props{
-  children?:any,
-  type?: keyof typeof styles,
-  marginTop?:DimensionValue,
-  alignSelf?: FlexStyle['alignSelf'],
-  source?: any,
-  onPress?(): void,
-  customStyles?: any,
-  disabled?: boolean,
-  noAnim?: boolean,
-  backgroundColor?: ColorValue,
+interface Props {
+  children?: any;
+  type?: keyof typeof styles;
+  marginTop?: DimensionValue;
+  alignSelf?: FlexStyle['alignSelf'];
+  source?: any;
+  onPress?(): void;
+  customStyles?: any;
+  disabled?: boolean;
+  noAnim?: boolean;
+  backgroundColor?: ColorValue;
 }
 
-const CustomButton = (props:Props) => {
+const CustomButton = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
   const buttonBackgroundColor = props.backgroundColor
@@ -55,9 +63,9 @@ const CustomButton = (props:Props) => {
     <Pressable
       style={[
         {
-          alignSelf:props.alignSelf,
-          marginTop: props.marginTop
-        }
+          alignSelf: props.alignSelf,
+          marginTop: props.marginTop,
+        },
       ]}
       onPress={props.onPress}
       onPressIn={fadeIn}
@@ -73,9 +81,9 @@ const CustomButton = (props:Props) => {
           props.noAnim ? {} : {opacity: fadeAnim},
         ]}>
         {props.type == 'social' ? (
-          <CustomImage source={props.source} type={'socialIcon'} />
+          <CustomImage source={props.source} preset={'socialIcon'} />
         ) : props.type == 'image' ? (
-          <CustomImage source={props.source} type={'inputIcon'} />
+          <CustomImage source={props.source} preset={'inputIcon'} />
         ) : (
           <></>
         )}
@@ -87,14 +95,14 @@ const CustomButton = (props:Props) => {
             />
           ) : (
             <CustomText
-              marginTop={0}
-              textColor={textColor}
-              textStyle={
+              marginBottom={0}
+              color={textColor}
+              preset={
                 props.type == 'tertiary'
-                  ? 'text_normal'
+                  ? 'normal'
                   : props.type == 'social'
-                  ? 'text_center'
-                  : 'text_normalBold'
+                  ? 'center'
+                  : 'normalBold'
               }>
               {props.children}
             </CustomText>
@@ -132,20 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 32,
   },
-  tertiary:{},
-  highlight:{},
-  image:{}
-  
+  tertiary: {},
+  highlight: {},
+  image: {},
 });
-
-const textStyles = StyleSheet.create({
-  social: {
-    flex: 1,
-    textAlign: 'center',
-  },
-  primary: {
-    fontSize: 14,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-})

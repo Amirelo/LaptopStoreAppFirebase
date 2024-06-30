@@ -1,5 +1,5 @@
 class UserModel {
-  userID: string | Number;
+  id: string | Number;
   username: string;
   userPassword: string;
   email: string;
@@ -12,7 +12,7 @@ class UserModel {
   accountStatus: number;
 
   constructor(
-    userID: string | Number,
+    id: string | Number,
     username: string,
     userPassword: string,
     email: string,
@@ -24,7 +24,7 @@ class UserModel {
     gender: string,
     accountStatus: number,
   ) {
-    this.userID = userID;
+    this.id = id;
     this.username = username;
     this.userPassword = userPassword;
     this.email = email;

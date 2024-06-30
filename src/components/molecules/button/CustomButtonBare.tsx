@@ -1,7 +1,8 @@
-import {Animated, ColorValue, DimensionValue, FlexStyle, Pressable} from 'react-native';
+import {Animated, ColorValue, DimensionValue, FlexStyle, Pressable, StyleSheet} from 'react-native';
 import React, {useRef} from 'react';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 import { CustomView } from '../../atoms';
+import { ColorTheme } from '../../../preferences/themes/colorTheme';
 
 interface Props{
   children:any,
@@ -10,8 +11,8 @@ interface Props{
   alignSelf?: FlexStyle['alignSelf'],
   marginTop?: DimensionValue,
   backgroundColor?: ColorValue,
-  borderStyle?: any,
-  borderColor?: ColorValue,
+  border?: keyof typeof borderStyles,
+  borderColor?: keyof typeof ColorTheme['light'],
   type?: any,
   paddingVertical?:DimensionValue,
 }
@@ -43,12 +44,13 @@ const CustomButtonBare = (props:Props) => {
           marginTop: props.marginTop,
           backgroundColor: props.backgroundColor,
           borderColor: props.borderColor != null
-              ? {borderColor: theme[`${String(props.borderColor)}Color`]}
+              ? {borderColor: theme[props.borderColor]}
               : {borderColor: theme.borderColor},
           paddingVertical: props.paddingVertical,
           
         },
-        props.borderStyle
+        props.border ? borderStyles[props.border] : null
+        
       ]
       
     }
@@ -56,10 +58,10 @@ const CustomButtonBare = (props:Props) => {
       onPressIn={fadeIn}
       disabled={props.disabled}>
       <CustomView
-        marginTop={0}
+        marginBottom={0}
         backgroundColor={'none'}
-        type={props.type ? props.type : 'none'}
-        customStyles={{
+        preset={props.type ? props.type : 'none'}
+        styles={{
           opacity: fadeAnim,
         }}>
         {props.children}
@@ -69,3 +71,10 @@ const CustomButtonBare = (props:Props) => {
 };
 
 export default CustomButtonBare;
+
+const borderStyles = StyleSheet.create({
+  textInput: {borderRadius: 6, borderWidth: 3},
+  button: {borderRadius: 10},
+  banner: {borderRadius: 20},
+  borderOnly: {borderRadius: 0, borderWidth: 3},
+});

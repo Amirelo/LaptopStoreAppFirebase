@@ -16,13 +16,13 @@ interface Props {
 
 const CustomBanner = (props: Props) => {
   return (
-    <CustomView type={'banner'}>
+    <CustomView preset={'banner'}>
       <Image style={styles.banner_image} source={props.source} />
       <CustomText
-        customStyles={{marginStart: '5%'}}
-        marginTop={32}
-        textStyle={'text_titleBold'}
-        textColor={'textConstrast'}>
+        styles={{marginStart: '5%'}}
+        marginBottom={32}
+        preset={'titleBold'}
+        color={'textConstrast'}>
         {props.header}
       </CustomText>
       {/* <View style={styles.timerContainer}>

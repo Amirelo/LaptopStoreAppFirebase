@@ -1,5 +1,5 @@
 class ProductModel {
-  productID: string | number;
+  id: string | number;
   productName: string;
   productPrice: number;
   productQuantity: number;
@@ -25,7 +25,7 @@ class ProductModel {
   storageID: string | number;
 
   constructor(
-    productID: string | number,
+    id: string | number,
     productName: string,
     productPrice: number,
     productQuantity: number,
@@ -50,7 +50,7 @@ class ProductModel {
     memoryID: string | number,
     storageID: string | number,
   ) {
-    this.productID = productID;
+    this.id = id;
     this.productName = productName;
     this.productPrice = productPrice;
     this.productQuantity = productQuantity;

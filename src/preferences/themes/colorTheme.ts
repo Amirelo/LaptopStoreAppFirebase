@@ -1,4 +1,4 @@
-import {useColorScheme} from 'react-native';
+import {ColorSchemeName, useColorScheme} from 'react-native';
 import light from './light';
 import green from './green';
 import sky from './sky';
@@ -18,15 +18,21 @@ export const ColorTheme = {
 };
 
 export const useThemeColors = () => {
+  var colors = light;
   const colorScheme = useColorScheme();
-  const colors = ColorTheme[colorScheme];
+  if (colorScheme && colorScheme in ColorTheme) {
+    colors = ColorTheme[colorScheme];
+  }
   return colors;
 };
 
-export const setThemeColors = (type?:keyof typeof ColorTheme) => {
-  if (ColorTheme[type] == null) {
+export const setThemeColors = (type?: keyof typeof ColorTheme) => {
+  var colors;
+  if (type == null) {
     const colorScheme = useColorScheme();
-    const colors = ColorTheme[colorScheme];
+    if (colorScheme && colorScheme in ColorTheme) {
+      colors = ColorTheme[colorScheme];
+    }
     return colors;
   }
   return ColorTheme[type];

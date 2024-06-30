@@ -6,7 +6,7 @@ import CustomText from '../../atoms/CustomText';
 import CustomButton from '../button/CustomButton';
 import {priceFormat} from '../../../utils/helper';
 import CustomView from '../../atoms/CustomView';
-import ProductModel from '../../../models/ProductModel';
+import ProductModel from '../../../models/product/ProductModel';
 import CartModel from '../../../models/CartModel';
 
 interface Props {
