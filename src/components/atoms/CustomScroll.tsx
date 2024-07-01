@@ -1,9 +1,5 @@
 // React and libs
-import {
-  ColorValue,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import {ColorValue, ScrollView, StyleSheet} from 'react-native';
 
 // Utilities
 import {deviceWidth} from '../../utils/helper';
@@ -11,13 +7,17 @@ import {deviceWidth} from '../../utils/helper';
 interface Props {
   children: any;
   backgroundColor?: ColorValue;
+  main?: boolean;
 }
 
 const CustomScroll = (props: Props) => {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={styles.container_scrollView}
+      contentContainerStyle={[
+        styles.container_scrollView,
+        props.main ? styles.main : null,
+      ]}
       style={[
         {
           backgroundColor: props.backgroundColor,
@@ -35,5 +35,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: deviceWidth,
     paddingBottom: 32,
+  },
+  main: {
+    paddingTop: '15%',
+    paddingHorizontal: '5%',
   },
 });

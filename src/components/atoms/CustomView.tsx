@@ -25,16 +25,13 @@ interface Props {
   border?: keyof typeof borderStyles;
   borderColor?: keyof (typeof ColorTheme)['light'];
   alignSelf?: FlexAlignType;
+  alignItems?: FlexAlignType
   styles?: any;
 }
 
 const CustomView = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
-  const backgroundColor =
-    props.backgroundColor != null
-      ? colors[props.backgroundColor]
-      : colors.backgroundColor;
   const borderColor =
     props.borderColor != null ? colors[props.borderColor] : colors.borderColor;
 
@@ -43,9 +40,12 @@ const CustomView = (props: Props) => {
     <AnimatedView
       style={[
         {
-          backgroundColor: backgroundColor,
+          backgroundColor: props.backgroundColor != null
+          ? colors[props.backgroundColor]
+          : colors.backgroundColor,
           borderColor: borderColor,
           alignSelf: props.alignSelf,
+          alignItems: props.alignItems,
           marginBottom:
             props.marginBottom != null
               ? props.marginBottom
@@ -68,6 +68,12 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flex: 1,
+  },
+  main:{
+    alignItems: 'center',
+    flex: 1,
+    paddingTop:'20%',
+    paddingHorizontal:'5%'
   },
   row: {
     flexDirection: 'row',

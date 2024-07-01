@@ -12,7 +12,6 @@ interface Props {
   children: String;
   color?: keyof (typeof ColorTheme)['light'];
   preset?: keyof typeof styles;
-  bold?: boolean;
   marginBottom?: DimensionValue;
   hasBox?: boolean;
   maxLines?: number;
@@ -36,6 +35,7 @@ const CustomText = (props: Props) => {
           flex: props.flex ? 1 : 0,
           alignSelf: props.alignSelf,
         },
+        styles[props.preset ?? 'normal'],
         props.styles,
         props.hasBox
           ? {padding: 16, backgroundColor: colors.background, borderRadius: 10}

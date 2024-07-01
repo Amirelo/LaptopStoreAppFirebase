@@ -8,9 +8,20 @@ import CustomView from '../../../components/atoms/CustomView';
 import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {checkLanguage, useLanguage} from '../../../preferences/languages/languageTheme';
-import { displayMessage } from '../../../utils/helper';
-import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import {
+  checkLanguage,
+  useLanguage,
+} from '../../../preferences/languages/languageTheme';
+import {displayMessage} from '../../../utils/helper';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
+import SocialButton from '../../../components/molecules/button/SocialButton';
+import TertiaryButton from '../../../components/molecules/button/TertiaryButton';
 
 const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -19,7 +30,7 @@ const SignInScreen = () => {
   const [error, setError] = useState<String>('');
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const {onUpdateUserInfo} = useContext(AuthContext)
+  const {onUpdateUserInfo} = useContext(AuthContext);
 
   const {
     onSignIn,
@@ -42,28 +53,28 @@ const SignInScreen = () => {
       if (result != null && result.accountStatus !== 0) {
         setError('');
         await AsyncStorage.setItem('email', result.email);
-        displayMessage("Login Successful")
+        displayMessage('Login Successful');
       } else {
-        displayMessage(language.err_signin_wrong)
+        displayMessage(language.err_signin_wrong);
         setError(language.err_signin_wrong);
       }
     }
     setIsDisabled(false);
   };
 
-  const onSocialSignInPress = async (email:string) => {
+  const onSocialSignInPress = async (email: string) => {
     await AsyncStorage.setItem('email', email);
     onSocialSignIn();
   };
 
   const signInCheck = () => {
-    var status = true
-    if (username.length === 0 || password.length ===0){
+    var status = true;
+    if (username.length === 0 || password.length === 0) {
       displayMessage(language.err_empty);
       setError(language.err_empty);
       status = false;
     }
-    console.log("Status:" + status)
+    console.log('Status:' + status);
     return status;
   };
 
@@ -99,14 +110,14 @@ const SignInScreen = () => {
         onSocialSignInPress(userInfo.user.email);
       }
     } catch (error) {
-      displayMessage("Error Signing In with Google")
+      displayMessage('Error Signing In with Google');
       console.log(error);
     }
   };
 
-  const onAnonymousSignIn = async() => {
+  const onAnonymousSignIn = async () => {
     onSocialSignIn();
-  }
+  };
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -121,22 +132,28 @@ const SignInScreen = () => {
   }, []);
 
   return (
-    <CustomView>
-      <CustomImage type={'header'} source={images.app_logo_splash} />
-      <CustomText textColor={'text'} textStyle={'text_subtitle'}>
+    <CustomView preset="main">
+      {/* Header */}
+      <CustomImage
+        preset={'header'}
+        source={images.app_logo_splash}
+        marginBottom={12}
+      />
+      <CustomText marginBottom={2} color={'text'} preset={'subtitle'}>
         {language.login_text_header}
       </CustomText>
-      <CustomText textColor={'text'} textStyle={'text_small'} marginTop={0}>
+      <CustomText color={'text'} preset={'small'} marginBottom={50}>
         {language.login_text_sub_header}
       </CustomText>
 
+      {/* Input */}
       <CustomInput
         value={username}
         onChangeText={setUsername}
         placeholder={language.placeholder_username}
         source={images.ic_person}
         disabled={!isDisabled}
-        marginTop={50}
+        marginBottom={8}
       />
       <CustomInput
         value={password}
@@ -144,55 +161,49 @@ const SignInScreen = () => {
         placeholder={language.placeholder_password}
         source={images.ic_password}
         disabled={!isDisabled}
-        marginTop={12}
+        marginBottom={16}
         isPassword
       />
-      {error ? (
-        <CustomText marginTop={4} textColor={'err'} textStyle={'text_small'}>
-          {error}
-        </CustomText>
-      ) : (
-        <></>
-      )}
-      <CustomButton
+
+      {/* Button */}
+      <TertiaryButton
+        alignSelf="flex-end"
         onPress={onToForgotPasswordPress}
-        alignSelf={'flex-end'}
-        type={'tertiary'}
         disabled={isDisabled}
-        customStyles={{marginRight: '5%'}}>
+        marginBottom={16}>
         {language.login_button_forgot_password}
-      </CustomButton>
-      <CustomButton
+      </TertiaryButton>
+
+      <PrimaryButton
         onPress={onSignInPress}
-        type={'primary'}
-        disabled={isDisabled}>
+        disabled={isDisabled}
+        marginbottom={18}>
         {language.login_button_signin}
-      </CustomButton>
-      <CustomText marginTop={18}>
+      </PrimaryButton>
+
+      <CustomText marginBottom={16}>
         {language.login_text_other_signin_option}
       </CustomText>
-      <CustomButton onPress={onAnonymousSignIn} type={'primary'}>
-        Without Account
-      </CustomButton>
-      <CustomButton
-        onPress={onGoogleSignInPressed}
-        type={'social'}
+
+      <SocialButton onPress={onAnonymousSignIn} disabled={isDisabled}>
+        Guest
+      </SocialButton>
+      <SocialButton
         source={images.ic_google}
+        onPress={onGoogleSignInPressed}
         disabled={isDisabled}>
-        {language.login_button_google_signin}
-      </CustomButton>
+        Google
+      </SocialButton>
+
       <CustomButton
-        type={'tertiary'}
+        preset={'tertiary'}
         onPress={onToSignUpPress}
         disabled={isDisabled}>
-        <CustomView type={'row'} marginTop={24}>
-          <CustomText marginTop={0}>
+        <CustomView preset={'row'} marginBottom={24}>
+          <CustomText marginBottom={0}>
             {language.login_button_signup_1 + ''}
           </CustomText>
-          <CustomText
-            textColor={'primary'}
-            textStyle={'text_normalBold'}
-            marginTop={0}>
+          <CustomText color={'primary'} preset={'normalBold'} marginBottom={0}>
             {language.login_button_signup_2}
           </CustomText>
         </CustomView>

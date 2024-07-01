@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     width: 72,
     height: 72,
     borderRadius: 10,
-    marginTop: 103,
   },
   inputIcon: {
     width: 24,
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
     height: 24,
     marginHorizontal: 8,
     position: 'absolute',
+    left: 20
   },
   productItem: {
     width: 139,

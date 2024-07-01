@@ -1,5 +1,6 @@
-import {ColorSchemeName, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import light from './light';
+import creme from './creme';
 import green from './green';
 import sky from './sky';
 import thristle from './thristle';
@@ -9,6 +10,7 @@ import dark from './dark';
 
 export const ColorTheme = {
   light,
+  creme,
   green,
   sky,
   thristle,

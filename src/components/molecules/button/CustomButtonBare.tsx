@@ -1,4 +1,4 @@
-import {Animated, ColorValue, DimensionValue, FlexStyle, Pressable, StyleSheet} from 'react-native';
+import {Animated, ColorValue, DimensionValue, FlexStyle, Pressable, StyleSheet, ViewStyle} from 'react-native';
 import React, {useRef} from 'react';
 import {AuthContext} from '../../../screens/Auth/AuthContext';
 import { CustomView } from '../../atoms';
@@ -8,11 +8,14 @@ interface Props{
   children:any,
   disabled?: boolean,
   onPress?(): void,
-  alignSelf?: FlexStyle['alignSelf'],
-  marginTop?: DimensionValue,
+  width?: DimensionValue;
+  height?:DimensionValue;
+    alignSelf?: FlexStyle['alignSelf'],
+  marginBottom?: DimensionValue,
   backgroundColor?: ColorValue,
   border?: keyof typeof borderStyles,
   borderColor?: keyof typeof ColorTheme['light'],
+  alignItems?: ViewStyle['alignItems']
   type?: any,
   paddingVertical?:DimensionValue,
 }
@@ -40,12 +43,15 @@ const CustomButtonBare = (props:Props) => {
     <Pressable
       style={
         [{
+          width: props.width,
+          height: props.height,
           alignSelf: props.alignSelf,
-          marginTop: props.marginTop,
+          justifyContent:'center',
+          marginBottom: props.marginBottom,
           backgroundColor: props.backgroundColor,
           borderColor: props.borderColor != null
-              ? {borderColor: theme[props.borderColor]}
-              : {borderColor: theme.borderColor},
+              ?  theme[props.borderColor]
+              :  theme.borderColor,
           paddingVertical: props.paddingVertical,
           
         },
@@ -60,6 +66,7 @@ const CustomButtonBare = (props:Props) => {
       <CustomView
         marginBottom={0}
         backgroundColor={'none'}
+        alignItems={props.alignItems}
         preset={props.type ? props.type : 'none'}
         styles={{
           opacity: fadeAnim,
@@ -77,4 +84,5 @@ const borderStyles = StyleSheet.create({
   button: {borderRadius: 10},
   banner: {borderRadius: 20},
   borderOnly: {borderRadius: 0, borderWidth: 3},
+  social:{borderRadius:10, borderWidth:1}
 });

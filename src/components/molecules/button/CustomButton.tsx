@@ -15,7 +15,7 @@ import {AuthContext} from '../../../screens/Auth/AuthContext';
 
 interface Props {
   children?: any;
-  type?: keyof typeof styles;
+  preset?: keyof typeof styles;
   marginTop?: DimensionValue;
   alignSelf?: FlexStyle['alignSelf'];
   source?: any;
@@ -31,17 +31,17 @@ const CustomButton = (props: Props) => {
   const colors = theme;
   const buttonBackgroundColor = props.backgroundColor
     ? colors[props.backgroundColor]
-    : props.type && props.type.includes('primary')
+    : props.preset && props.preset.includes('primary')
     ? colors.primaryColor
-    : props.type == 'social'
+    : props.preset == 'social'
     ? colors.backgroundInputColor
     : 'transparent';
-  const borderColor = props.type == 'social' ? colors.borderColor : '';
+  const borderColor = props.preset == 'social' ? colors.borderColor : '';
   const fadeAnim = useRef(new Animated.Value(1)).current;
   const textColor =
-    props.type == 'tertiary' || props.type == 'social'
+    props.preset == 'tertiary' || props.preset == 'social'
       ? 'text'
-      : props.type == 'highlight'
+      : props.preset == 'highlight'
       ? 'primary'
       : 'textConstrast';
   const fadeIn = () => {
@@ -72,7 +72,7 @@ const CustomButton = (props: Props) => {
       disabled={props.disabled}>
       <Animated.View
         style={[
-          props.type != null ? styles[props.type] : {},
+          props.preset != null ? styles[props.preset] : {},
           {
             backgroundColor: buttonBackgroundColor,
             borderColor: borderColor,
@@ -80,15 +80,15 @@ const CustomButton = (props: Props) => {
           props.customStyles,
           props.noAnim ? {} : {opacity: fadeAnim},
         ]}>
-        {props.type == 'social' ? (
+        {props.preset == 'social' ? (
           <CustomImage source={props.source} preset={'socialIcon'} />
-        ) : props.type == 'image' ? (
+        ) : props.preset == 'image' ? (
           <CustomImage source={props.source} preset={'inputIcon'} />
         ) : (
           <></>
         )}
-        {props.type != 'image' ? (
-          props.disabled == true && props.type == 'primary' ? (
+        {props.preset != 'image' ? (
+          props.disabled == true && props.preset == 'primary' ? (
             <ActivityIndicator
               size={'large'}
               color={colors.backgroundInputColor}
@@ -98,9 +98,9 @@ const CustomButton = (props: Props) => {
               marginBottom={0}
               color={textColor}
               preset={
-                props.type == 'tertiary'
+                props.preset == 'tertiary'
                   ? 'normal'
-                  : props.type == 'social'
+                  : props.preset == 'social'
                   ? 'center'
                   : 'normalBold'
               }>
