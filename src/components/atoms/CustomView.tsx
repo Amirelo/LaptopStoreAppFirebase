@@ -2,12 +2,10 @@
 import React from 'react';
 import {
   Animated,
-  ColorValue,
   DimensionValue,
   FlexAlignType,
   StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native';
 
 // Context
@@ -28,6 +26,7 @@ interface Props {
   alignItems?: FlexAlignType
   styles?: any;
 }
+const AnimatedView = Animated.createAnimatedComponent(View);
 
 const CustomView = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
@@ -35,7 +34,6 @@ const CustomView = (props: Props) => {
   const borderColor =
     props.borderColor != null ? colors[props.borderColor] : colors.borderColor;
 
-  const AnimatedView = Animated.createAnimatedComponent(View);
   return (
     <AnimatedView
       style={[

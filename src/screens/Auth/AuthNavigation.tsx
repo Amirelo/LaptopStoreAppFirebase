@@ -6,6 +6,7 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import SplashScreen from './screens/SplashScreen';
 import {AuthContext} from './AuthContext';
+import { ColorTheme } from '../../preferences/themes/colorTheme';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,9 +14,9 @@ const AuthNavigation = () => {
   const {language, theme} = React.useContext(AuthContext);
 
   const customHeaderStyle = {
-    backgroundColor: theme.borderColor,
+    backgroundColor: theme.border,
     elevation: 10,
-    shadowColor: theme.primaryColor,
+    shadowColor: theme.primary,
   };
   return (
     <Stack.Navigator initialRouteName="Splash">

@@ -4,9 +4,10 @@ import CustomButtonBare from './CustomButtonBare';
 import { DimensionValue, FlexAlignType } from 'react-native';
 
 interface Props {
-  children: string;
+  children: string | Element |Array<Element>;
   disabled?: boolean;
   alignSelf?: FlexAlignType;
+  underline?: boolean;
   onPress(): void;
   marginBottom?: DimensionValue
 }
@@ -18,9 +19,12 @@ const TertiaryButton = (props: Props) => {
       disabled={props.disabled}
       onPress={props.onPress}
       alignSelf={props.alignSelf}>
-      <CustomText marginBottom={0}>
+        {typeof props.children == 'string' ? 
+      <CustomText marginBottom={0} preset={props.underline ? 'normalUnderscore' : 'normal'}>
         {props.children}
       </CustomText>
+      : 
+      props.children}
     </CustomButtonBare>
   );
 };

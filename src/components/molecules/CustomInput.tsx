@@ -1,5 +1,5 @@
 // React and libs
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {
   Animated,
   DimensionValue,
@@ -23,20 +23,19 @@ interface Props {
   placeholder?: String;
   source?: any;
   marginBottom?: DimensionValue;
-  onChangeText?(text: String): void;
+  onChangeText(text: string): void;
   keyboardType?: KeyboardTypeOptions;
-  value?: String;
+  value: string;
   disabled?: boolean;
   isPassword?: boolean;
 }
 
-//const internetImg = {uri:'https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg'}
 const CustomInput = (props: Props) => {
   const {theme} = React.useContext(AuthContext);
   const colors = theme;
-  const [showPassImg, setShowPassImg] = useState(images.ic_visibility);
-  const [secure, setSecure] = useState(props.isPassword);
-  const [isSelected, setIsSelected] = useState(false);
+  const [showPassImg, setShowPassImg] = React.useState(images.ic_visibility);
+  const [secure, setSecure] = React.useState(props.isPassword);
+  const [isSelected, setIsSelected] = React.useState(false);
   const onPressVisibility = () => {
     setSecure(!secure);
     showPassImg == images.ic_visibility
@@ -76,19 +75,19 @@ const CustomInput = (props: Props) => {
           styles.inputStyle,
           props.source == null ? {paddingStart: 10} : {},
         ]}
-        value={props.value + ''}
+        value={props.value}
         onFocus={onFocus}
         onBlur={onBlur}
         editable={props.disabled}
-        selectTextOnFocus={props.disabled}
+        // selectTextOnFocus={props.disabled}
         placeholder={props.placeholder + ''}
-        keyboardType={props.keyboardType ? props.keyboardType : 'default'}
+        keyboardType={props.keyboardType}
         secureTextEntry={secure}
       />
       {props.isPassword ? (
         <CustomButton
           source={showPassImg}
-          type={'image'}
+          preset={'image'}
           marginTop={0}
           onPress={onPressVisibility}
         />

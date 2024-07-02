@@ -1,16 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
 import {AuthContextProvider} from './src/screens/Auth/AuthContext';
-import AppNavigation from './src/screens/Navigation/AppNavigation';
 import {MainContextProvider} from './src/screens/Main/MainContext';
+import AppNavigation from './src/screens/Navigation/AppNavigation';
 
-function App() {
+export default function App(): React.JSX.Element {
   return (
     <AuthContextProvider>
       <MainContextProvider>
@@ -19,5 +11,3 @@ function App() {
     </AuthContextProvider>
   );
 }
-
-export default App;

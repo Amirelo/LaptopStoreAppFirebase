@@ -1,36 +1,31 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {AuthContext} from '../AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CustomText from '../../../components/atoms/CustomText';
 import CustomImage from '../../../components/atoms/CustomImage';
 import * as images from '../../../assets/images';
 import CustomView from '../../../components/atoms/CustomView';
-import CustomButton from '../../../components/molecules/button/CustomButton';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {
-  checkLanguage,
-  useLanguage,
-} from '../../../preferences/languages/languageTheme';
+
 import {displayMessage} from '../../../utils/helper';
 import {
   NavigationProp,
-  RouteProp,
   useNavigation,
-  useRoute,
 } from '@react-navigation/native';
 import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
 import SocialButton from '../../../components/molecules/button/SocialButton';
 import TertiaryButton from '../../../components/molecules/button/TertiaryButton';
+import { TextInput, View } from 'react-native';
 
 const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-  const [username, setUsername] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
-  const [error, setError] = useState<String>('');
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [somethin, setSomethin] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [isDisabled, setIsDisabled] = React.useState(false);
 
-  const {onUpdateUserInfo} = useContext(AuthContext);
+  const {onUpdateUserInfo} = React.useContext(AuthContext);
 
   const {
     onSignIn,
@@ -51,12 +46,12 @@ const SignInScreen = () => {
       console.log(signInCheck());
       const result = await onSignIn(username, password);
       if (result != null && result.accountStatus !== 0) {
-        setError('');
+        // setError('');
         await AsyncStorage.setItem('email', result.email);
         displayMessage('Login Successful');
       } else {
         displayMessage(language.err_signin_wrong);
-        setError(language.err_signin_wrong);
+        // setError(language.err_signin_wrong);
       }
     }
     setIsDisabled(false);
@@ -71,7 +66,7 @@ const SignInScreen = () => {
     var status = true;
     if (username.length === 0 || password.length === 0) {
       displayMessage(language.err_empty);
-      setError(language.err_empty);
+      // setError(language.err_empty);
       status = false;
     }
     console.log('Status:' + status);
@@ -132,7 +127,7 @@ const SignInScreen = () => {
   }, []);
 
   return (
-    <CustomView preset="main">
+    <CustomView>
       {/* Header */}
       <CustomImage
         preset={'header'}
@@ -165,12 +160,14 @@ const SignInScreen = () => {
         isPassword
       />
 
+
       {/* Button */}
       <TertiaryButton
         alignSelf="flex-end"
         onPress={onToForgotPasswordPress}
         disabled={isDisabled}
-        marginBottom={16}>
+        marginBottom={16}
+        underline>
         {language.login_button_forgot_password}
       </TertiaryButton>
 
@@ -195,19 +192,18 @@ const SignInScreen = () => {
         Google
       </SocialButton>
 
-      <CustomButton
-        preset={'tertiary'}
-        onPress={onToSignUpPress}
-        disabled={isDisabled}>
-        <CustomView preset={'row'} marginBottom={24}>
+      <TertiaryButton onPress={onToSignUpPress} disabled={isDisabled}>
+        <CustomView preset="row">
           <CustomText marginBottom={0}>
-            {language.login_button_signup_1 + ''}
+            {language.login_button_signup_1 + ' '}
           </CustomText>
-          <CustomText color={'primary'} preset={'normalBold'} marginBottom={0}>
+          <CustomText marginBottom={0} color={'primary'} preset={'normalBold'}>
             {language.login_button_signup_2}
           </CustomText>
         </CustomView>
-      </CustomButton>
+      </TertiaryButton>
+
+     
     </CustomView>
   );
 };
