@@ -9,13 +9,14 @@ import {AuthContext} from '../../screens/Auth/AuthContext';
 import {ColorTheme} from '../../preferences/themes/colorTheme';
 
 interface Props {
-  children: String;
+  children: string;
   color?: keyof (typeof ColorTheme)['light'];
   preset?: keyof typeof styles;
   marginBottom?: DimensionValue;
   hasBox?: boolean;
   maxLines?: number;
   flex?: boolean;
+  maxHeight?: DimensionValue
   alignSelf?: TextStyle['alignSelf'];
   width?: DimensionValue;
   styles?: TextStyle;
@@ -34,6 +35,7 @@ const CustomText = (props: Props) => {
           width: props.width,
           flex: props.flex ? 1 : 0,
           alignSelf: props.alignSelf,
+          maxHeight: props.maxHeight
         },
         styles[props.preset ?? 'normal'],
         props.styles,

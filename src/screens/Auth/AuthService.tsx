@@ -1,4 +1,4 @@
-import database, { firebase } from '@react-native-firebase/database';
+import database, { FirebaseDatabaseTypes, firebase } from '@react-native-firebase/database';
 import AddressModel from '../../models/AddressModel';
 
 
@@ -49,22 +49,16 @@ export const signUp = async (
     .then(() => console.log('User added'));
 };
 
-export const checkEmail = async (email:String) => {
+export const checkEmail = async (email:string) => {
   const ref = database().ref('/users');
   return await ref
     .orderByChild('email')
     .equalTo(email)
     .once('value')
-    .then(snapshot => {
-      let returnItem = null;
-      snapshot.forEach(item => {
-        returnItem = item.val();
-      });
-      if (returnItem != null) {
-        return true;
-      } else {
-        return false;
-      }
+    .then((snapshot) => {
+      const exist = snapshot.val() != null
+
+      return exist;
     });
 };
 
@@ -72,10 +66,11 @@ export const checkUserName = async (username:String) => {
   const ref = database().ref('users');
   return ref.once('value').then(snapshot => {
     let isUsed = false;
-    snapshot.forEach(item => {
+    snapshot.forEach((item: any) => {
       if (item.username.toLowerCase() == username.toLowerCase()) {
         isUsed = true;
       }
+      return true;
     });
     return isUsed;
   })

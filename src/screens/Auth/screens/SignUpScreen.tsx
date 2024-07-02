@@ -1,32 +1,37 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import * as images from '../../../assets/images';
-import { AuthContext } from '../AuthContext';
+import {AuthContext} from '../AuthContext';
 import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
-import CustomButton from '../../../components/molecules/button/CustomButton';
-import { CustomText } from '../../../components/atoms';
-import { displayMessage } from '../../../utils/helper';
-import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import {displayMessage} from '../../../utils/helper';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-  const route = useRoute<RouteProp<{params:{email:String, userData: any}}>>();
-  const { email, userData } = route.params;
+  const route = useRoute<RouteProp<{params: {email: String; userData: any}}>>();
+  const {email, userData} = route.params;
 
-  const [username, setUsername] = useState<String>('');
-  const [fullName, setFullName] = useState<String>('');
-  const [password, setPassword] = useState<String>('');
-  const [confirmPassword, setConfirmPassword] = useState<String>('');
-  const [phoneNumber, setPhoneNumber] = useState<String>('');
-  const [birthday, setBirthday] = useState<String>('');
+  const [username, setUsername] = useState<string>('');
+  const [fullName, setFullName] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+  const [birthday, setBirthday] = useState<string>('');
 
-  const [error, setError] = useState<String>('');
-  const [isDisabled, setIsDisabled] = useState(false)
+  const [error, setError] = useState<string>('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  const { onSignUp, onUpdateUserInfo, language, onCheckUsername } = useContext(AuthContext);
+  const {onSignUp, onUpdateUserInfo, language, onCheckUsername} =
+    useContext(AuthContext);
 
   const onConfirmPressed = async () => {
-    setIsDisabled(true)
+    setIsDisabled(true);
     let allowSignUp = checkInput();
     console.warn(error);
     if (error == '' && allowSignUp == true) {
@@ -37,19 +42,19 @@ const SignUpScreen = () => {
         phoneNumber,
         fullName,
         birthday,
-      )
+      );
       console.warn(result);
       if (result == true) {
         if (userData != null) {
-          displayMessage("User Info updated")
+          displayMessage('User Info updated');
           await onUpdateUserInfo(userData.picture, userData.email, 'IMAGE');
         }
-        navigation.navigate('Sign In', { title: 'Sign Up success' });
+        navigation.navigate('Sign In', {title: 'Sign Up success'});
       } else {
-        navigation.navigate('Sign In', { title: 'Sign Up fail' });
+        navigation.navigate('Sign In', {title: 'Sign Up fail'});
       }
-    } else{
-      setIsDisabled(false)
+    } else {
+      setIsDisabled(false);
     }
   };
 
@@ -57,37 +62,41 @@ const SignUpScreen = () => {
     let allowed = false;
     let checkUsername = onCheckUsername(username);
     if (checkUsername == true) {
-      displayMessage("Username already in use")
+      displayMessage('Username already in use');
       setError('Username already in use');
-    }
-    else if (
+    } else if (
       username == null ||
       password == null ||
       confirmPassword == null ||
       phoneNumber == null ||
       birthday == null
-
     ) {
       displayMessage('Fields cannot be empty');
       setError('Fields cannot be empty');
     } else if (password != confirmPassword) {
-      displayMessage('Passwords does not match')
-      setError('Passwords does not match')
-    }
-    else {
+      displayMessage('Passwords does not match');
+      setError('Passwords does not match');
+    } else {
       setError('');
       allowed = true;
     }
     return allowed;
   };
 
+  const onBirthdayUpdate = (text:string) => {
+    if((text.length ==4 || text.length ==7) && birthday.length < text.length){
+      text += '-'
+    } 
+    setBirthday(text)
+  }
+
   return (
-    <CustomView>
+    <CustomView preset={'main'}>
       <CustomInput
         source={images.ic_person}
         placeholder={language.placeholder_username}
         onChangeText={setUsername}
-        marginTop={103}
+        value={username}
         disabled={!isDisabled}
       />
       <CustomInput
@@ -95,55 +104,51 @@ const SignUpScreen = () => {
         placeholder={language.placeholder_fullname}
         value={fullName}
         onChangeText={setFullName}
-        marginTop={8}
+        marginBottom={8}
         disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_password}
+        value={password}
         placeholder={language.placeholder_password}
-        marginTop={8}
+        marginBottom={8}
         onChangeText={setPassword}
         isPassword
         disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_password}
+        value={confirmPassword}
         placeholder={language.placeholder_password_confirm}
-        marginTop={8}
+        marginBottom={8}
         onChangeText={setConfirmPassword}
         isPassword
         disabled={!isDisabled}
       />
       <CustomInput
         source={images.ic_phone}
+        value={phoneNumber}
         placeholder={language.placeholder_phoneNumber}
         keyboardType={'numeric'}
         onChangeText={setPhoneNumber}
-        marginTop={8}
+        marginBottom={8}
         disabled={!isDisabled}
+        maxLength={10}
       />
       <CustomInput
         source={images.ic_calendar}
         value={birthday}
-        placeholder={"YYYY-MM-dd"}
-        onChangeText={(text)=>{
-          console.log(text + ' ' + text.length)
-          if(text.length == 4 && text.length > birthday.length){
-            setBirthday(text+'-')
-          } else if (text.length== 7 && text.length > birthday.length){
-            setBirthday(text+'-')
-          }else{
-            setBirthday(text)
-          }}}
-        marginTop={8}
+        placeholder={'YYYY-MM-dd'}
+        keyboardType={'numeric'}
+        onChangeText={text => onBirthdayUpdate(text)}
+        marginBottom={24}
         disabled={!isDisabled}
+        maxLength={10}
       />
 
-      <CustomText marginTop={4} textColor={'err'} textStyle={'text_small'} >{error}</CustomText>
-
-      <CustomButton disabled={isDisabled} type={'primary'} onPress={onConfirmPressed} marginTop={48}>
+      <PrimaryButton disabled={isDisabled} onPress={onConfirmPressed}>
         {language.signUp_button_confirm}
-      </CustomButton>
+      </PrimaryButton>
     </CustomView>
   );
 };

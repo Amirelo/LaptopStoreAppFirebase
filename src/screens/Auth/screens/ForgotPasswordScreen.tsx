@@ -1,18 +1,23 @@
 import React, {useContext, useState} from 'react';
 import * as images from '../../../assets/images';
 import {AuthContext} from '../AuthContext';
-import { CustomView, CustomText } from '../../../components/atoms';
+import {CustomView, CustomText} from '../../../components/atoms';
 import CustomInput from '../../../components/molecules/CustomInput';
 import CustomButton from '../../../components/molecules/button/CustomButton';
-import { NavigationProp, RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
+import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-  const route = useRoute<RouteProp<{params:{email:String, type:String}}>>();
+  const route = useRoute<RouteProp<{params: {email: string; type: string}}>>();
 
-  const [pass, setPass] = React.useState<String>('');
-  const [confirmPass, setConfirmPass] = useState<String>('');
-  const [error, setError] = useState('');
+  const [pass, setPass] = React.useState<string>('');
+  const [confirmPass, setConfirmPass] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState(false);
   const {email, type} = route.params;
 
@@ -21,11 +26,11 @@ const ForgotPasswordScreen = () => {
   const onConfirmPress = async () => {
     setIsDisabled(true);
     if (pass == null) {
-      setError('Fields cannot be empty');
+      // setError('Fields cannot be empty');
     } else if (pass.length < 6) {
-      setError('Must have > 6 characters');
+      // setError('Must have > 6 characters');
     } else if (pass != confirmPass) {
-      setError('Passwords does not match');
+      // setError('Passwords does not match');
     }
     if (pass == confirmPass && pass != null) {
       let result = await onUpdateUserInfo(pass, email, type);
@@ -37,37 +42,28 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <CustomView>
+    <CustomView preset="main">
       <CustomInput
+        value={pass}
         source={images.ic_password}
         placeholder={language.placeholder_password}
-        marginTop={103}
         onChangeText={setPass}
         disabled={!isDisabled}
-        isPassword
+        obscure
       />
       <CustomInput
         source={images.ic_password}
+        value={confirmPass}
         placeholder={language.placeholder_password_confirm}
         onChangeText={setConfirmPass}
         disabled={!isDisabled}
-        marginTop={8}
-        isPassword
+        marginBottom={24}
+        obscure
       />
-      {error != null ? (
-        <CustomText textStyle={'text_normal'} textColor={'err'}>
-          {error}
-        </CustomText>
-      ) : (
-        <></>
-      )}
-      <CustomButton
-        onPress={onConfirmPress}
-        type={'primary'}
-        disabled={isDisabled}
-        marginTop={24}>
+
+      <PrimaryButton onPress={onConfirmPress} disabled={isDisabled}>
         {language.changePass_button_confirm}
-      </CustomButton>
+      </PrimaryButton>
     </CustomView>
   );
 };

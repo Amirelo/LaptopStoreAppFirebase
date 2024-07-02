@@ -9,14 +9,11 @@ import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 import {displayMessage} from '../../../utils/helper';
-import {
-  NavigationProp,
-  useNavigation,
-} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
 import SocialButton from '../../../components/molecules/button/SocialButton';
 import TertiaryButton from '../../../components/molecules/button/TertiaryButton';
-import { TextInput, View } from 'react-native';
+import {TextInput, View} from 'react-native';
 
 const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -24,6 +21,9 @@ const SignInScreen = () => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [isDisabled, setIsDisabled] = React.useState(false);
+
+  const [usernameErr, setUsernameErr] = React.useState('');
+  const [passwordErr, setPasswordErr] = React.useState('');
 
   const {onUpdateUserInfo} = React.useContext(AuthContext);
 
@@ -64,10 +64,17 @@ const SignInScreen = () => {
 
   const signInCheck = () => {
     var status = true;
-    if (username.length === 0 || password.length === 0) {
-      displayMessage(language.err_empty);
-      // setError(language.err_empty);
+    if (username.length === 0) {
+      setUsernameErr(language.err_empty);
       status = false;
+    } else {
+      setUsernameErr('');
+    }
+    if (password.length === 0) {
+      setPasswordErr(language.err_empty);
+      status = false;
+    } else {
+      setPasswordErr('');
     }
     console.log('Status:' + status);
     return status;
@@ -119,7 +126,7 @@ const SignInScreen = () => {
   }, []);
 
   return (
-    <CustomView preset='main'>
+    <CustomView preset="main">
       {/* Header */}
       <CustomImage
         preset={'header'}
@@ -139,6 +146,7 @@ const SignInScreen = () => {
         onChangeText={setUsername}
         placeholder={language.placeholder_username}
         source={images.ic_person}
+        error={usernameErr}
         disabled={!isDisabled}
         marginBottom={8}
       />
@@ -147,11 +155,11 @@ const SignInScreen = () => {
         onChangeText={setPassword}
         placeholder={language.placeholder_password}
         source={images.ic_password}
+        error={passwordErr}
         disabled={!isDisabled}
         marginBottom={16}
-        isPassword
+        obscure
       />
-
 
       {/* Button */}
       <TertiaryButton
@@ -180,7 +188,8 @@ const SignInScreen = () => {
       <SocialButton
         source={images.ic_google}
         onPress={onGoogleSignInPressed}
-        disabled={isDisabled} marginBottom={20}>
+        disabled={isDisabled}
+        marginBottom={20}>
         Google
       </SocialButton>
 
@@ -194,8 +203,6 @@ const SignInScreen = () => {
           </CustomText>
         </CustomView>
       </TertiaryButton>
-
-     
     </CustomView>
   );
 };

@@ -121,9 +121,10 @@ export const AuthContextProvider = (props:Props) => {
 
 
 
-  const onCheckEmail = async (email:String, type:String) => {
+  const onCheckEmail = async (email:string) => {
     try {
-      const res = await checkEmail(email);
+      
+      var res = await checkEmail(email);
       console.log('On Check Email success', res);
       return res;
     } catch (error) {
@@ -136,12 +137,12 @@ export const AuthContextProvider = (props:Props) => {
     try{
       return await checkUserName(username);
     } catch(error){
-      console.log('On Check Email error:', error);
+      console.log('On Check Username error:', error);
     }
     
   }
 
-  const onUpdateUserInfo = async (data:String, email:String, type:String) => {
+  const onUpdateUserInfo = async (data:string, email:string, type:string) => {
     try {
       let res;
       switch(type){
