@@ -8,7 +8,7 @@ import CustomView from '../../../components/atoms/CustomView';
 import CustomInput from '../../../components/molecules/CustomInput';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import {displayMessage} from '../../../utils/helper';
+import {checkInputField, displayMessage} from '../../../utils/helper';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import PrimaryButton from '../../../components/molecules/button/PrimaryButton';
 import SocialButton from '../../../components/molecules/button/SocialButton';

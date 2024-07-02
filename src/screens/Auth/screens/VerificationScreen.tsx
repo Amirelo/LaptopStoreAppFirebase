@@ -24,6 +24,8 @@ const VerificationScreen = () => {
   const {onCheckEmail, language} = useContext(AuthContext);
   const {paramKey} = route.params;
 
+  const [emailErr, setEmailErr] = React.useState('');
+
   const onSendPressed = async () => {
     setIsDisabled(true);
     if (email.length != 0 && testEmailFormat(email) == true) {
@@ -37,6 +39,7 @@ const VerificationScreen = () => {
           });
         } else {
           displayMessage('Email already registered');
+          setEmailErr('Email already registered');
           // setError('Email already registered');
         }
       } else if (checkEmailResult == false) {
@@ -44,6 +47,7 @@ const VerificationScreen = () => {
           navigation.navigate('Sign Up', {email: email});
         } else {
           displayMessage('Email not found');
+          setEmailErr('Email not found');
           // setError('Email not found');
         }
       }
@@ -66,6 +70,7 @@ const VerificationScreen = () => {
         keyboardType={'email-address'}
         value={email}
         onChangeText={setEmail}
+        error={emailErr}
         disabled={!isDisabled}
       />
       <CustomText marginBottom={40}>
@@ -76,21 +81,19 @@ const VerificationScreen = () => {
         {language.verify_button_send}
       </PrimaryButton>
       {paramKey != 'CHANGEPASSWORD' ? (
-        <TertiaryButton
-        onPress={onSignInHerePressed}
-        disabled={isDisabled}>
-          <CustomView preset='row'>
-           <CustomText marginBottom={0}>
-               {language.verify_button_signin_1 + ' '}
-             </CustomText>
-             <CustomText
-               color={'primary'}
-               preset={'normalBold'}
-               marginBottom={0}>
-               {language.verify_button_signin_2}
-             </CustomText>
-             </CustomView>
-          </TertiaryButton>
+        <TertiaryButton onPress={onSignInHerePressed} disabled={isDisabled}>
+          <CustomView preset="row">
+            <CustomText marginBottom={0}>
+              {language.verify_button_signin_1 + ' '}
+            </CustomText>
+            <CustomText
+              color={'primary'}
+              preset={'normalBold'}
+              marginBottom={0}>
+              {language.verify_button_signin_2}
+            </CustomText>
+          </CustomView>
+        </TertiaryButton>
       ) : (
         <></>
       )}

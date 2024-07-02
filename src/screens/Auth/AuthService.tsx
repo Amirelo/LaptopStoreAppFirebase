@@ -313,7 +313,7 @@ export const getUserNotification = async (userID:any) => {
 };
 
 export const updateNotificationStatus = async (
-  status:boolean,
+  status:number,
   notificationID:any,
 ) => {
   try{

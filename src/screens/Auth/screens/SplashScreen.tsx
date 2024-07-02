@@ -17,16 +17,15 @@ const SplashScreen = () => {
     });
   }, 2000);
   return (
-    <CustomView backgroundColor={'primary'}>
+    <CustomView backgroundColor={'primary'} preset='main'>
       <CustomImage
         source={images.app_logo_splash}
-        marginTop={deviceHeight * 0.4}
-        type={'header'}
+        preset={'header'}
+        marginBottom={20}
       />
       <CustomText
-        textStyle={'text_titleBold'}
-        textColor={'textConstrast'}
-        marginTop={20}>
+        preset={'titleBold'}
+        color={'textConstrast'}>
         {language.splash_text_motto}
       </CustomText>
     </CustomView>

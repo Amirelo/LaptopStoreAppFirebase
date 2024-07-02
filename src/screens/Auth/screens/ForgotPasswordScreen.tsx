@@ -21,15 +21,21 @@ const ForgotPasswordScreen = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const {email, type} = route.params;
 
+  const [passErr, setPassErr] = React.useState<string>('');
+  const [confirmPassErr, setConfirmPassErr] = useState<string>('');
+
   const {onUpdateUserInfo, language} = useContext(AuthContext);
 
   const onConfirmPress = async () => {
     setIsDisabled(true);
     if (pass == null) {
+      setPassErr('Fields cannot be empty')
       // setError('Fields cannot be empty');
     } else if (pass.length < 6) {
+      setPassErr('Must have > 6 characters')
       // setError('Must have > 6 characters');
     } else if (pass != confirmPass) {
+      setConfirmPassErr('Passwords does not match')
       // setError('Passwords does not match');
     }
     if (pass == confirmPass && pass != null) {
@@ -49,6 +55,7 @@ const ForgotPasswordScreen = () => {
         placeholder={language.placeholder_password}
         onChangeText={setPass}
         disabled={!isDisabled}
+        error={passErr}
         obscure
       />
       <CustomInput
@@ -58,6 +65,7 @@ const ForgotPasswordScreen = () => {
         onChangeText={setConfirmPass}
         disabled={!isDisabled}
         marginBottom={24}
+        error={confirmPassErr}
         obscure
       />
 

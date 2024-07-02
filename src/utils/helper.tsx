@@ -51,3 +51,33 @@ export const testEmailFormat = (email:any) =>{
   res ? null : displayMessage("Email format is not acceptable")
   return res
 }
+
+export const checkInputField = (text:string, type?: 'EMAIL' | 'DATE'| 'PHONE') => {
+  var error = ''
+  if(text.length == 0){
+    error = 'Field cannot be empty'
+  } else if(type!=null){
+    if (type == 'EMAIL'){
+      if(!emailRegexCheck(text)){
+        error = 'Bad email format'
+      } 
+    }
+    if (type == 'DATE'){
+
+    }
+    if (type == 'PHONE'){
+
+    }
+
+    return error
+    
+  } 
+}
+
+const emailRegexCheck = (text:string) => {
+  return RegExp(emailRegex).test(text)
+}
+
+const dateCheck = () => {
+
+}

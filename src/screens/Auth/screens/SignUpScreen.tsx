@@ -23,8 +23,14 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [birthday, setBirthday] = useState<string>('');
+``
+  const [usernameErr, setUsernameErr] = useState<string>('');
+  const [fullNameErr, setFullNameErr] = useState<string>('');
+  const [passwordErr, setPasswordErr] = useState<string>('');
+  const [confirmPasswordErr, setConfirmPasswordErr] = useState<string>('');
+  const [phoneNumberErr, setPhoneNumberErr] = useState<string>('');
+  const [birthdayErr, setBirthdayErr] = useState<string>('');
 
-  const [error, setError] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState(false);
 
   const {onSignUp, onUpdateUserInfo, language, onCheckUsername} =
@@ -33,8 +39,10 @@ const SignUpScreen = () => {
   const onConfirmPressed = async () => {
     setIsDisabled(true);
     let allowSignUp = checkInput();
-    console.warn(error);
-    if (error == '' && allowSignUp == true) {
+    // console.warn(error);
+    if (
+      // error == '' && 
+      allowSignUp == true) {
       let result = await onSignUp(
         username,
         password,
@@ -63,7 +71,7 @@ const SignUpScreen = () => {
     let checkUsername = onCheckUsername(username);
     if (checkUsername == true) {
       displayMessage('Username already in use');
-      setError('Username already in use');
+      // setError('Username already in use');
     } else if (
       username == null ||
       password == null ||
@@ -72,12 +80,12 @@ const SignUpScreen = () => {
       birthday == null
     ) {
       displayMessage('Fields cannot be empty');
-      setError('Fields cannot be empty');
+      // setError('Fields cannot be empty');
     } else if (password != confirmPassword) {
       displayMessage('Passwords does not match');
-      setError('Passwords does not match');
+      // setError('Passwords does not match');
     } else {
-      setError('');
+      // setError('');
       allowed = true;
     }
     return allowed;
@@ -97,6 +105,7 @@ const SignUpScreen = () => {
         placeholder={language.placeholder_username}
         onChangeText={setUsername}
         value={username}
+        error={usernameErr}
         disabled={!isDisabled}
       />
       <CustomInput
@@ -105,6 +114,7 @@ const SignUpScreen = () => {
         value={fullName}
         onChangeText={setFullName}
         marginBottom={8}
+        error={fullNameErr}
         disabled={!isDisabled}
       />
       <CustomInput
@@ -113,7 +123,8 @@ const SignUpScreen = () => {
         placeholder={language.placeholder_password}
         marginBottom={8}
         onChangeText={setPassword}
-        isPassword
+        obscure
+        error={passwordErr}
         disabled={!isDisabled}
       />
       <CustomInput
@@ -122,7 +133,8 @@ const SignUpScreen = () => {
         placeholder={language.placeholder_password_confirm}
         marginBottom={8}
         onChangeText={setConfirmPassword}
-        isPassword
+        obscure
+        error={confirmPasswordErr}
         disabled={!isDisabled}
       />
       <CustomInput
@@ -133,6 +145,7 @@ const SignUpScreen = () => {
         onChangeText={setPhoneNumber}
         marginBottom={8}
         disabled={!isDisabled}
+        error={phoneNumberErr}
         maxLength={10}
       />
       <CustomInput
@@ -143,6 +156,7 @@ const SignUpScreen = () => {
         onChangeText={text => onBirthdayUpdate(text)}
         marginBottom={24}
         disabled={!isDisabled}
+        error={birthdayErr}
         maxLength={10}
       />
 

@@ -1,4 +1,4 @@
-import React, {useState, createContext, useEffect} from 'react';
+import React, {createContext, useEffect} from 'react';
 import {
   checkEmail,
   signIn,
@@ -40,14 +40,11 @@ GoogleSignin.configure({
 });
 
 export const AuthContextProvider = (props:Props) => {
-
-  
-
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [language, setLanguage] = React.useState(checkLanguage('en'));
   const [theme, setTheme] = React.useState(setThemeColors());
 
-  const changeLanguage = async (lang:keyof typeof language) => {
+  const changeLanguage = async (lang:keyof typeof languageTheme) => {
     setLanguage(checkLanguage(lang));
     await AsyncStorage.setItem('language', lang);
   };
@@ -70,7 +67,7 @@ export const AuthContextProvider = (props:Props) => {
     setIsLoggedIn(true);
   };
 
-  const onSignIn = async (username:String, password:String) => {
+  const onSignIn = async (username:string, password:string) => {
     try {
       const res = await signIn(username, password);
       console.log('On Sign In Result: ', res);
@@ -170,7 +167,7 @@ export const AuthContextProvider = (props:Props) => {
     }
   };
 
-  const onGetUserByEmail = async (email:String) => {
+  const onGetUserByEmail = async (email:string) => {
     try {
       const res = await getUserByEmail(email);
       console.log('On Get User info success', res);
@@ -181,7 +178,7 @@ export const AuthContextProvider = (props:Props) => {
     }
   };
 
-  const onGetAddressesByEmail = async (email:String) => {
+  const onGetAddressesByEmail = async (email:string) => {
     try {
       const res = await getAddressesByEmail(email);
       console.log('On Get User Address success', res);
@@ -247,7 +244,7 @@ export const AuthContextProvider = (props:Props) => {
     }
   };
 
-  const onInsertNotification = async (title:String, detail:String, userID:any) => {
+  const onInsertNotification = async (title:string, detail:string, userID:string|number) => {
     try {
       const res = await insertNotification(title, detail, userID);
       console.log('On Get User Notification success', res);
@@ -303,7 +300,7 @@ export const AuthContextProvider = (props:Props) => {
   };
 
   const getCurLanguage = async () => {
-    const langKey:keyof typeof languageTheme = await AsyncStorage.getItem('language');
+    const langKey = await AsyncStorage.getItem('language');
     console.log('key', langKey);
     setLanguage(checkLanguage(langKey));
   };
