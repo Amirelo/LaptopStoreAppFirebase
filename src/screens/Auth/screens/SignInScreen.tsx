@@ -115,19 +115,11 @@ const SignInScreen = () => {
   };
 
   useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '731408095021-7d46s8vh33cq91s9alb6v5j77vk9k3ug.apps.googleusercontent.com',
-      offlineAccess: true,
-    });
-  }, []);
-
-  useEffect(() => {
     checkSaveUser();
   }, []);
 
   return (
-    <CustomView>
+    <CustomView preset='main'>
       {/* Header */}
       <CustomImage
         preset={'header'}
@@ -188,7 +180,7 @@ const SignInScreen = () => {
       <SocialButton
         source={images.ic_google}
         onPress={onGoogleSignInPressed}
-        disabled={isDisabled}>
+        disabled={isDisabled} marginBottom={20}>
         Google
       </SocialButton>
 

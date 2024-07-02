@@ -42,28 +42,30 @@ const CustomInput = (props: Props) => {
       ? setShowPassImg(images.ic_visibility_off)
       : setShowPassImg(images.ic_visibility);
   };
-  const borderCol = React.useRef(new Animated.Value(1)).current;
+  const borderCol = React.useRef(new Animated.Value(0)).current;
   const borderColChange = borderCol.interpolate({
     inputRange: [0, 1],
-    outputRange: [colors.textVariantColor, colors.primaryColor],
+    outputRange: [colors.textVariant, colors.primary],
   });
   const onFocus = () => {
     setIsSelected(true);
-    
+    Animated.timing(borderCol, {toValue: 1,duration: 200, useNativeDriver:true}).start()
   };
 
   const onBlur = () => {
     setIsSelected(false);
+    Animated.timing(borderCol, {toValue: 0,duration: 200, useNativeDriver:true}).start()
+    
   };
 
   return (
     <CustomView
+      
       preset={'inputrow'}
       backgroundColor={'backgroundInput'}
       marginBottom={props.marginBottom}
       border={'textInput'}
-      styles={{borderColor: borderColChange}}
-      borderColor={isSelected ? 'primary' : 'border'}>
+      styles={{borderColor: borderColChange}}>
       {props.source != null ? (
         <CustomImage source={props.source} preset={'inputIcon'} />
       ) : (

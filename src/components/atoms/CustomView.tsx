@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   inputrow: {
     flexDirection: 'row',
-    width: deviceWidth * 0.9,
+    width: '100%',
     height: 48,
     alignItems: 'center',
   },
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    width: deviceWidth * 0.9,
+    width: deviceWidth,
   },
   left: {
     alignSelf: 'flex-start',
@@ -119,16 +119,16 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   banner: {
-    width: deviceWidth * 0.9,
+    width: deviceWidth,
     height: deviceHeight * 0.3,
   },
   tab: {
-    width: deviceWidth * 0.9,
+    width: deviceWidth,
     paddingBottom: 8,
     paddingHorizontal: 8,
   },
   accountTab: {
-    width: deviceWidth * 0.9,
+    width: deviceWidth,
     paddingVertical: 16,
     paddingHorizontal: 8,
   },

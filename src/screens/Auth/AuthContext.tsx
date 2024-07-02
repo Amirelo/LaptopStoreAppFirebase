@@ -24,6 +24,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {checkLanguage, languageTheme} from '../../preferences/languages/languageTheme';
 import {setThemeColors} from '../../preferences/themes/colorTheme';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 
 export const AuthContext = createContext({} as any);
@@ -32,7 +33,16 @@ interface Props{
   children: any
 }
 
+GoogleSignin.configure({
+  webClientId:
+    '731408095021-7d46s8vh33cq91s9alb6v5j77vk9k3ug.apps.googleusercontent.com',
+  offlineAccess: true,
+});
+
 export const AuthContextProvider = (props:Props) => {
+
+  
+
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [language, setLanguage] = React.useState(checkLanguage('en'));
   const [theme, setTheme] = React.useState(setThemeColors());
