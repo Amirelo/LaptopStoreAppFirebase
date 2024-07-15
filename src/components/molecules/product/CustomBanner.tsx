@@ -23,7 +23,7 @@ const CustomBanner = (props: Props) => {
         marginBottom={32}
         preset={'titleBold'}
         color={'textConstrast'}>
-        {props.header}
+        {props.header+''}
       </CustomText>
       {/* <View style={styles.timerContainer}>
         <CustomText hasBox={true} textStyle={'normalBold'}>

@@ -1,4 +1,5 @@
 import database, { FirebaseDatabaseTypes, firebase } from '@react-native-firebase/database';
+import auth from '@react-native-firebase/auth'
 import AddressModel from '../../models/AddressModel';
 
 
@@ -11,10 +12,11 @@ export const signIn = async (username:string, password:string) => {
     .once('value')
     .then(snapshot => {
       let returnItem = null;
-      snapshot.forEach(item => {
+      snapshot.forEach((item:any) => {
         if (item.val().password == password) {
           console.log('Login success');
           returnItem = item.val();
+          return true
         }
       });
       return returnItem;
@@ -25,6 +27,10 @@ export const signIn = async (username:string, password:string) => {
     });
   return res;
 };
+
+const anonymousSignIn = async() => {
+
+}
 
 export const signUp = async (
   username:String,
@@ -84,8 +90,8 @@ export const updateUserFullname = async (data:string, email:string) => {
     .equalTo(email)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(item => {
-        item.ref.update({
+      snapshot.forEach((item:any) => {
+        return item.ref.update({
           fullname: data
         }).then(() => console.log('Updated'));
       })
@@ -101,8 +107,8 @@ export const updateUserPhoneNumber = async (data:string, email:string) => {
     .equalTo(email)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(item => {
-        item.ref.update({
+      snapshot.forEach((item:any) => {
+        return item.ref.update({
           phonenumber: data
         }).then(() => console.log('Updated'));
       })
@@ -118,8 +124,8 @@ export const updateUserBirthday = async (data:string, email:string) => {
     .equalTo(email)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(item => {
-        item.ref.update({
+      snapshot.forEach((item:any) => {
+        return item.ref.update({
           birthday: data
         }).then(() => console.log('Updated'));
       })
@@ -135,8 +141,8 @@ export const updateUserPassword = async (data:string, email:string) => {
     .equalTo(email)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(item => {
-        item.ref.update({
+      snapshot.forEach((item:any) => {
+        return item.ref.update({
           password: data
         }).then(() => console.log('Updated'));
       })
@@ -151,8 +157,8 @@ export const updateUserImage = async (data:string, email:string) => {
     .equalTo(email)
     .once('value')
     .then(snapshot => {
-      snapshot.forEach(item => {
-        item.ref.update({
+      snapshot.forEach((item:any) => {
+        return item.ref.update({
           imageLink: data
         }).then(() => console.log('Updated'));
       })
@@ -168,18 +174,19 @@ export const getAddressesByEmail = async (email:string) => {
     .once('value')
     .then(async snapshot => {
       let user = null;
-      let returnItem = [];
-      snapshot.forEach(item => {
-        user = item.val();
+      let returnItem: Array<any> = [];
+      snapshot.forEach((item:any) => {
+        return user = item.val();
       });
       const addressRef = database().ref('addresses');
       return await addressRef
         .orderByChild('userID')
-        .equalTo(user.userID)
+        .equalTo(user!.userID)
         .once('value')
         .then(snapshot2 => {
-          snapshot2.forEach(curItem => {
+          snapshot2.forEach((curItem:any) => {
             returnItem = [...returnItem, curItem.val()];
+            return true
           });
           return returnItem;
         });
@@ -227,9 +234,10 @@ export const getUserCoupon = async (userID:any) => {
     .equalTo(userID)
     .once('value')
     .then(snapshot => {
-      let returnItem = [];
-      snapshot.forEach(item => {
+      let returnItem:Array<any> = [];
+      snapshot.forEach((item:any) => {
         returnItem = [...returnItem, item.val()];
+        return true
       });
       return returnItem;
     });
@@ -258,12 +266,13 @@ export const updateUserFavoriteStatus = async (
 // Rating
 
 export const getUserAllRatings = async (userID:any) => {
-  return database.ref('ratings').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
-    let list = [];
-    snapshot.forEach(item => {
+  return database().ref('ratings').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
+    let list:Array<any> = [];
+    snapshot.forEach((item:any) => {
       list = [...list, item];
+      return true
     })
-    return item;
+    return list;
   })
 };
 
@@ -289,14 +298,15 @@ export const updateUserRatingStatus = async (ratingID:any, userID:any, status:bo
 };
 
 export const getRatingImage = async () => {
-  return database.ref('ratingImages').once('value');
+  return database().ref('ratingImages').once('value');
 };
 
 export const getRatingImageByRatingID = async (ratingID:any) => {
-  return database.ref('ratingImages').orderByChild('ratingID').equalTo(ratingID).once('value').then(snapshot => {
-    let list = [];
-    snapshot.forEach(item => {
+  return database().ref('ratingImages').orderByChild('ratingID').equalTo(ratingID).once('value').then(snapshot => {
+    let list:Array<any> = [];
+    snapshot.forEach((item:any) => {
       list = [...list, item];
+      return true
     })
     return list;
   })
@@ -304,9 +314,10 @@ export const getRatingImageByRatingID = async (ratingID:any) => {
 
 export const getUserNotification = async (userID:any) => {
   return database().ref('notifications').orderByChild('userID').equalTo(userID).once('value').then(snapshot => {
-    let list = [];
-    snapshot.forEach(item => {
+    let list:any = [];
+    snapshot.forEach((item:any) => {
       list = [...list, item.val()];
+      return true;
     });
     return list;
   })
@@ -345,9 +356,10 @@ export const getUserOrders = async (userID:any) => {
     .equalTo(userID)
     .once('value')
     .then(snapshot => {
-      let returnItem = [];
-      snapshot.forEach(item => {
+      let returnItem:Array<any> = [];
+      snapshot.forEach((item:any) => {
         returnItem = [...returnItem, item.val()];
+        return true
       });
       return returnItem;
     });
@@ -364,7 +376,7 @@ export const insertUserOrder = async (
   userID:any,
   couponID:any,
 ) => {
-  const ref = database.ref('orders');
+  const ref = database().ref('orders');
   ref.set({
     totalPrice: totalPrice,
     originalPrice: originalPrice,
@@ -380,11 +392,12 @@ export const insertUserOrder = async (
   return true;
 };
 
-export const getUserOrderDetail = async (orderID:String) => {
+export const getUserOrderDetail = async (orderID:string) => {
   const res = await database().ref('orderDetails').orderByChild('orderID').equalTo(orderID).once('value').then(snapshot => {
-    list = []
-    snapshot.forEach(item => {
+    var list:Array<any> = []
+    snapshot.forEach((item:any) => {
       list = [...list, item.val()]
+      return true
     })
     return list;
   });
@@ -413,8 +426,9 @@ export const getUserByEmail = async (email:string) => {
     .once('value')
     .then(snapshot => {
       let returnItem = null;
-      snapshot.forEach(item => {
+      snapshot.forEach((item:any) => {
         returnItem = item.val();
+        return true
       });
       console.log('user', returnItem);
       return returnItem;
@@ -428,9 +442,10 @@ export const getUserCards = async (userID:any) => {
     .equalTo(userID)
     .once('value')
     .then(snapshot => {
-      let returnItem = [];
-      snapshot.forEach(item => {
+      let returnItem:Array<any> = [];
+      snapshot.forEach((item: any) => {
         returnItem = [...returnItem, item.val()];
+        return true
       });
       console.log('user', returnItem);
       return returnItem;

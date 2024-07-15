@@ -25,7 +25,9 @@ export const useLanguage = () => {
 };
 
 export const checkLanguage = (lang: keyof typeof languageTheme) => {
-  if (languageTheme[lang] == undefined) {
+  if (
+    !(lang in languageTheme)
+    ) {
     return () => useLanguage();
   }
   return languageTheme[lang];

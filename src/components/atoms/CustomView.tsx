@@ -63,6 +63,11 @@ const CustomView = (props: Props) => {
 export default CustomView;
 
 const styles = StyleSheet.create({
+  splash:{
+    flex:1,
+    alignItems:'center',
+    justifyContent:'center'
+  },
   container: {
     alignItems: 'center',
     flex: 1,

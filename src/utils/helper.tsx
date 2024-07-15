@@ -63,10 +63,17 @@ export const checkInputField = (text:string, type?: 'EMAIL' | 'DATE'| 'PHONE') =
       } 
     }
     if (type == 'DATE'){
-
+      const myDate = new Date()
+      if(text.length != 10){
+        error = 'Bad date format'
+      } else if (Number(text.slice(0,4))  > myDate.getFullYear()){
+        error = 'Year is too high'
+      } 
     }
     if (type == 'PHONE'){
-
+      if (text.length != 10){
+        error = ' Phone number must have 10 number'
+      }
     }
 
     return error
@@ -78,6 +85,3 @@ const emailRegexCheck = (text:string) => {
   return RegExp(emailRegex).test(text)
 }
 
-const dateCheck = () => {
-
-}

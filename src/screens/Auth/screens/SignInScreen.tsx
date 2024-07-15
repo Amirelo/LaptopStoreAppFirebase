@@ -118,7 +118,7 @@ const SignInScreen = () => {
   };
 
   const onAnonymousSignIn = async () => {
-    onSocialSignIn();
+    await onAnonymousSignIn()
   };
 
   useEffect(() => {

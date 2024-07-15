@@ -17,7 +17,7 @@ const SplashScreen = () => {
     });
   }, 2000);
   return (
-    <CustomView backgroundColor={'primary'} preset='main'>
+    <CustomView backgroundColor={'primary'} preset='splash' marginBottom={0}>
       <CustomImage
         source={images.app_logo_splash}
         preset={'header'}

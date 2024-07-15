@@ -12,6 +12,8 @@ import CustomBanner from '../../../../components/molecules/product/CustomBanner'
 import CustomButtonBare from '../../../../components/molecules/button/CustomButtonBare';
 import {AuthContext} from '../../../Auth/AuthContext';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import CustomScroll from '../../../../components/atoms/CustomScroll';
+import TertiaryButton from '../../../../components/molecules/button/TertiaryButton';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -50,26 +52,25 @@ const HomeScreen = () => {
 
   return (
     <CustomView>
-      <CustomView scrollable={true}>
-        <CustomButtonBare borderStyle={borderTheme.borderOnly} marginTop={24}>
+      <CustomScroll main>
+        <CustomButtonBare border={'borderOnly'} marginBottom={48}>
           <CustomBanner
             source={images.banner}
             header={language.home_text_banner}
+            
           />
         </CustomButtonBare>
 
-        <CustomView type={'rowJustify90'} marginTop={48}>
-          <CustomText textStyle={'normalBold'}>
+        <CustomView preset={'rowJustify90'}>
+          <CustomText preset={'normalBold'}>
             {language.home_text_popular}
           </CustomText>
-          <CustomButton type={'tertiary'}>
-            {language.home_text_see_more}
-          </CustomButton>
+          <TertiaryButton onPress={()=>{}} marginBottom={12}>{language.home_text_see_more}</TertiaryButton>
+         
         </CustomView>
         <FlatList
-          width={deviceWidth * 0.9}
           horizontal={true}
-          marginTop={12}
+          style={{marginBottom:12}}
           contentContainerStyle={{
             gap: 16,
             flexGrow: 0,
@@ -84,19 +85,18 @@ const HomeScreen = () => {
           }}
         />
 
-        <CustomView type={'rowJustify90'} marginTop={16}>
-          <CustomText textStyle={'normalBold'}>
+        <CustomView preset={'rowJustify90'} >
+          <CustomText preset={'normalBold'}>
             {language.home_text_best_buy}
           </CustomText>
-          <CustomButton type={'tertiary'}>
+          <CustomButton preset={'tertiary'}>
             {language.home_text_see_more}
           </CustomButton>
         </CustomView>
 
         <FlatList
-          width={deviceWidth * 0.9}
           horizontal={true}
-          marginTop={12}
+          style={{marginBottom:16}}
           contentContainerStyle={{
             gap: 16,
             flexGrow: 0,
@@ -111,18 +111,17 @@ const HomeScreen = () => {
           }}
         />
 
-        <CustomView type={'rowJustify90'} marginTop={16}>
-          <CustomText textStyle={'normalBold'}>
+        <CustomView preset={'rowJustify90'}>
+          <CustomText preset={'normalBold'}>
             {language.home_text_likeable}
           </CustomText>
-          <CustomButton type={'tertiary'}>
+          <CustomButton preset={'tertiary'}>
             {language.home_text_see_more}
           </CustomButton>
         </CustomView>
 
         <FlatList
-          width={deviceWidth}
-          marginTop={12}
+        style={{marginBottom:12}}
           scrollEnabled={false}
           contentContainerStyle={{gap: 16, alignItems: 'center'}}
           showsHorizontalScrollIndicator={false}
@@ -133,7 +132,7 @@ const HomeScreen = () => {
             return <ProductVItem data={item} />;
           }}
         />
-      </CustomView>
+      </CustomScroll>
     </CustomView>
   );
 };
