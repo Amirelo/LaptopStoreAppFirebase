@@ -61,11 +61,10 @@ const HomeScreen = () => {
         </CustomButtonBare>
 
         <CustomView preset={'rowJustifyFull'}>
-          <CustomText preset={'normalBold'}>
+          <CustomText preset={'normalBold'} marginBottom={0}>
             {language.home_text_popular}
           </CustomText>
-          <TertiaryButton onPress={()=>{}} marginBottom={12}>{language.home_text_see_more}</TertiaryButton>
-         
+          <TertiaryButton onPress={()=>{}} marginBottom={0}>{language.home_text_see_more}</TertiaryButton>
         </CustomView>
         <FlatList
           horizontal={true}
@@ -73,7 +72,6 @@ const HomeScreen = () => {
           contentContainerStyle={{
             gap: 16,
             flexGrow: 0,
-            paddingHorizontal: 16,
           }}
           showsHorizontalScrollIndicator={false}
           data={listPopProducts}
@@ -84,13 +82,11 @@ const HomeScreen = () => {
           }}
         />
 
-        <CustomView preset={'rowJustify90'} >
+        <CustomView preset={'rowJustifyFull'} >
           <CustomText preset={'normalBold'}>
             {language.home_text_best_buy}
           </CustomText>
-          <CustomButton preset={'tertiary'}>
-            {language.home_text_see_more}
-          </CustomButton>
+          <TertiaryButton onPress={()=>{}} marginBottom={0}>{language.home_text_see_more}</TertiaryButton>
         </CustomView>
 
         <FlatList
@@ -99,7 +95,6 @@ const HomeScreen = () => {
           contentContainerStyle={{
             gap: 16,
             flexGrow: 0,
-            paddingHorizontal: 16,
           }}
           showsHorizontalScrollIndicator={false}
           data={listBestBuy}
@@ -110,13 +105,11 @@ const HomeScreen = () => {
           }}
         />
 
-        <CustomView preset={'rowJustify90'}>
+        <CustomView preset={'rowJustifyFull'}>
           <CustomText preset={'normalBold'}>
             {language.home_text_likeable}
           </CustomText>
-          <CustomButton preset={'tertiary'}>
-            {language.home_text_see_more}
-          </CustomButton>
+          <TertiaryButton onPress={()=>{}} marginBottom={0}>{language.home_text_see_more}</TertiaryButton>
         </CustomView>
 
         <FlatList

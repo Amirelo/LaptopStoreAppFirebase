@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { priceFormat } from '../../../utils/helper';
+import React, {useContext, useEffect, useState} from 'react';
+import {ActivityIndicator, StyleSheet} from 'react-native';
+import {deviceWidth, priceFormat} from '../../../utils/helper';
 import CustomView from '../../atoms/CustomView';
 import CustomImage from '../../atoms/CustomImage';
 import CustomText from '../../atoms/CustomText';
-import { MainContext } from '../../../screens/Main/MainContext';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { CustomButtonBare } from '../../atoms';
+import {MainContext} from '../../../screens/Main/MainContext';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {CustomButtonBare} from '../../atoms';
 import ProcessorModel from '../../../models/product/ProcessorModel';
 import MemoryModel from '../../../models/product/MemoryModel';
 import ScreenModel from '../../../models/product/ScreenModel';
 import StorageModel from '../../../models/product/StorageModel';
 
-interface Props{
-  data:any
+interface Props {
+  data: any;
 }
 
-const ProductVItem = (props:Props) => {
+const ProductVItem = (props: Props) => {
   const navigation = useNavigation<NavigationProp<any>>();
   const {
     onGetProductProcessor,
@@ -63,70 +63,69 @@ const ProductVItem = (props:Props) => {
   }, []);
 
   return (
-    <CustomButtonBare
-      onPress={onProductPressed}
-      borderColor={'border'}
-      backgroundColor={'backgroundInput'}
-      border={'textInput'}
-      type={'rowJustify90Screen'}
-      disabled={isDisabled}
-      paddingVertical={8}>
-      <CustomImage
-        marginBottom={0}
-        source={props.data.productImageLink}
-        preset={'productItem'}
-      />
-      <CustomView marginBottom={0} backgroundColor={'none'} preset={'left'}>
-        <CustomText preset={'normalBold'} maxLines={2} marginBottom={0}>
-          {props.data.productName}
-        </CustomText>
-        {
-          itemProcessor ?
-          <CustomText preset={'small'} marginBottom={2}>
-          {itemProcessor.name }
-        </CustomText>
-          :<ActivityIndicator/>
-        }
-        
-        {
-          itemMemory ? 
-          <CustomText preset={'small'} marginBottom={2}>
-          {itemMemory.currentRAM +
-            ' ' +
-            itemMemory.type +
-            ' ' +
-            itemMemory.speed }
-        </CustomText>
-           :
-           <ActivityIndicator />
-        }
-        {
-          itemStorage ? 
-          <CustomText preset={'small'} marginBottom={2}>
-          {itemStorage.type + ' ' + itemStorage.currentStorage }
-        </CustomText>: <ActivityIndicator/>
-        }
-        {itemScreen?
-        <CustomText preset={'small'} marginBottom={2}>
-        {itemScreen.resolution + ' ' + itemScreen.screenSize}
-      </CustomText> : <ActivityIndicator/>
-        }
-
-        <CustomView backgroundColor={'none'} preset={'rowJustify'}>
-          <CustomText color={'err'} preset={'normalBold'} marginBottom={0}>
-            {priceFormat(props.data.currentPrice)}
+    <CustomButtonBare width={'100%'} onPress={onProductPressed} disabled={isDisabled}>
+      <CustomView backgroundColor={'backgroundInput'}
+       preset='rowJustify' border={'button'} 
+        styles={styles.container}>
+        <CustomImage
+          marginBottom={0}
+          source={props.data.productImageLink}
+          preset={'productItemV'}
+        />
+        <CustomView marginBottom={0} backgroundColor={'none'} preset={'left'}>
+          <CustomText preset={'normalBold'} maxLines={2} marginBottom={0}>
+            {props.data.productName}
           </CustomText>
-
-          {props.data.currentPrice != props.data.productPrice ? (
-            <CustomText
-            preset={'smallStrike'}
-              color={'textVariant'}
-              marginBottom={0}>
-              {priceFormat(props.data.productPrice)}
+          {itemProcessor ? (
+            <CustomText preset={'small'} marginBottom={2}>
+              {itemProcessor.name}
             </CustomText>
           ) : (
-            <></>
+            <ActivityIndicator />
           )}
+
+          {itemMemory ? (
+            <CustomText preset={'small'} marginBottom={2}>
+              {itemMemory.currentRAM +
+                ' ' +
+                itemMemory.type +
+                ' ' +
+                itemMemory.speed}
+            </CustomText>
+          ) : (
+            <ActivityIndicator />
+          )}
+          {itemStorage ? (
+            <CustomText preset={'small'} marginBottom={2}>
+              {itemStorage.type + ' ' + itemStorage.currentStorage}
+            </CustomText>
+          ) : (
+            <ActivityIndicator />
+          )}
+          {itemScreen ? (
+            <CustomText preset={'small'} marginBottom={2}>
+              {itemScreen.resolution + ' ' + itemScreen.screenSize}
+            </CustomText>
+          ) : (
+            <ActivityIndicator />
+          )}
+
+          <CustomView backgroundColor={'none'} preset={'rowJustify'}>
+            <CustomText color={'err'} preset={'normalBold'} marginBottom={0}>
+              {priceFormat(props.data.currentPrice)}
+            </CustomText>
+
+            {props.data.currentPrice != props.data.productPrice ? (
+              <CustomText
+                preset={'smallStrike'}
+                color={'textVariant'}
+                marginBottom={0}>
+                {priceFormat(props.data.productPrice)}
+              </CustomText>
+            ) : (
+              <></>
+            )}
+          </CustomView>
         </CustomView>
       </CustomView>
     </CustomButtonBare>
@@ -134,3 +133,11 @@ const ProductVItem = (props:Props) => {
 };
 
 export default ProductVItem;
+const styles = StyleSheet.create({
+  container: {
+    width: '100%' ,
+    height:'auto',
+    padding: 12,
+    alignItems:'flex-start'
+  },
+});

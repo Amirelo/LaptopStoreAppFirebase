@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 10,
   },
+  productItemV:{
+    width: '50%',
+    height: '100%',
+    alignSelf: 'center',
+    borderRadius: 10,
+  },
   cartItem: {
     width: 100,
     height: 70,
