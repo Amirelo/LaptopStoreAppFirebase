@@ -16,7 +16,7 @@ interface Props {
 
 const CustomBanner = (props: Props) => {
   return (
-    <CustomView preset={'banner'}>
+    <CustomView preset={'banner'} marginBottom={0}>
       <Image style={styles.banner_image} source={props.source} />
       <CustomText
         styles={{marginStart: '5%'}}

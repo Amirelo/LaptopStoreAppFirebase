@@ -16,6 +16,7 @@ import MemoryModel from '../../../models/product/MemoryModel';
 import ProcessorModel from '../../../models/product/ProcessorModel';
 import ScreenModel from '../../../models/product/ScreenModel';
 import StorageModel from '../../../models/product/StorageModel';
+import CustomButtonBare from '../button/CustomButtonBare';
 
 interface Props {
   data: any;
@@ -37,7 +38,6 @@ const ProductHItem = (props: Props) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const {theme} = React.useContext(AuthContext);
-  const colors = theme;
 
   const onProductPressed = () => {
     navigation.navigate('Product Detail', {
@@ -65,110 +65,86 @@ const ProductHItem = (props: Props) => {
     setIsDisabled(false);
   };
 
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-
-  const fadePress = () => {
-    Animated.sequence([
-      Animated.timing(fadeAnim, {
-        toValue: 0.4,
-        duration: 100,
-        useNativeDriver: true,
-      }),
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
 
   useEffect(() => {
     getInitData();
   }, []);
 
   return (
-    <Pressable
-      style={[
-        styles.container,
-        {
-          backgroundColor: colors.backgroundInputColor,
-          borderColor: colors.borderColor,
-        },
-      ]}
-      disabled={isDisabled}
-      onPress={onProductPressed}
-      onPressIn={fadePress}>
-      <Animated.View
-        style={{
-          // Bind opacity to animated value
-          opacity: fadeAnim,
-        }}>
-        <CustomImage
-          source={props.data.productImageLink}
-          preset={'productItem'}
-        />
-        <CustomText maxLines={2} preset={'normalBold'}>
-          {props.data.productName}
+    <CustomButtonBare disabled={isDisabled} onPress={onProductPressed}>
+    <CustomView
+      backgroundColor={'backgroundInput'}
+      borderColor={'border'}
+      border={'button'}
+      styles={styles.container}>
+      <CustomImage
+        source={props.data.productImageLink}
+        preset={'productItem'}
+        marginBottom={12}
+      />
+      <CustomText maxLines={2} preset={'normalBold'}>
+        {props.data.productName}
+      </CustomText>
+
+      {itemProcessor ? (
+        <CustomText preset={'small'} marginBottom={4}>
+          {itemProcessor.name}
         </CustomText>
-
-        {itemProcessor ? (
-          <CustomText preset={'small'} marginBottom={4}>
-            itemProcessor.name
-          </CustomText>
-        ) : (
-          <ActivityIndicator />
-        )}
-        {itemMemory ? (
-          <CustomText preset={'small'} marginBottom={4}>
-            {itemMemory.currentRAM +
-              ' ' +
-              itemMemory.type +
-              ' ' +
-              itemMemory.speed}
-          </CustomText>
-        ) : (
-          <ActivityIndicator />
-        )}
-
-        {itemScreen ? (
-          <CustomText preset={'small'} marginBottom={4}>
-            {itemScreen.resolution + ' ' + itemScreen.screenSize}
-          </CustomText>
-        ) : (
-          <ActivityIndicator />
-        )}
-
-        {itemStorage ? (
-          <CustomText preset={'small'} marginBottom={4}>
-            {itemStorage.type + ' ' + itemStorage.currentStorage}
-          </CustomText>
-        ) : (
-          <ActivityIndicator />
-        )}
-
-        <CustomText color={'err'} preset={'normalBold'}>
-          {priceFormat(props.data.currentPrice)}
+      ) : (
+        <ActivityIndicator />
+      )}
+      {itemMemory ? (
+        <CustomText preset={'small'} marginBottom={4}>
+          {itemMemory.currentRAM +
+            ' ' +
+            itemMemory.type +
+            ' ' +
+            itemMemory.speed}
         </CustomText>
-        {props.data.currentPrice != props.data.productPrice ? (
-          <CustomView
-            backgroundColor={'none'}
-            preset={'rowJustify'}
-            marginBottom={4}>
-            <CustomText
-              preset={'smallStrike'}
-              color={'textVariant'}
-              marginBottom={0}>
-              {priceFormat(props.data.productPrice)}
-            </CustomText>
-            <CustomText preset={'small'} color={'err'} marginBottom={0}>
-              {discountFormat(props.data.onSale)}
-            </CustomText>
-          </CustomView>
-        ) : (
-          <></>
-        )}
-      </Animated.View>
-    </Pressable>
+      ) : (
+        <ActivityIndicator />
+      )}
+
+      {itemScreen ? (
+        <CustomText preset={'small'} marginBottom={4}>
+          {itemScreen.resolution + ' ' + itemScreen.screenSize}
+        </CustomText>
+      ) : (
+        <ActivityIndicator />
+      )}
+
+      {itemStorage ? (
+        <CustomText preset={'small'} marginBottom={4}>
+          {itemStorage.type + ' ' + itemStorage.currentStorage}
+        </CustomText>
+      ) : (
+        <ActivityIndicator />
+      )}
+
+      <CustomText color={'err'} preset={'normalBold'}>
+        {priceFormat(props.data.currentPrice)}
+      </CustomText>
+      {props.data.currentPrice != props.data.productPrice ? (
+        <CustomView
+          backgroundColor={'none'}
+          preset={'rowJustify'}
+          marginBottom={12}
+          styles={{gap:4}}>
+          <CustomText
+            preset={'smallStrike'}
+            color={'textVariant'}
+            marginBottom={0}>
+            {priceFormat(props.data.productPrice)}
+          </CustomText>
+          <CustomText preset={'small'} color={'err'} marginBottom={0}>
+            {discountFormat(props.data.onSale)}
+          </CustomText>
+        </CustomView>
+      ) : (
+        <></>
+      )}
+    </CustomView>
+    </CustomButtonBare>
   );
 };
 
@@ -177,8 +153,8 @@ export default ProductHItem;
 const styles = StyleSheet.create({
   container: {
     width: deviceWidth * 0.46,
-    height: deviceHeight * 0.4,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    height:'auto',
+    padding: 8,
+    alignItems:'flex-start'
   },
 });

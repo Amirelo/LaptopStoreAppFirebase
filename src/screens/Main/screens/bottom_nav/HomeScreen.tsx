@@ -17,9 +17,9 @@ import TertiaryButton from '../../../../components/molecules/button/TertiaryButt
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<any>>();
-  const [listProducts, setListProducts] = useState([]);
-  const [listPopProducts, setListPopProducts] = useState([]);
-  const [listBestBuy, setListBestBuy] = useState([]);
+  const [listProducts, setListProducts] = useState<Array<any>>([]);
+  const [listPopProducts, setListPopProducts] = useState<Array<any>>([]);
+  const [listBestBuy, setListBestBuy] = useState<Array<any>>([]);
   const [maxItem, setMaxItem] = useState(6);
   const {onGetAllProduct} = useContext(MainContext);
   const {language} = useContext(AuthContext);
@@ -53,15 +53,14 @@ const HomeScreen = () => {
   return (
     <CustomView>
       <CustomScroll main>
-        <CustomButtonBare border={'borderOnly'} marginBottom={48}>
+        <CustomButtonBare width={'100%'} border={'textInput'} marginBottom={48}>
           <CustomBanner
             source={images.banner}
             header={language.home_text_banner}
-            
           />
         </CustomButtonBare>
 
-        <CustomView preset={'rowJustify90'}>
+        <CustomView preset={'rowJustifyFull'}>
           <CustomText preset={'normalBold'}>
             {language.home_text_popular}
           </CustomText>

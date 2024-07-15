@@ -42,7 +42,7 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {backgroundColor: colors.tabBarColor, paddingBottom: 4},
+        tabBarStyle: {paddingBottom: 4},
       }}
       initialRouteName="Home">
       <Tab.Screen
@@ -57,7 +57,7 @@ const TabNavigation = () => {
             return (
               <CustomImage
                 tintColor={focused ? 'tabBarActiveTint' : 'text'}
-                type={'inputIcon'}
+                preset={'inputIcon'}
                 source={images.ic_home}
               />
             );
@@ -75,7 +75,7 @@ const TabNavigation = () => {
             return (
               <CustomImage
                 tintColor={focused ? 'tabBarActiveTint' : 'text'}
-                type={'inputIcon'}
+                preset={'inputIcon'}
                 source={images.ic_explore}
               />
             );
@@ -94,7 +94,7 @@ const TabNavigation = () => {
             return (
               <CustomImage
                 tintColor={focused ? 'tabBarActiveTint' : 'text'}
-                type={'inputIcon'}
+                preset={'inputIcon'}
                 source={images.ic_cart}
               />
             );
@@ -113,7 +113,7 @@ const TabNavigation = () => {
             return (
               <CustomImage
                 tintColor={focused ? 'tabBarActiveTint' : 'text'}
-                type={'inputIcon'}
+                preset={'inputIcon'}
                 source={images.ic_person}
               />
             );

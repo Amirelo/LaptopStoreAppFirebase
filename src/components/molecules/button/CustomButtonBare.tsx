@@ -43,6 +43,7 @@ const CustomButtonBare = (props:Props) => {
     <Pressable
       style={
         [{
+          overflow:'hidden',
           width: props.width,
           height: props.height,
           alignSelf: props.alignSelf,

@@ -70,12 +70,10 @@ const styles = StyleSheet.create({
     left: 20
   },
   productItem: {
-    width: 139,
+    width: '100%',
     height: 112,
-    marginTop: 16,
-    marginHorizontal: 8,
     alignSelf: 'center',
-    borderRadius: 4,
+    borderRadius: 10,
   },
   cartItem: {
     width: 100,
@@ -101,4 +99,5 @@ const styles = StyleSheet.create({
     width: '50%',
     height: 30,
   },
+
 });

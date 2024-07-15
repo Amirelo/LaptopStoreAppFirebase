@@ -38,6 +38,7 @@ const CustomView = (props: Props) => {
     <AnimatedView
       style={[
         {
+          overflow:'hidden',
           backgroundColor: props.backgroundColor != null
           ? colors[props.backgroundColor]
           : colors.backgroundColor,
@@ -94,6 +95,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flex: 1,
   },
+  rowJustifyFull: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
   rowJustify90: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -124,7 +131,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   banner: {
-    width: deviceWidth,
+    width: '100%',
     height: deviceHeight * 0.3,
   },
   tab: {
